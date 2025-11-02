@@ -120,7 +120,7 @@ class RUConfiguration:
 
         dirpath = Path(str(path) + ".d")
         if dirpath.is_dir():
-            for file in dirpath.rglob("*"):
+            for file in sorted(dirpath.rglob("*"), reverse=True):
                 if file.is_file():
                     merge_dict(mapping, cls.__load_from_file(file, loaded))
 

@@ -98,15 +98,15 @@ def has_variable(
 def get_variable(
     name: str,
     *,
-    default: Any = None,  # noqa: ANN401
+    default: Any = ...,  # noqa: ANN401
 ) -> Any:  # noqa: ANN401
     """Get the value of the given variable.
 
     Args:
         name (str): The name of the variable.
         default (Any): The default value of the variable.
-            Defaults to None. If it is None and the variable is not found,
-            raise KeyError.
+            Defaults to Ellipsis. If it is Ellipsis and the variable is not
+            found, raise KeyError.
         src_ref (dict[str, Stack]): The source dictionary.
             Defaults to `variables`, the global variable container.
 
@@ -127,6 +127,6 @@ def get_variable(
     if name in variables:
         return variables[name].top()
 
-    if default is None:
+    if default is ...:
         raise KeyError(name)
     return default
