@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -35,6 +35,7 @@ from rubisco.lib.variable.fast_format_str import fast_format_str
 from rubisco.lib.version import Version
 
 __all__ = ["RUEnvDB"]
+
 
 def _regexp(pattern: str, item: str) -> bool:  # REGEX support for SQLite3.
     # Why is this not a built-in function?

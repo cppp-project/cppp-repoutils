@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -20,48 +20,74 @@
 """Utils for Rubisco project."""
 
 import os
+from dataclasses import dataclass
 from pathlib import Path
+from typing import cast
 
 from rubisco.kernel.workflow import run_inline_workflow, run_workflow
 from rubisco.lib.exceptions import RUValueError
 from rubisco.lib.l10n import _
 from rubisco.lib.process import Process
-from rubisco.lib.variable.autoformatdict import AutoFormatDict
+from rubisco.lib.typecheck import get_dict_check
 from rubisco.lib.variable.fast_format_str import fast_format_str
 from rubisco.lib.variable.var_container import VariableContainer
 
 __all__ = ["ProjectHook"]
 
 
-class ProjectHook:  # pylint: disable=too-few-public-methods
+@dataclass
+class ProjectHook:
     """Project hook."""
 
-    _raw_data: AutoFormatDict
+    raw_data: dict[str, object]
     name: str
-
-    def __init__(self, data: AutoFormatDict, name: str) -> None:
-        """Initialize the project hook."""
-        self._raw_data = data
-        self.name = name
 
     def run(self) -> None:
         """Run this hook."""
-        variables: AutoFormatDict = self._raw_data.get(
-            "vars",
-            {},
-            valtype=dict[str, object],
+        variables = cast(
+            "dict[str, object]",
+            get_dict_check(
+                self.raw_data,
+                "vars",
+                valtype=dict[str, object],
+                default={},
+            ),
         )
-        environments: AutoFormatDict = self._raw_data.get(
-            "env",
-            {},
-            valtype=dict[str, str],
+        environments = cast(
+            "dict[str, str]",
+            get_dict_check(
+                self.raw_data,
+                "env",
+                valtype=dict[str, str],
+                default={},
+            ),
         )
-        cmd = self._raw_data.get("exec", None, valtype=str | list | None)
-        workflow = self._raw_data.get("run", None, valtype=str | None)
-        inline_wf = self._raw_data.get(
-            "workflow",
-            None,
-            valtype=dict | AutoFormatDict | list | None,
+        cmd = cast(
+            "str | list[object] | None",
+            get_dict_check(
+                self.raw_data,
+                "exec",
+                valtype=str | list | None,
+                default=None,
+            ),
+        )
+        workflow = cast(
+            "str | None",
+            get_dict_check(
+                self.raw_data,
+                "run",
+                valtype=str | None,
+                default=None,
+            ),
+        )
+        inline_wf = cast(
+            "dict[str, object] | list[dict[str, object]] | None",
+            get_dict_check(
+                self.raw_data,
+                "workflow",
+                valtype=dict[str, object] | list[dict[str, object]] | None,
+                default=None,
+            ),
         )
         environ_bak: dict[str, str | None] = {}
         with VariableContainer(variables):

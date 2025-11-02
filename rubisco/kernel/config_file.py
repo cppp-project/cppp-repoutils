@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -21,30 +21,26 @@
 
 from pathlib import Path
 
-import json5 as json
-
 from rubisco.config import (
-    DEFAULT_CHARSET,
     GLOBAL_CONFIG_FILE,
     USER_CONFIG_FILE,
     WORKSPACE_CONFIG_FILE,
 )
+from rubisco.kernel.config_loader import RUConfiguration
 from rubisco.lib.log import logger
-from rubisco.lib.variable import AutoFormatDict
 
 __all__ = ["config_file"]
 
 
-config_file = AutoFormatDict()
+config_file = RUConfiguration()
 
 
 def _load_json(file: Path, envname: str) -> None:
     try:
-        logger.info("Loading global configuration %s ...", file)
         if file.exists():
-            with file.open("r", encoding=DEFAULT_CHARSET) as f:
-                config_file.merge(AutoFormatDict(json.load(f)))
-    except:  # pylint: disable=bare-except  # noqa: E722
+            config_file.path = file
+            config_file.merge(RUConfiguration.load_from_file(file))
+    except OSError:
         logger.warning(
             "Failed to load %s configuration: %s",
             envname,

@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -23,12 +23,13 @@ from __future__ import annotations
 
 import abc
 from abc import abstractmethod
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
-from rubisco.lib.variable import AutoFormatDict, make_pretty
+from rubisco.lib.typecheck import get_dict_check
 from rubisco.lib.variable.fast_format_str import fast_format_str
+from rubisco.lib.variable.utils import make_pretty
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
 if TYPE_CHECKING:
@@ -44,20 +45,20 @@ class Step(abc.ABC):  # pylint: disable=too-many-instance-attributes
     parent_workflow: Workflow
     name: str
     next: Step | None
-    raw_data: AutoFormatDict
+    raw_data: dict[str, object]
     global_id: str
     strict: bool
     suc: bool
 
     def __init__(
         self,
-        data: AutoFormatDict,
+        data: dict[str, object],
         parent_workflow: Workflow,
     ) -> None:
         """Create a new step.
 
         Args:
-            data (AutoFormatDict[str, str | int | bool]): The step json data.
+            data (dict[str, object]): The step json data.
             parent_workflow (Workflow): The parent workflow.
 
         """
@@ -65,10 +66,33 @@ class Step(abc.ABC):  # pylint: disable=too-many-instance-attributes
 
         self.parent_workflow = parent_workflow
         self.raw_data = data
-        self.name = data.get("name", "", valtype=str)
-        self.strict = data.get("strict", True, valtype=bool)
+        self.name = cast(
+            "str",
+            get_dict_check(
+                self.raw_data,
+                "name",
+                valtype=str,
+                default="",
+            ),
+        )
+        self.strict = cast(
+            "bool",
+            get_dict_check(
+                self.raw_data,
+                "strict",
+                valtype=bool,
+                default=True,
+            ),
+        )
         self.next = None
-        self.id = data.get("id", valtype=str)  # Always exists.
+        self.id = cast(
+            "str",
+            get_dict_check(
+                self.raw_data,
+                "id",
+                valtype=str,
+            ),
+        )  # Always exists.
         self.global_id = f"{self.parent_workflow.id}.{self.id}"
 
         self.init()
@@ -80,10 +104,10 @@ class Step(abc.ABC):  # pylint: disable=too-many-instance-attributes
 
         try:
             self.run()
-        except Exception as exc:  # pylint: disable=broad-except # noqa: BLE001
+        except BaseException as exc:  # pylint: disable=broad-except
+            logger.warning("Step %s failed.", self.name, exc_info=True)
             if self.strict:
                 raise exc from None
-            logger.warning("Step %s failed.", self.name, exc_info=True)
             call_ktrigger(
                 IKernelTrigger.on_error,
                 message=fast_format_str(

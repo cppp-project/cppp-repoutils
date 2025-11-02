@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 """Generate argparser from CommandEventFS."""
 
 from argparse import ArgumentParser, Namespace
-from typing import TYPE_CHECKING, TypeAlias, cast
+from typing import TYPE_CHECKING, cast
 
 from rubisco.cli.main.help_formatter import RUHelpFormatter
 from rubisco.kernel.command_event.event_file_data import EventFileData
@@ -28,16 +28,12 @@ from rubisco.kernel.command_event.event_path import EventPath
 from rubisco.lib.convert import convert_to
 from rubisco.lib.exceptions import RUTypeError
 from rubisco.lib.l10n import _
-from rubisco.lib.variable.typecheck import is_instance
+from rubisco.lib.typecheck import is_instance
 
 if TYPE_CHECKING:
     from argparse import _SubParsersAction  # type: ignore[attr-defined]
 
-# After Python 3.14 released. We will only support Python 3.12 or later.
-# We will use `type SubParser = xxx` syntax.
-SubParser: TypeAlias = (
-    "_SubParsersAction[ArgumentParser]"  # type: ignore[valid-type] # pylint: disable=line-too-long
-)
+type SubParser = "_SubParsersAction[ArgumentParser]"  # type: ignore[valid-type] # pylint: disable=line-too-long
 
 _subparsers: dict[str, SubParser] = {}
 

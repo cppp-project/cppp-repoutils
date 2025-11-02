@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12", "3.13"]
+        python-version: ["3.12", "3.13"]
 
     steps:
       - name: ⬇️ Check out the repository
@@ -20,7 +20,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: 📁 Install the latest version of uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v7
         with:
           version: "latest"
 
@@ -38,8 +38,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { python-version: 311, command: python3.11 }
           - { python-version: 312, command: python3.12 }
+          - { python-version: 313, command: python3.13 }
 
     steps:
       - name: 🧪 Run test
@@ -81,7 +81,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["311", "312", "313"]
+        python-version: ["312", "313"]
 
     steps:
       - name: 🧪 Run test
@@ -107,7 +107,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12", "3.13"]
+        python-version: ["3.12", "3.13"]
 
     steps:
       - name: ⬇️ Check out the repository
@@ -136,7 +136,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12", "3.13"]
+        python-version: ["3.12", "3.13"]
 
     steps:
       - name: ⬇️ Check out the repository

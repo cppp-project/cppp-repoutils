@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -20,12 +20,11 @@
 """CompressStep implementation."""
 
 from pathlib import Path
+from typing import cast
 
 from rubisco.kernel.workflow.step import Step
 from rubisco.lib.archive import compress
-from rubisco.lib.exceptions import RUValueError
-from rubisco.lib.l10n import _
-from rubisco.lib.variable.utils import assert_iter_types
+from rubisco.lib.variable.format import FormatMode, format_auto
 
 __all__ = ["CompressStep"]
 
@@ -37,43 +36,77 @@ class CompressStep(Step):
     dst: Path
     start: Path | None
     excludes: list[str] | None
-    compress_format: str | None
+    compress_format: str | list[str] | None
     compress_level: int | None
     overwrite: bool
 
     def init(self) -> None:
         """Initialize the step."""
-        self.src = Path(self.raw_data.get("compress", valtype=str))
-        self.dst = Path(self.raw_data.get("to", valtype=str))
-        _start = self.raw_data.get("start", None, valtype=str | None)
+        self.src = Path(
+            cast(
+                "str",
+                format_auto(
+                    self.raw_data["compress"],
+                    mode=FormatMode.EXECUTE,
+                    valtype=str,
+                ),
+            ),
+        )
+        self.dst = Path(
+            cast(
+                "str",
+                format_auto(
+                    self.raw_data["to"],
+                    mode=FormatMode.EXECUTE,
+                    valtype=str,
+                ),
+            ),
+        )
+        _start = cast(
+            "str | None",
+            format_auto(
+                self.raw_data.get("start", None),
+                mode=FormatMode.EXECUTE,
+                valtype=str | None,
+            ),
+        )
         self.start = Path(_start) if _start else None
-        self.excludes = self.raw_data.get(
-            "excludes",
-            None,
-            valtype=list | None,
+        self.excludes = cast(
+            "list[str] | None",
+            format_auto(
+                self.raw_data.get("excludes", None),
+                mode=FormatMode.EXECUTE,
+                valtype=list | None,
+            ),
         )
-        self.compress_format = self.raw_data.get(
-            "format",
-            None,
-            valtype=str | list | None,
+        self.compress_format = cast(
+            "str | list[str] | None",
+            format_auto(
+                self.raw_data.get("format", None),
+                mode=FormatMode.EXECUTE,
+                valtype=str | list | None,
+            ),
         )
-        self.compress_level = self.raw_data.get(
-            "level",
-            None,
-            valtype=int | None,
+        self.compress_level = cast(
+            "int | None",
+            format_auto(
+                self.raw_data.get("level", None),
+                mode=FormatMode.EXECUTE,
+                valtype=int | None,
+            ),
         )
-        self.overwrite = self.raw_data.get("overwrite", True, valtype=bool)
+        self.overwrite = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("overwrite", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
+        )
 
     def run(self) -> None:
         """Run the step."""
         if isinstance(self.compress_format, list):
-            assert_iter_types(
-                self.compress_format,
-                str,
-                RUValueError(
-                    _("Compress format must be a list of string or a string."),
-                ),
-            )
             for fmt in self.compress_format:
                 if fmt == "gzip":
                     ext = ".gz"

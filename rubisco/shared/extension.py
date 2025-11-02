@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import abc
 from pathlib import Path
-from typing import TYPE_CHECKING, ClassVar
+from typing import TYPE_CHECKING, ClassVar, cast
 
 import beartype
 
@@ -50,8 +50,9 @@ from rubisco.lib.exceptions import RUNotRubiscoExtensionError, RUValueError
 from rubisco.lib.l10n import _
 from rubisco.lib.load_module import import_module_from_path
 from rubisco.lib.log import logger
-from rubisco.lib.variable import make_pretty
+from rubisco.lib.typecheck import get_dict_check
 from rubisco.lib.variable.fast_format_str import fast_format_str
+from rubisco.lib.variable.utils import make_pretty
 from rubisco.shared.ktrigger import (
     IKernelTrigger,
     bind_ktrigger_interface,
@@ -59,7 +60,6 @@ from rubisco.shared.ktrigger import (
 )
 
 if TYPE_CHECKING:
-
     from rubisco.kernel.workflow.step import Step
 
 __all__ = [
@@ -336,7 +336,7 @@ def load_extension(
 
         loaded_extensions.append(ext_info.name)
         logger.info("Loaded extension: %s", ext_info.name)
-    except Exception as exc:  # pylint: disable=broad-except # noqa: BLE001
+    except Exception as exc:  # pylint: disable=broad-except
         if strict:
             raise exc from None
         logger.exception("Failed to load extension '%s': %s", ext, exc)
@@ -373,7 +373,15 @@ def _load_exts(env: RUEnvironment, autoruns: list[str]) -> None:
 
 def load_all_extensions() -> None:
     """Load all extensions."""
-    autoruns = config_file.get("autoruns", [])
+    autoruns = cast(
+        "list[str]",
+        get_dict_check(
+            config_file.config,
+            "autoruns",
+            valtype=list[str],
+            default=[],
+        ),
+    )
     autoruns = list(set(autoruns))
 
     logger.info("Trying to load all extensions: %s ...", autoruns)

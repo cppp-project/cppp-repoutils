@@ -21,7 +21,7 @@ dependencies = [
 description = "Rubisco binary package builder."
 name = "rubp-build"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 version = "0.1.0"
 
 [project.urls]

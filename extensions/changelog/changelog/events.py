@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -68,7 +68,7 @@ def mount_to_cefs() -> None:
             Option[str](
                 name="output",
                 title=_("Changelog file."),
-                aliases=["-o"],
+                aliases=["o"],
                 description=_("Path to save the generated changelog."),
                 typecheck=str,
                 default="ChangeLog",

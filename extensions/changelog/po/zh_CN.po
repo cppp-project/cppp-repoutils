@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: changelog 0.1.0\n"
 "Report-Msgid-Bugs-To: wushengwuxi-msctinoulk@outlook.com\n"
-"POT-Creation-Date: 2025-08-14 10:27+0800\n"
-"PO-Revision-Date: 2025-08-14 10:23+0800\n"
+"POT-Creation-Date: 2025-11-02 10:26+0800\n"
+"PO-Revision-Date: 2025-11-02 10:31+0800\n"
 "Last-Translator: YiFei Chen <wushengwuxi-msctinoulk@outlook.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -17,32 +17,44 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:61
-#: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:62
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:55
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:56
 msgid "Repository path."
-msgstr "仓库路径."
+msgstr "存储库路径。"
 
-#: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:68
-#: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:82
-msgid "Generate changelog."
-msgstr "生成变更日志."
-
-#: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:75
-msgid "Changelog file."
-msgstr "变更日志文件."
-
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:63
 #: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:77
+msgid "Generate changelog."
+msgstr "生成变更日志。"
+
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:70
+msgid "Changelog file."
+msgstr "变更日志文件。"
+
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/events.py:72
 msgid "Path to save the generated changelog."
-msgstr "生成变更日志的保存路径."
+msgstr "保存生成的变更日志的路径。"
 
-#: /workspaces/cppp/rubisco/extensions/changelog/changelog/generator.py:216
-msgid "Failed to generate changelog: ${{exc}}"
-msgstr "生成变更日志失败: ${{exc}}."
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/generator.py:159
+msgid "Failed to count commits for repo ${{repo}}: ${{err}}"
+msgstr "无法为存储库 ${{repo}} 计数提交：${{err}}"
 
-#: /workspaces/cppp/rubisco/extensions/changelog/changelog/generator.py:247
-msgid "Directory ${{repo}} is not a valid Rubisco project, treat as a regular Git repository: ${{exc}}"
-msgstr "目录 ${{repo}} 不是一个有效的 Rubisco 项目, 视为普通 Git 仓库: ${{exc}}."
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/generator.py:168
+msgid "Failed to parse commit count for repo ${{repo}}: ${{out}}"
+msgstr "无法解析存储库 ${{repo}} 的提交计数：${{out}}。"
 
-#: /workspaces/cppp/rubisco/extensions/changelog/changelog/generator.py:261
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/generator.py:205
+msgid "Generating changelog"
+msgstr "正在生成变更日志。"
+
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/generator.py:207
 msgid "Generating changelog for ${{repo}} ..."
-msgstr "正在为 ${{repo}} 生成变更日志 ..."
+msgstr "正在为存储库 ${{repo}} 生成变更日志。"
+
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/generator.py:256
+msgid "Failed to generate changelog: ${{exc}}"
+msgstr "无法生成变更日志：${{exc}}。"
+
+#: /workspaces/cppp/rubisco/extensions/changelog/changelog/generator.py:287
+msgid "Directory ${{repo}} is not a valid Rubisco project, treat as a regular Git repository: ${{exc}}"
+msgstr "目录 ${{repo}} 不是有效的 Rubisco 项目，将其视为普通 Git 存储库：${{exc}}。"

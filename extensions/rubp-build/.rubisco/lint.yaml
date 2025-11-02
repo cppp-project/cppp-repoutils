@@ -11,7 +11,7 @@ steps:
     run: ruff check rubp_build --config ruff.toml
 
   - name: 🛠️ Analysing the code with pylint
-    run: [pylint, -j, "${{ nproc }}", "${{ src-files }}"]
+    run: [python, -m, pylint, -j, "${{ nproc }}", "${{ src-files }}"]
 
   - name: 🛠️ Running type check
-    run: pyright --verbose --threads ${{ nproc }} --level=warning rubp_build
+    run: python -m pyright --verbose --threads ${{ nproc }} --level=warning rubp_build

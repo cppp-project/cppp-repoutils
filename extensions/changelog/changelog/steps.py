@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -22,6 +22,7 @@
 from pathlib import Path
 
 from rubisco.shared.api.kernel import Step
+from rubisco.shared.api.variable import format_auto
 
 from changelog.generator import gen_project_changelog
 
@@ -36,8 +37,18 @@ class ChangelogStep(Step):
 
     def init(self) -> None:
         """Initialize the step."""
-        self.path = Path(self.raw_data.get("changelog", valtype=str))
-        self.repo = Path(self.raw_data.get("repo", default=".", valtype=str))
+        self.path = Path(
+            format_auto(
+                self.raw_data["changelog"],
+                valtype=str,
+            ),
+        )
+        self.repo = Path(
+            format_auto(
+                self.raw_data.get("repo", "."),
+                valtype=str,
+            ),
+        )
 
     def run(self) -> None:
         """Run the step."""

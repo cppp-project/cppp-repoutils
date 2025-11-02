@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -36,7 +36,6 @@ from rubisco.kernel.project_config.project_config import (
 from rubisco.kernel.project_config.utils import is_rubisco_project
 from rubisco.kernel.workflow.step import Step
 from rubisco.kernel.workflow.workflow import Workflow
-from rubisco.lib.variable.autoformatdict import AutoFormatDict
 
 __all__ = [
     "Maintainer",
@@ -53,11 +52,11 @@ __all__ = [
 ]
 
 
-def get_rubisco_configuration() -> AutoFormatDict:
+def get_rubisco_configuration() -> RUConfiguration:
     """Get the Rubisco configuration.
 
     Returns:
-        AutoFormatDict: The Rubisco configuration.
+        RUConfiguration: The Rubisco configuration.
 
     """
     return config_file

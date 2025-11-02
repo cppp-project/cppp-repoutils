@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -20,6 +20,8 @@
 """CLI Input utilties."""
 
 from __future__ import annotations
+
+import os
 
 import rich
 
@@ -80,6 +82,9 @@ def ask_yesno(message: str, *, default: bool | None = None) -> bool:
         bool: True if the user answered yes.
 
     """
+    if os.getenv("RUBISCO_FRONTEND") == "nointeractive" and default is not None:
+        return default
+
     conemu_progress(ProgressBarState.WAITING)
     ret = _ask_yesno(message=message, default=default)
     conemu_progress(ProgressBarState.DEFAULT)

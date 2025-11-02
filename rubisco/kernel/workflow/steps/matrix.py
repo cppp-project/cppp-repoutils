@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -19,18 +19,14 @@
 
 """MatrixStep implementation."""
 
-import copy
 import itertools
 from collections.abc import Generator
-from typing import Any
+from typing import Any, cast
 
 from rubisco.kernel.workflow._interfaces import WorkflowInterfaces
 from rubisco.kernel.workflow.step import Step
-from rubisco.lib.exceptions import RUTypeError
-from rubisco.lib.l10n import _
-from rubisco.lib.variable.autoformatdict import AutoFormatDict
-from rubisco.lib.variable.autoformatlist import AutoFormatList
-from rubisco.lib.variable.utils import assert_iter_types
+from rubisco.lib.typecheck import get_dict_check
+from rubisco.lib.variable.format import FormatMode, format_auto
 from rubisco.lib.variable.var_container import VariableContainer
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
@@ -39,7 +35,7 @@ __all__ = ["MatrixStep"]
 
 def _generate_combinations(
     variables: dict[str, list[Any] | Any],
-) -> Generator[AutoFormatDict]:
+) -> Generator[dict[str, object]]:
     names = list(variables.keys())
     values = list(variables.values())
     for idx, val in enumerate(values):
@@ -47,12 +43,12 @@ def _generate_combinations(
             values[idx] = [val]
 
     for combination in itertools.product(*values):
-        yield AutoFormatDict(zip(names, combination, strict=True))
+        yield format_auto(dict(zip(names, combination, strict=True)))
 
 
 def allocate_matrix_vars(
     mvars: dict[str, list[Any] | Any] | list[dict[str, Any]],
-) -> AutoFormatList[AutoFormatDict]:
+) -> list[dict[str, object]]:
     """Allocate matrix vars.
 
     Args:
@@ -61,7 +57,7 @@ def allocate_matrix_vars(
             Otherwise, it is a dict.
 
     Returns:
-        list[dict[str, Any]]: The allocated matrix vars. If the input is a
+        list[dict[str, object]]: The allocated matrix vars. If the input is a
             list , return the same list. Otherwise, return the independent
             assortment of the matrix vars.
 
@@ -71,20 +67,15 @@ def allocate_matrix_vars(
 
     """
     if not mvars:
-        return AutoFormatList([])
+        return []
 
     if isinstance(mvars, list):
-        assert_iter_types(
-            mvars,
-            dict,
-            RUTypeError(_("Matrix variables must be a dict.")),
-        )
-        return AutoFormatList([AutoFormatDict(v) for v in mvars])
+        return [format_auto(v) for v in mvars]
 
-    return AutoFormatList(_generate_combinations(mvars))
+    return list(_generate_combinations(mvars))
 
 
-def _in(var: AutoFormatDict, exclude: AutoFormatDict) -> bool:
+def _in(var: dict[str, object], exclude: dict[str, object]) -> bool:
     for key, value in exclude.items():
         if key not in var:
             return False
@@ -94,19 +85,19 @@ def _in(var: AutoFormatDict, exclude: AutoFormatDict) -> bool:
 
 
 def exclude_matrix_vars(
-    mvars: AutoFormatList[AutoFormatDict],
+    mvars: list[dict[str, object]],
     excludes: dict[str, list[Any] | Any] | list[dict[str, Any]],
-) -> AutoFormatList[AutoFormatDict]:
+) -> list[dict[str, object]]:
     """Exclude matrix vars.
 
     Args:
-        mvars (AutoFormatList[AutoFormatDict]): The matrix vars.
+        mvars (list[dict[str, object]]): The matrix vars.
         excludes (dict[str, list[Any] | Any] | list[dict[str, Any]]): The
             excludes. If it is a list, each element must be a dict.
             Otherwise, it is a dict.
 
     Returns:
-        AutoFormatList[AutoFormatDict]: The excluded matrix vars.
+        list[dict[str, object]]: The excluded matrix vars.
 
     Raises:
         RUTypeError: If the input is not a list[dict[str, Any]] or a
@@ -118,29 +109,56 @@ def exclude_matrix_vars(
 
     excludes_list = allocate_matrix_vars(excludes)
 
-    return AutoFormatList(
-        [
-            mvar
-            for mvar in mvars
-            if not any(_in(mvar, exclude) for exclude in excludes_list)
-        ],
-    )
+    return [
+        format_auto(mvar)
+        for mvar in mvars
+        if not any(_in(mvar, exclude) for exclude in excludes_list)
+    ]
 
 
 class MatrixStep(Step):
     """Matrix step."""
 
-    matrix_vars: dict[str, list[Any] | Any] | list[dict[str, Any]]
-    excludes: dict[str, list[Any] | Any] | list[dict[str, Any]]
-    steps: list[AutoFormatDict]
+    matrix_vars: dict[str, list[object] | object] | list[dict[str, object]]
+    excludes: dict[str, list[object] | object] | list[dict[str, object]]
+    steps: list[dict[str, object]]
 
     def init(self) -> None:
         """Initialize the step."""
-        self.matrix_vars = self.raw_data.get("matrix", valtype=list | dict)
-        self.excludes = AutoFormatList(
-            self.raw_data.get("excludes", [], valtype=list | dict),
+        self.matrix_vars = cast(
+            "dict[str, list[object] | object] | list[dict[str, object]]",
+            format_auto(
+                self.raw_data["matrix"],
+                mode=FormatMode.EXECUTE,
+                valtype=dict[str, list[object] | object]
+                | list[dict[str, object]],
+            ),
         )
-        self.steps = list(self.raw_data.get("steps", valtype=list))
+        self.excludes = cast(
+            "dict[str, list[object] | object] | list[dict[str, object]]",
+            format_auto(
+                self.raw_data.get("excludes", []),
+                mode=FormatMode.EXECUTE,
+                valtype=dict[str, list[object] | object]
+                | list[dict[str, object]],
+            ),
+        )
+        # Steps must be formatted when running. So we save the raw data here.
+        self.steps = cast(
+            "list[dict[str, object]]",
+            get_dict_check(
+                self.raw_data,
+                "steps",
+                valtype=list[dict[str, object]],
+            ),
+        )
+
+    def _format_steps(self) -> list[dict[str, object]]:
+        return format_auto(
+            self.steps,
+            mode=FormatMode.EXECUTE,
+            valtype=list[dict[str, object]],
+        )
 
     def run(self) -> None:
         """Run the step."""
@@ -149,10 +167,11 @@ class MatrixStep(Step):
 
         for idx, mvars in enumerate(matrix_vars):
             with VariableContainer(mvars):
+                steps = self._format_steps()
                 call_ktrigger(IKernelTrigger.pre_run_matrix, variables=mvars)
                 default_id = f"{self.id}.matrix.{idx}"
                 WorkflowInterfaces.get_run_inline_workflow()(
-                    copy.deepcopy(self.steps),  # What the fuck?
+                    steps,
                     default_id,
                 )
                 call_ktrigger(IKernelTrigger.post_run_matrix, variables=mvars)

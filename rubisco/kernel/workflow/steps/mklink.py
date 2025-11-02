@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -19,11 +19,12 @@
 
 """MklinkStep implementation."""
 
-import os
 from pathlib import Path
+from typing import cast
 
 from rubisco.kernel.workflow.step import Step
 from rubisco.lib.fileutil import assert_rel_path
+from rubisco.lib.variable.format import FormatMode, format_auto
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
 __all__ = ["MklinkStep"]
@@ -38,10 +39,29 @@ class MklinkStep(Step):
 
     def init(self) -> None:
         """Initialize the step."""
-        self.src = Path(self.raw_data.get("mklink", valtype=str))
-        self.dst = Path(self.raw_data.get("to", valtype=str))
+        self.src = Path(
+            format_auto(
+                self.raw_data["mklink"],
+                mode=FormatMode.EXECUTE,
+                valtype=str,
+            ),
+        )
+        self.dst = Path(
+            format_auto(
+                self.raw_data["to"],
+                mode=FormatMode.EXECUTE,
+                valtype=str,
+            ),
+        )
 
-        self.symlink = self.raw_data.get("symlink", True, valtype=bool)
+        self.symlink = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("symlink", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
+        )
 
     def run(self) -> None:
         """Run the step."""
@@ -55,6 +75,6 @@ class MklinkStep(Step):
         assert_rel_path(self.dst)
 
         if self.symlink:
-            os.symlink(self.src, self.dst)
+            self.src.symlink_to(self.dst, target_is_directory=self.src.is_dir())
         else:
-            os.link(self.src, self.dst)
+            self.src.hardlink_to(self.dst)

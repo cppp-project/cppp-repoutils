@@ -24,12 +24,13 @@ dependencies = [
   "pygments >= 2.10.0",
   "prompt_toolkit >= 3.0.23",
   "psutil>=7.0.0; sys_platform != 'cygwin'",
+  "dacite >= 1.9.2",
 ]
 description = "C+++ Repository Utilities."
 license = {file = "LICENSE"}
 name = "rubisco"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 version = "0.1.0.post"
 
 [project.urls]

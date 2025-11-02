@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -77,7 +77,7 @@ def init_options(options: list[Option[Any]], args: list[Argument[Any]]) -> None:
     """
     opts, __ = load_callback_args(options, args)
     verbose = opts.get("enable-verbose")
-    config_file["verbose"] = verbose
+    config_file.config["verbose"] = verbose
 
 
 def init_arg_parser() -> None:

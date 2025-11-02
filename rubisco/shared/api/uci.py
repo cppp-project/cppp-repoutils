@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -27,6 +27,7 @@ of them.
 """
 
 import types
+from typing import Self
 
 from rubisco.lib.tree import Tree
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
@@ -84,7 +85,7 @@ class ProgressTask:
         self.total = float(total)
         self.current = 0.0
 
-    def __enter__(self) -> None:
+    def __enter__(self) -> Self:
         """Enter progress task."""
         call_ktrigger(
             IKernelTrigger.on_new_task,
@@ -92,6 +93,7 @@ class ProgressTask:
             task_name=self.title,
             total=self.total,
         )
+        return self
 
     def __exit__(
         self,
@@ -107,8 +109,8 @@ class ProgressTask:
         current: float,
         *,
         is_advance: bool = False,
-        update_msg: str,
-        status_msg: str,
+        update_msg: str = "",
+        status_msg: str = "",
     ) -> None:
         """Update progress task.
 
@@ -116,8 +118,8 @@ class ProgressTask:
             current (float): Current progress.
             is_advance (bool, optional): Whether the progress is advanced.
                 Defaults to False.
-            update_msg (str): Update message.
-            status_msg (str): Status message.
+            update_msg (str, optional): Update message. Defaults to "".
+            status_msg (str, optional): Status message. Defaults to "".
 
         """
         if is_advance:

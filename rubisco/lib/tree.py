@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -23,15 +23,10 @@ Tree is used to represent hierarchical data structures for UCI.
 Pass it to `IKernelTrigger.on_output` to output a tree.
 """
 
-from typing import Generic, TypeVar
-
 __all__ = ["Tree"]
 
 
-T = TypeVar("T")
-
-
-class Tree(Generic[T]):
+class Tree[T]:
     """Rubisco tree wrapper."""
 
     value: T

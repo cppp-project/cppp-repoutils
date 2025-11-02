@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -23,10 +23,8 @@ from pathlib import Path
 from typing import cast
 
 from rubisco.kernel.workflow.step import Step
-from rubisco.lib.exceptions import RUValueError
 from rubisco.lib.fileutil import assert_rel_path
-from rubisco.lib.l10n import _
-from rubisco.lib.variable.utils import assert_iter_types
+from rubisco.lib.variable.format import FormatMode, format_auto
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
 __all__ = ["MkdirStep"]
@@ -41,21 +39,17 @@ class MkdirStep(Step):
         """Initialize the step."""
         paths = cast(
             "str | list[str]",
-            self.raw_data.get("mkdir", valtype=str | list),
+            format_auto(
+                self.raw_data["mkdir"],
+                mode=FormatMode.EXECUTE,
+                valtype=str | list[str],
+            ),
         )
-        if isinstance(paths, list):
-            assert_iter_types(
-                paths,
-                str,
-                RUValueError(
-                    _(
-                        "The paths must be a list of strings.",
-                    ),
-                ),
-            )
-            self.paths = [Path(path) for path in paths]
-        else:
-            self.paths = [Path(paths)]
+        self.paths = (
+            [Path(paths)]
+            if isinstance(paths, str)
+            else [Path(p) for p in paths]
+        )
 
     def run(self) -> None:
         """Run the step."""

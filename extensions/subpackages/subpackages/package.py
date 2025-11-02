@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import cast
 
 from rubisco.shared.api.exception import (
     RUNotRubiscoProjectError,
@@ -34,10 +34,7 @@ from rubisco.shared.api.kernel import (
     load_project_config,
 )
 from rubisco.shared.api.l10n import _
-from rubisco.shared.api.variable import fast_format_str
-
-if TYPE_CHECKING:
-    from rubisco.lib.variable.autoformatdict import AutoFormatDict
+from rubisco.shared.api.variable import fast_format_str, format_auto
 
 
 @dataclass
@@ -172,21 +169,30 @@ class Package:
 
     def _load_subpkg_refs(self) -> None:
         subpkgs: list[SubpackageReference] = []
-        subpkg_dict = self.config.config.get("subpackages", {}, valtype=dict)
-        subpkg_dict: AutoFormatDict
-        for name, subpkg in subpkg_dict.items():
-            if not isinstance(subpkg, dict):  # type: ignore[union-attr]
+        subpkg_dict: dict[str, object] = format_auto(
+            self.config.config.config.get("subpackages", {}),
+            valtype=dict,
+        )
+        for name, subpkg_ in subpkg_dict.items():
+            if not isinstance(subpkg_, dict):  # type: ignore[union-attr]
                 msg = fast_format_str(
                     _("Subpackage reference ${{name}} is not a dict."),
                     fmt={"name": name},
                 )
                 raise RUTypeError(msg)
-            subpkg: AutoFormatDict
-            branch = subpkg.get("branch", valtype=str)
-            url = subpkg.get("url", valtype=str)
-            paths = subpkg.get("path", valtype=list[str] | str)
+            subpkg = cast("dict[str, object]", subpkg_)
+            branch: str = format_auto(
+                subpkg.get("branch", "main"),
+                valtype=str,
+            )
+            url: str = format_auto(subpkg["url"], valtype=str)
+            paths: list[str] | str = format_auto(
+                subpkg.get("path", []),
+                valtype=list[str] | str,
+            )
             if isinstance(paths, str):
                 paths = [paths]
+
             if not paths:
                 raise RUValueError(
                     fast_format_str(

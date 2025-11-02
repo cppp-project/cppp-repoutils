@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -27,7 +27,7 @@ import shutil
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, TYPE_CHECKING
+from typing import IO, TYPE_CHECKING, cast
 
 import json5
 
@@ -50,13 +50,9 @@ from rubisco.lib.exceptions import RUValueError
 from rubisco.lib.fileutil import TemporaryObject, rm_recursive
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
-from rubisco.lib.variable import (
-    AutoFormatDict,
-    assert_iter_types,
-    iter_assert,
-)
+from rubisco.lib.typecheck import get_dict_check, type_assert
 from rubisco.lib.variable.fast_format_str import fast_format_str
-from rubisco.lib.variable.utils import make_pretty
+from rubisco.lib.variable.utils import iter_assert, make_pretty
 from rubisco.lib.version import Version
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
@@ -162,9 +158,11 @@ def parse_extension_info(
     else:
         file_text = str(_file_text)
     try:
-        json_data = json5.loads(file_text)
-        pkg_config = AutoFormatDict(json_data)
-        pkg_name = pkg_config.get("name", valtype=str)
+        pkg_config = cast(
+            "dict[str, object]",
+            type_assert(json5.loads(file_text), dict[str, object]),
+        )
+        pkg_name = cast("str", get_dict_check(pkg_config, "name", str))
         if not is_valid_extension_name(pkg_name):
             raise RUValueError(
                 fast_format_str(
@@ -180,20 +178,19 @@ def parse_extension_info(
             )
         maintianers = [
             Maintainer.parse(x)
-            for x in pkg_config.get(
-                "maintainers",
-                valtype=list[dict[str, str]],
+            for x in cast(
+                "list[dict[str, str | None]]",
+                get_dict_check(pkg_config, "maintainers", list[dict[str, str]]),
             )
         ]
-        tags = pkg_config.get("tags", valtype=list)
-        assert_iter_types(
-            tags,
-            str,
-            RUValueError(_("Tags must be a list of strings.")),
+        tags = cast(
+            "list[str]",
+            get_dict_check(pkg_config, "tags", list[str]),
         )
+        pattern = re.compile(r"^[a-z0-9_-]+$")
         iter_assert(
             tags,
-            lambda x: re.match(r"^[a-z0-9_-]+$", x) is not None,
+            lambda x: re.match(pattern, x) is not None,
             RUValueError(
                 _(
                     "Tags must be lowercase and only contain 0-9, a-z, A-Z"
@@ -204,11 +201,11 @@ def parse_extension_info(
 
         return ExtensionPackageInfo(
             pkg_name,
-            Version(pkg_config.get("version", valtype=str)),
-            pkg_config.get("description", valtype=str),
-            pkg_config.get("homepage", valtype=str),
+            Version(str(get_dict_check(pkg_config, "version", str))),
+            str(get_dict_check(pkg_config, "description", str)),
+            str(get_dict_check(pkg_config, "homepage", str)),
             [str(x) for x in maintianers],
-            pkg_config.get("license", valtype=str),
+            str(get_dict_check(pkg_config, "license", str)),
             tags,
             None,
             EnvType.FOREIGN,
@@ -677,7 +674,3 @@ def install_extension(pkg_file: Path, dest: RUEnvironment) -> None:
             ext_name=info.name,
             ext_version=info.version,
         )
-
-
-if __name__ == "__main__":
-    pass

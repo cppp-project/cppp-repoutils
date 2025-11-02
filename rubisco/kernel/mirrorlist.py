@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -25,9 +25,10 @@ e.g:
 
 import asyncio
 import re
+from typing import cast
 
-import beartype
 import json5 as json
+from beartype import beartype
 from urllib3.util import parse_url
 
 from rubisco.config import (
@@ -40,7 +41,7 @@ from rubisco.lib.exceptions import RUValueError
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
 from rubisco.lib.speedtest import C_INTMAX, url_speedtest
-from rubisco.lib.variable import AutoFormatDict
+from rubisco.lib.typecheck import get_dict_check
 from rubisco.lib.variable.fast_format_str import fast_format_str
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
@@ -50,7 +51,7 @@ WORKSPACE_MIRRORLIST_FILE = WORKSPACE_CONFIG_DIR / "mirrorlist.json"
 USER_MIRRORLIST_FILE = RUBISCO_USER_CONFIG_DIR / "mirrorlist.json"
 GLOBAL_MIRRORLIST_FILE = RUBISCO_GLOBAL_CONFIG_DIR / "mirrorlist.json"
 
-mirrorlist = AutoFormatDict()
+mirrorlist = RUConfiguration()
 
 for mirrorlist_file in [
     GLOBAL_MIRRORLIST_FILE,
@@ -60,7 +61,7 @@ for mirrorlist_file in [
     if mirrorlist_file.exists():
         try:
             file_data = RUConfiguration.load_from_file(mirrorlist_file)
-            lower_data = {k.lower(): v for k, v in file_data.items()}
+            lower_data = {k.lower(): v for k, v in file_data.config.items()}
             mirrorlist.merge(lower_data)
         except (OSError, json.JSON5DecodeError) as exc_:
             logger.warning(
@@ -110,10 +111,11 @@ async def _speedtest(
         call_ktrigger(IKernelTrigger.post_speedtest, host=url, speed=-1)
 
 
+@beartype
 def get_mirrorlist(
     host: str,
     protocol: str = "http",
-) -> AutoFormatDict:
+) -> dict[str, str]:
     """Get the mirrorlist of a host.
 
     Args:
@@ -122,20 +124,23 @@ def get_mirrorlist(
             We only support HTTP(s) for now.
 
     Returns:
-        AutoFormatDict: The mirrorlist.
+        dict[str, str]: The mirrorlist.
 
     """
     host = host.lower()
 
-    mlist1 = mirrorlist.get(
+    mlist1 = get_dict_check(
+        mirrorlist.config,
         host,
-        valtype=dict | str,
+        valtype=dict[str, dict[str, str]] | str,
     )
     if isinstance(mlist1, str):  # Alias support.
-        mlist1 = mirrorlist.get(
+        mlist1 = get_dict_check(
+            mirrorlist.config,
             mlist1,
-            valtype=dict | str,
+            valtype=dict[str, dict[str, str]] | str,
         )
+
     if isinstance(mlist1, str):
         try:
             return get_mirrorlist(mlist1, protocol)
@@ -151,7 +156,8 @@ def get_mirrorlist(
                     " file in workspace, user or global config directory.",
                 ),
             ) from exc
-    return mlist1.get(protocol, valtype=dict)
+    # The mlist can only be dict here.
+    return cast("dict[str, dict[str, str]]", mlist1)[protocol]
 
 
 async def find_fastest_mirror(
@@ -170,10 +176,10 @@ async def find_fastest_mirror(
 
     """
     try:
-        mlist: AutoFormatDict = get_mirrorlist(host, protocol)
+        mlist = get_mirrorlist(host, protocol)
         future = asyncio.get_event_loop().create_future()
         tasks: list[asyncio.Task[None]] = []
-        for mirror, murl in mlist.orig_items():
+        for mirror, murl in mlist.items():
             task = asyncio.ensure_future(_speedtest(future, mirror, murl))
             tasks.append(task)
         daemon = asyncio.ensure_future(_speedtest_daemon(future, tasks))
@@ -199,7 +205,8 @@ async def find_fastest_mirror(
                         "[/blue][/underline] ...",
                     ),
                     fmt={
-                        "url": mlist.get(
+                        "url": get_dict_check(
+                            mlist,
                             "official",
                             valtype=str,
                         )
@@ -214,7 +221,7 @@ async def find_fastest_mirror(
         return "official"
 
 
-@beartype.beartype
+@beartype
 def get_url(
     remote: str,
     protocol: str = "http",
@@ -249,7 +256,7 @@ def get_url(
             url_template = get_mirrorlist(
                 website,
                 protocol,
-            ).orig_get(mirror, None)
+            ).get(mirror, None)
             if url_template is None:
                 raise RUValueError(
                     fast_format_str(
@@ -263,13 +270,6 @@ def get_url(
                         },
                     ),
                 )
-            if not isinstance(url_template, str):
-                raise RUValueError(
-                    fast_format_str(
-                        _("Mirror '${{mirror}}' is not a string."),
-                        fmt={"mirror": mirror},
-                    ),
-                )
             logger.info("Selected mirror: %s ('%s')", mirror, url_template)
             return fast_format_str(
                 url_template,
@@ -278,7 +278,7 @@ def get_url(
                     "repo": repo,
                 },
             )
-        except KeyError:
+        except KeyError as exc:
             logger.critical("Website not found: %s", mirror, exc_info=True)
             message = fast_format_str(
                 _("Source '${{protocol}}/${{website}}/${{name}}' not found."),
@@ -288,7 +288,7 @@ def get_url(
                     "name": mirror,
                 },
             )
-            raise RUValueError(message) from None
+            raise RUValueError(message) from exc
     return remote
 
 

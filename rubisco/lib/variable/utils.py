@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -21,18 +21,11 @@
 
 from collections.abc import Callable, Iterable
 from pathlib import Path
-from types import UnionType
 from typing import Any, cast
 
-from rubisco.lib.variable.autoformatdict import AutoFormatDict
-from rubisco.lib.variable.autoformatlist import AutoFormatList
-from rubisco.lib.variable.typecheck import is_instance
+from rubisco.lib.typecheck import is_instance
 
-__all__ = [
-    "assert_iter_types",
-    "iter_assert",
-    "make_pretty",
-]
+__all__ = ["iter_assert", "make_pretty", "merge_dict"]
 
 
 def make_pretty(  # noqa: C901, PLR0912 # pylint: disable=R0912
@@ -42,7 +35,7 @@ def make_pretty(  # noqa: C901, PLR0912 # pylint: disable=R0912
     """Make the path string pretty.
 
     Args:
-        string (str | Any): The string to get representation.
+        string (Path | str | Any): The string to get representation.
         empty (str): The string to return if the input is empty.
 
     Returns:
@@ -88,36 +81,6 @@ def make_pretty(  # noqa: C901, PLR0912 # pylint: disable=R0912
     return string_
 
 
-def assert_iter_types(
-    iterable: Iterable[Any],
-    objtype: type | UnionType,
-    exc: Exception,
-) -> None:
-    """Assert the types of the elements in the iterable.
-
-    Although AutoFormatDict/List.get's valtype argument supports UnionType
-    and GenericAlias, this function is useful for raising exceptions
-    with specific message.
-
-    Args:
-        iterable (Iterable): The iterable to assert.
-        objtype (type | UnionType): The type to assert.
-        exc (Exception): The exception to raise.
-
-    Raises:
-        Exception: If the type of the element is not the same as the given.
-
-    """
-    if objtype in [dict, AutoFormatDict]:
-        objtype = dict[object, object] | AutoFormatDict
-    if objtype in [list, AutoFormatList]:
-        objtype = list[object] | AutoFormatList[object]
-
-    for obj in iterable:
-        if not is_instance(obj, objtype):
-            raise exc
-
-
 def iter_assert(
     iterable: Iterable[Any],
     checker: Callable[[Any], bool],
@@ -150,3 +113,29 @@ def iter_assert(
     for obj in iterable:
         if not checker(obj):
             raise cast("Callable[[Any], Exception]", exc)(obj)
+
+
+def merge_dict(
+    dst: dict[Any, Any],
+    src: dict[Any, Any],
+) -> None:
+    """Merge two dicts.
+
+    Args:
+        dst (dict[Any, Any]): The first dict.
+        src (dict[Any, Any]): The second dict.
+
+    Returns:
+        dict[Any, Any]: The merged dict.
+
+    """
+    for key, value in src.items():
+        if key in dst:
+            if isinstance(value, dict) and isinstance(dst[key], dict):
+                merge_dict(dst[key], cast("dict[Any, Any]", value))
+            elif isinstance(value, list) and isinstance(dst[key], list):
+                cast("list[Any]", dst[key]).extend(cast("list[Any]", value))
+            else:
+                dst[key] = value
+        else:
+            dst[key] = value

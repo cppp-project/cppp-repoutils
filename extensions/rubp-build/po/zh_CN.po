@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rubp-build 0.1.0\n"
 "Report-Msgid-Bugs-To: wushengwuxi-msctinoulk@outlook.com\n"
-"POT-Creation-Date: 2025-08-10 15:32+0800\n"
+"POT-Creation-Date: 2025-11-02 09:25+0800\n"
 "PO-Revision-Date: 2025-07-31 14:39+0800\n"
 "Last-Translator:  <wushengwuxi-msctinoulk@outlook.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -27,30 +27,26 @@ msgstr "项目目录"
 
 #: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/events.py:65
 msgid "Project directory path."
-msgstr "项目目录路径"
+msgstr "项目目录路径。"
 
 #: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/events.py:72
 #: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/events.py:76
 msgid "Get RuBP metadata."
-msgstr "获取 RuBP 元数据"
+msgstr "获取 RuBP 元数据。"
 
 #: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/version.py:91
 msgid "Tag '${{tag}}' not found."
 msgstr "标签 '${{tag}}' 未找到。"
 
-#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:97
-msgid "`dependencies` must be list of string"
-msgstr "`dependencies` 必须是字符串列表"
-
-#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:125
+#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:165
 msgid "No readme file found."
 msgstr "未找到说明文件。"
 
-#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:151
+#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:191
 msgid "No license file found."
-msgstr "未找到许可证文件"
+msgstr "未找到许可证文件。"
 
-#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:176
+#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:216
 msgid "Generating requirements.txt from ${{path}} ..."
 msgstr "正在根据 ${{path}} 生成 requirements.txt ..."
 

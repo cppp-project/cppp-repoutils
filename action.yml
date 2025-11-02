@@ -82,6 +82,16 @@ runs:
       with:
         xcode-version: latest-stable
 
+    - name: 🧳 Setup XMake.
+      uses: xmake-io/github-action-setup-xmake@v1
+      with:
+        xmake-version: latest
+
+    - name: 📁 Setup uv.
+      uses: astral-sh/setup-uv@v7
+      with:
+        version: "latest"
+
     # Get repository infomation.
     - name: 🏷️ Get repository infomation.
       id: info
@@ -103,11 +113,12 @@ runs:
         Write-Output "srcdir=$PWD" >> $env:GITHUB_OUTPUT
       shell: pwsh
 
-    # Setup Rubisco.
-    - name: 📁 Setup Rubisco.
+    # Build Rubisco.
+    - name: 📦 Build Rubisco.
       run: |
+        $Env:RUBISCO_FRONTEND="nointeractive"
         Set-Location "$env:GITHUB_ACTION_PATH"
-        pip install -r requirements.txt -r requirements-dev.txt
+        pip install .
         python -m rubisco build
         pip install --upgrade pip
         pip install dist/*.whl

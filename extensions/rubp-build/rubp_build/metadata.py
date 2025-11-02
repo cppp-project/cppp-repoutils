@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -26,6 +26,7 @@ from typing import cast
 from pygit2 import GitError  # pylint: disable=E0611
 from pygit2.repository import Repository
 from rubisco.shared.api.kernel import Maintainer, RUConfiguration
+from rubisco.shared.api.variable import get_dict_check
 
 from rubp_build.deps import generate_dependencies
 from rubp_build.logger import logger
@@ -61,35 +62,83 @@ class RUBPMatadata:  # pylint: disable=R0902
     def from_json(cls, json: RUConfiguration) -> "RUBPMatadata":
         """Create RUBPMatadata from json."""
         logger.info("Loading metadata from %s", json.path)
-        deps = json.get("deps", default=[], valtype=list[str | dict[str, str]])
-        # Canonicalize deps.
-        deps = [
-            cast("dict[str, str]", d) if isinstance(d, dict) else {"name": d}
-            for d in deps
-        ]
-        deps.extend(generate_dependencies(json))
-        maintainers = list(
-            json.get(
-                "maintainers",
+        deps = cast(
+            "list[str | dict[str, str]]",
+            get_dict_check(
+                json.config,
+                "deps",
+                valtype=list[str | dict[str, str]],
                 default=[],
-                valtype=list[str] | list[dict[str, str]],
             ),
         )
-        maintainer = json.get("maintainer", default=None, valtype=str | None)
+        # Canonicalize deps.
+        deps = [d if isinstance(d, dict) else {"name": d} for d in deps]
+        deps.extend(generate_dependencies(json))
+        maintainers = cast(
+            "list[str | dict[str, str | None]]",
+            get_dict_check(
+                json.config,
+                "maintainers",
+                valtype=list[str | dict[str, str]],
+                default=[],
+            ),
+        )
+        maintainer: str | None = cast(
+            "str | None",
+            get_dict_check(
+                json.config,
+                "maintainer",
+                valtype=str | None,
+                default=None,
+            ),
+        )
         if maintainer:
             maintainers.append(maintainer)
 
         return cls(
-            name=json.get("name", valtype=str),
-            version=json.get("version", valtype=str),
-            description=json.get("description", valtype=str),
+            name=cast("str", get_dict_check(json.config, "name", valtype=str)),
+            version=cast(
+                "str",
+                get_dict_check(json.config, "version", valtype=str),
+            ),
+            description=cast(
+                "str",
+                get_dict_check(json.config, "description", valtype=str),
+            ),
             maintainers=[Maintainer.parse(m) for m in maintainers],
             versions=load_versions(json, cls.open_repo(json.path.parent)),
-            license=json.get("license", valtype=str),
-            homepage=json.get("homepage", valtype=str),
-            tags=json.get("tags", default=[], valtype=list[str]),
+            license=cast(
+                "str",
+                get_dict_check(json.config, "license", valtype=str),
+            ),
+            homepage=cast(
+                "str | None",
+                get_dict_check(
+                    json.config,
+                    "homepage",
+                    valtype=str | None,
+                    default=None,
+                ),
+            ),
+            tags=cast(
+                "list[str]",
+                get_dict_check(
+                    json.config,
+                    "tags",
+                    default=[],
+                    valtype=list[str],
+                ),
+            ),
             deps=deps,
-            latest_release=json.get("latest-release", valtype=str),
+            latest_release=cast(
+                "str | None",
+                get_dict_check(
+                    json.config,
+                    "latest-release",
+                    valtype=str | None,
+                    default=None,
+                ),
+            ),
         )
 
     def to_dict(self) -> dict[str, object]:

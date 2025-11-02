@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -25,14 +25,16 @@ from typing import Any, TextIO
 
 import json5 as json
 import yaml
+from beartype import beartype
 
 from rubisco.config import DEFAULT_CHARSET
 from rubisco.lib.exceptions import RUValueError
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
-from rubisco.lib.variable import AutoFormatDict
+from rubisco.lib.typecheck import type_assert
 from rubisco.lib.variable.fast_format_str import fast_format_str
-from rubisco.lib.variable.utils import make_pretty
+from rubisco.lib.variable.format import format_auto
+from rubisco.lib.variable.utils import make_pretty, merge_dict
 
 __all__ = ["SUPPORTED_EXTS", "RUConfiguration"]
 
@@ -44,28 +46,33 @@ def _toml_loadfunc(f: TextIO) -> dict[str, Any]:
 SUPPORTED_EXTS = {".json", ".json5", ".cfg", ".toml", ".ini", ".yml", ".yaml"}
 
 
-class RUConfiguration(AutoFormatDict):
+class RUConfiguration:
     """Rubisco configuration."""
 
     path: Path
+    config: dict[str, object]
 
-    def __init__(self, path: Path, init: AutoFormatDict) -> None:
+    def __init__(
+        self,
+        path: Path | None = None,
+        init: dict[str, object] | None = None,
+    ) -> None:
         """Initialize configuration.
 
         Args:
-            path (Path): Config file path.
-            init (AutoFormatDict): Initial data.
+            path (Path | None): Config file path.
+            init (dict[str, object] | None): Initial data.
 
         """
-        super().__init__(init)
-        self.path = path
+        self.config = init or {}
+        self.path = path or Path()
 
     @classmethod
     def __load_from_file(
         cls,
         path: Path,
         loaded: list[Path],
-    ) -> "RUConfiguration":
+    ) -> dict[str, object]:
         with path.open(encoding=DEFAULT_CHARSET) as f:
             if path.suffix in {".json", ".json5"}:
                 loadfunc = json.load
@@ -87,39 +94,39 @@ class RUConfiguration(AutoFormatDict):
                 )
 
             logger.debug("Loading config file as '%s': %s", filetype, path)
-            afd = RUConfiguration(path, AutoFormatDict(loadfunc(f)))
-            includes: list[str] = afd.get(
-                "includes",
-                default=[],
+            mapping = type_assert(loadfunc(f), dict[str, object])
+            includes: list[str] = format_auto(
+                mapping.get("includes", []),
                 valtype=list[str],
             )
             loaded.append(path)
             for file in includes:
                 fp = path.parent / file
-                afd.merge(cls._load_from_file(fp, loaded))
+                merge_dict(mapping, cls.__load_from_file(fp, loaded))
 
-        return afd
+        return mapping
 
     @classmethod
     def _load_from_file(
         cls,
         path: Path,
         loaded: list[Path],
-    ) -> "RUConfiguration":
+    ) -> dict[str, object]:
         path = path.resolve()
         if path in loaded:
             logger.warning("Circular dependency detected: %s", path)
-            return RUConfiguration(path, AutoFormatDict({}))
-        afd = cls.__load_from_file(path, loaded)
+            return {}
+        mapping = cls.__load_from_file(path, loaded)
 
         dirpath = Path(str(path) + ".d")
         if dirpath.is_dir():
             for file in dirpath.rglob("*"):
                 if file.is_file():
-                    afd.merge(cls.__load_from_file(file, loaded))
+                    merge_dict(mapping, cls.__load_from_file(file, loaded))
 
-        return afd
+        return mapping
 
+    @beartype
     @classmethod
     def load_from_file(cls, path: Path) -> "RUConfiguration":
         """Load configuration from file.
@@ -135,5 +142,19 @@ class RUConfiguration(AutoFormatDict):
             for ext in SUPPORTED_EXTS:
                 p = path.with_suffix(ext)
                 if p.is_file():
-                    return cls._load_from_file(p, [])
-        return cls._load_from_file(path, [])
+                    return cls(p, cls._load_from_file(p, []))
+        return cls(path, cls._load_from_file(path, []))
+
+    @beartype
+    def merge(self, other: "dict[str, object] | RUConfiguration") -> None:
+        """Merge other configuration to this configuration.
+
+        Args:
+            other (dict[str, object] | RUConfiguration): The other
+                configuration mapping or RUConfiguration object.
+
+        """
+        if isinstance(other, RUConfiguration):
+            merge_dict(self.config, other.config)
+        else:
+            merge_dict(self.config, other)

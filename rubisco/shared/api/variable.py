@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -22,40 +22,61 @@
 from typing import Any
 
 from rubisco.lib.stack import Stack
-from rubisco.lib.variable import (
-    AutoFormatDict,
-    AutoFormatList,
-    add_undefined_var_callback,
-    assert_iter_types,
+from rubisco.lib.typecheck import (
+    ValType,
+    get_dict_check,
+    get_list_check,
+    is_instance,
+    rubisco_isinstance,
+    type_assert,
+)
+from rubisco.lib.variable.builtin_vars import init_builtin_vars
+from rubisco.lib.variable.callbacks import add_undefined_var_callback
+from rubisco.lib.variable.fast_format_str import fast_format_str
+from rubisco.lib.variable.format import (
+    FormatMode,
+    format_auto,
+    format_dict,
+    format_list,
     format_str,
+)
+from rubisco.lib.variable.pyexpr_sandbox import eval_pyexpr
+from rubisco.lib.variable.utils import make_pretty, merge_dict
+from rubisco.lib.variable.var_container import VariableContainer
+from rubisco.lib.variable.variable import (
     get_variable,
-    iter_assert,
-    make_pretty,
     pop_variables,
     push_variables,
 )
-from rubisco.lib.variable import (
+from rubisco.lib.variable.variable import (
     variables as _variables,
 )
-from rubisco.lib.variable.fast_format_str import fast_format_str
-from rubisco.lib.variable.var_container import VariableContainer
 
 __all__ = [
-    "AutoFormatDict",
-    "AutoFormatList",
+    "FormatMode",
+    "ValType",
     "VariableContainer",
     "add_undefined_var_callback",
-    "assert_iter_types",
+    "eval_pyexpr",
     "fast_format_str",
+    "format_auto",
+    "format_dict",
+    "format_list",
     "format_str",
+    "get_dict_check",
+    "get_list_check",
     "get_orig_variables",
     "get_variable",
     "get_variables",
     "get_variables",
-    "iter_assert",
+    "init_builtin_vars",
+    "is_instance",
     "make_pretty",
+    "merge_dict",
     "pop_variables",
     "push_variables",
+    "rubisco_isinstance",
+    "type_assert",
 ]
 
 

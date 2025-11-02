@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -32,7 +32,7 @@ from typing import TYPE_CHECKING, Any
 from rubisco.lib.exceptions import RUValueError
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
-from rubisco.lib.variable import format_str
+from rubisco.lib.variable.fast_format_str import fast_format_str
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -42,7 +42,6 @@ if TYPE_CHECKING:
     from rubisco.kernel.project_config.project_config import ProjectConfigration
     from rubisco.kernel.workflow.step import Step, Workflow
     from rubisco.lib.process import Process
-    from rubisco.lib.variable.autoformatdict import AutoFormatDict
     from rubisco.lib.version import Version
     from rubisco.shared.extension import IRUExtension
 
@@ -330,20 +329,20 @@ class IKernelTrigger:  # pylint: disable=too-many-public-methods
         """
         _null_trigger("post_run_workflow", workflow=workflow)
 
-    def pre_run_matrix(self, *, variables: AutoFormatDict) -> None:
+    def pre_run_matrix(self, *, variables: dict[str, object]) -> None:
         """When a matrix job is started.
 
         Args:
-            variables (AutoFormatDict): The variables.
+            variables (dict[str, object]): The variables.
 
         """
         _null_trigger("pre_run_matrix", variables=variables)
 
-    def post_run_matrix(self, *, variables: AutoFormatDict) -> None:
+    def post_run_matrix(self, *, variables: dict[str, object]) -> None:
         """When a matrix job is finished.
 
         Args:
-            variables (AutoFormatDict): The variables.
+            variables (dict[str, object]): The variables.
 
         """
         _null_trigger("post_run_matrix", variables=variables)
@@ -711,6 +710,7 @@ class IKernelTrigger:  # pylint: disable=too-many-public-methods
         """
         _null_trigger("on_leaving_dir", path=path)
 
+
 # KTrigger instances.
 ktriggers: dict[str, IKernelTrigger] = {}
 
@@ -729,7 +729,7 @@ def bind_ktrigger_interface(kid: str, instance: IKernelTrigger) -> None:
     """
     if kid in ktriggers:
         raise RUValueError(
-            format_str(
+            fast_format_str(
                 _("Kernel trigger id '${{name}}' is already exists."),
                 fmt={"name": kid},
             ),

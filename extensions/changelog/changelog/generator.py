@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -20,27 +20,29 @@
 """Rubisco changelog generator."""
 
 import datetime
+from collections.abc import Generator
 from dataclasses import dataclass
 from pathlib import Path
 
-from pygit2 import (  # pylint: disable=E0611
-    GIT_SORT_TIME,
+from pygit2 import (
     Commit,
     GitError,
     Repository,
 )
+from pygit2.enums import SortMode
 from rubisco.config import DEFAULT_CHARSET
 from rubisco.shared.api.exception import RUError, RUValueError
 from rubisco.shared.api.kernel import load_project_config
 from rubisco.shared.api.l10n import _
+from rubisco.shared.api.uci import ProgressTask
+from rubisco.shared.api.utils import Process
 from rubisco.shared.api.variable import (
-    AutoFormatDict,
+    FormatMode,
     VariableContainer,
     fast_format_str,
-    format_str,
+    format_auto,
     make_pretty,
 )
-from rubisco.shared.api.uci import ProgressTask
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
 from changelog.config import CHANGELOG_FORMAT, TIME_FORMAT
@@ -53,7 +55,7 @@ __all__ = ["gen_project_changelog"]
 class ChangeLogNode:  # pylint: disable=R0902
     """A node in the changelog linked list."""
 
-    config: AutoFormatDict
+    config: dict[str, object]
     commit_id: str
     message: str
     added_lines: int
@@ -67,10 +69,10 @@ class ChangeLogNode:  # pylint: disable=R0902
 
     def get_time_str(self) -> str:
         """Get the time string of the commit."""
-        time_format = self.config.get(
-            "changelog-time-format",
-            TIME_FORMAT,
+        time_format = format_auto(
+            self.config.get("changelog-time-format", TIME_FORMAT),
             valtype=str,
+            mode=FormatMode.EXECUTE,
         )
 
         datetime_str = datetime.datetime.fromtimestamp(
@@ -100,17 +102,17 @@ class ChangeLogNode:  # pylint: disable=R0902
                 "removed-lines": self.removed_lines,
             },
         ):
-            return self.config.get(
-                "changelog-format",
-                format_str(CHANGELOG_FORMAT),
+            return format_auto(
+                self.config.get("changelog-format", CHANGELOG_FORMAT),
                 valtype=str,
+                mode=FormatMode.EXECUTE,
             )
 
 
 def _gen_changelog_from_commit(
     commit: Commit,
     prev_commit: Commit | None,
-    config: AutoFormatDict,
+    config: dict[str, object],
 ) -> ChangeLogNode:
     prev_tree = prev_commit.tree if prev_commit and prev_commit.tree else None
     diff = (
@@ -144,15 +146,44 @@ def _gen_changelog_from_commit(
     )
 
 
+def _try_count_commit(
+    repo_path: Path,
+    branch_name: str,
+) -> int:
+    out, err, ret = Process(
+        ["git", "rev-list", "--count", branch_name],
+        cwd=repo_path,
+    ).popen(stderr=0, show_step=False)
+    if ret != 0:
+        msg = fast_format_str(
+            _("Failed to count commits for repo ${{repo}}: ${{err}}"),
+            fmt={"repo": make_pretty(repo_path), "err": err.strip()},
+        )
+        call_ktrigger(IKernelTrigger.on_warning, message=msg)
+        return -1
+    try:
+        count = int(out.strip())
+    except ValueError:
+        msg = fast_format_str(
+            _("Failed to parse commit count for repo ${{repo}}: ${{out}}"),
+            fmt={"repo": make_pretty(repo_path), "out": out.strip()},
+        )
+        call_ktrigger(IKernelTrigger.on_warning, message=msg)
+        return -1
+    return count
+
+
 def gen_changelog(
     repo: Repository,
-    config: AutoFormatDict,
+    config: dict[str, object],
+    repo_path: Path,
 ) -> ChangeLogNode | None:
     """Generate a changelog from the repository.
 
     Args:
         repo (Repository): The pygit2 repository object.
-        config (AutoFormatDict): Project configuration for formatting.
+        config (dict[str, object]): Project configuration for formatting.
+        repo_path (Path): The path to the repository.
 
     Returns:
         ChangeLogNode: The head of the changelog linked list.
@@ -168,58 +199,58 @@ def gen_changelog(
     current_node = None
     prev_commit = None
 
+    total = _try_count_commit(repo_path, current_branch_name)
+
     with ProgressTask(
         title=_("Generating changelog"),
         msg=fast_format_str(
             _("Generating changelog for ${{repo}} ..."),
             fmt={"repo": make_pretty(repo_path)},
         ),
-        total=current_branch.target.count(),
-    )
-    for commit in repo.walk(
-        current_branch.target,
-        GIT_SORT_TIME,  # type: ignore[reportArgumentType]
-    ):
-        new_node = _gen_changelog_from_commit(commit, prev_commit, config)
+        total=total,
+    ) as task:
+        for commit in repo.walk(current_branch.target, SortMode.TIME):
+            task.update(current=1, is_advance=True)
+            new_node = _gen_changelog_from_commit(commit, prev_commit, config)
 
-        if head_node is None:
-            head_node = new_node
-            current_node = new_node
-        else:
-            if not current_node:
-                msg = "This should never happen."
-                raise AssertionError(msg)
-            current_node.next = new_node
-            current_node = new_node
+            if head_node is None:
+                head_node = new_node
+                current_node = new_node
+            else:
+                if not current_node:
+                    msg = "This should never happen."
+                    raise AssertionError(msg)
+                current_node.next = new_node
+                current_node = new_node
 
-        prev_commit = commit
+            prev_commit = commit
 
     return head_node
 
 
 def gen_repo_changelog(
     repo_path: Path,
-    config: AutoFormatDict,
-) -> str:
+    config: dict[str, object],
+) -> Generator[str, None, None]:
     """Generate a changelog from the repository path.
 
     Args:
         repo_path (Path): The path to the repository.
-        config (AutoFormatDict): Project configuration for formatting.
+        config (dict[str, object]): Project configuration for formatting.
 
     Returns:
-        str: The formatted changelog as a string.
+        Generator[str, None, None]: Generator yielding the changelog string.
 
     """
     res = ""
     try:
         repo = Repository(str(repo_path.resolve()))
-        head_node = gen_changelog(repo, config)
+        head_node = gen_changelog(repo, config, repo_path)
         current_node = head_node
         while current_node:
             res += str(current_node) + "\n\n"
             current_node = current_node.next
-        return res.strip() + "\n"
+        yield res.strip()
     except GitError as e:
         msg = fast_format_str(
             _("Failed to generate changelog: ${{exc}}"),
@@ -240,7 +271,7 @@ def gen_project_changelog(
 
     """
     try:
-        config = load_project_config(repo_path).config
+        config = load_project_config(repo_path).config.config
     except (RUError, OSError) as e:
         logger.warning(
             "Not a valid Rubisco project: %s: %s",
@@ -250,7 +281,7 @@ def gen_project_changelog(
         )
         config = None
         call_ktrigger(
-            IKernelTrigger.on_warning,
+            IKernelTrigger.on_hint,
             message=fast_format_str(
                 _(
                     "Directory ${{repo}} is not a valid Rubisco project, "
@@ -260,9 +291,10 @@ def gen_project_changelog(
             ),
         )
     if config is None:
-        config = AutoFormatDict()
+        config = {}
 
     data = gen_repo_changelog(repo_path, config)
 
     with output_path.open("w", encoding=DEFAULT_CHARSET) as f:
-        f.write(data)
+        for chunk in data:
+            f.write(chunk + "\n")

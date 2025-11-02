@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -22,16 +22,13 @@
 from __future__ import annotations
 
 import math
-from typing import TypeVar, cast
+from typing import cast
 
 import json5
 
 from rubisco.lib.exceptions import RUTypeError
 from rubisco.lib.l10n import _
 from rubisco.lib.variable.fast_format_str import fast_format_str
-from rubisco.lib.variable.typecheck import AutoFormatDict
-
-T = TypeVar("T")
 
 
 def _size_to_int(  # noqa: PLR0911 PLR0912 C901 # pylint: disable=R0911, R0912
@@ -83,7 +80,7 @@ def _size_to_int(  # noqa: PLR0911 PLR0912 C901 # pylint: disable=R0911, R0912
     return int(value, base=0)
 
 
-def convert_to(  # noqa: PLR0911 C901  # pylint: disable=R0911
+def convert_to[T](  # noqa: PLR0911 C901  # pylint: disable=R0911
     value: str | T,
     as_type: type[T],
 ) -> T:
@@ -127,7 +124,7 @@ def convert_to(  # noqa: PLR0911 C901  # pylint: disable=R0911
     if as_type is set:
         return cast("T", set(value_.split(",")))
     if as_type is dict:
-        return cast("T", AutoFormatDict(json5.loads(value_)))
+        return cast("T", json5.loads(value_))
     raise RUTypeError(
         fast_format_str(
             _("Cannot convert value ${{value}} to type ${{type}}"),

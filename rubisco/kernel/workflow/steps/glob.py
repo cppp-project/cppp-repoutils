@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -21,11 +21,10 @@
 
 import glob
 from pathlib import Path
+from typing import cast
 
 from rubisco.kernel.workflow.step import Step
-from rubisco.lib.exceptions import RUValueError
-from rubisco.lib.l10n import _
-from rubisco.lib.variable.utils import assert_iter_types
+from rubisco.lib.variable.format import FormatMode, format_auto
 from rubisco.lib.variable.variable import push_variables
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
@@ -53,101 +52,172 @@ class GlobFileStep(Step):  # pylint: disable=R0902
 
     def init(self) -> None:
         """Initialize the step."""
-        patterns = self.raw_data.get("glob", valtype=str | list)
-        exclude_patterns = self.raw_data.get("excludes", [], valtype=str | list)
+        patterns = cast(
+            "list[str]",
+            format_auto(
+                self.raw_data["glob"],
+                mode=FormatMode.EXECUTE,
+                valtype=str | list,
+            ),
+        )
+        exclude_patterns = cast(
+            "list[str]",
+            format_auto(
+                self.raw_data.get("excludes", []),
+                mode=FormatMode.EXECUTE,
+                valtype=str | list,
+            ),
+        )
 
-        if isinstance(patterns, str):
-            self.patterns = [patterns]
-        else:
-            assert_iter_types(
-                patterns,
-                str,
-                RUValueError(_("The glob item must be a string.")),
-            )
-            self.patterns = patterns
+        self.patterns = [patterns] if isinstance(patterns, str) else patterns
 
-        if isinstance(exclude_patterns, str):
-            self.exclude_patterns = [exclude_patterns]
-        else:
-            assert_iter_types(
+        self.exclude_patterns = (
+            [exclude_patterns]
+            if isinstance(
                 exclude_patterns,
                 str,
-                RUValueError(_("The glob item must be a string.")),
             )
-            self.exclude_patterns = exclude_patterns
+            else exclude_patterns
+        )
 
-        self.root_dir = self.raw_data.get(
-            "root",
-            default=None,
-            valtype=str | None,
+        self.root_dir = cast(
+            "str | None",
+            format_auto(
+                self.raw_data.get("root", None),
+                mode=FormatMode.EXECUTE,
+                valtype=str | None,
+            ),
         )
-        self.save_to = self.raw_data.get(
-            "save-to",
-            default=None,
-            valtype=str | None,
+        self.save_to = cast(
+            "str | None",
+            format_auto(
+                self.raw_data.get("save-to", None),
+                mode=FormatMode.EXECUTE,
+                valtype=str | None,
+            ),
         )
-        self.recursive = self.raw_data.get(
-            "recursive",
-            default=True,
-            valtype=bool,
+        self.recursive = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("recursive", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
-        self.include_hidden = self.raw_data.get(
-            "include-hidden",
-            default=True,
-            valtype=bool,
+        self.include_hidden = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("include-hidden", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
-        self.include_regular_files = self.raw_data.get(
-            "regular",
-            default=True,
-            valtype=bool,
+        self.include_regular_files = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("regular", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
-        self.include_directories = self.raw_data.get(
-            "dirs",
-            default=True,
-            valtype=bool,
+        self.include_directories = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("dirs", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
-        self.include_symlinks = self.raw_data.get(
-            "symlinks",
-            default=True,
-            valtype=bool,
+        self.include_symlinks = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("symlinks", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
-        self.include_hardlinks = self.raw_data.get(
-            "hardlinks",
-            default=True,
-            valtype=bool,
+        self.include_hardlinks = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("hardlinks", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
-        self.include_fifos = self.raw_data.get(
-            "fifos",
-            default=True,
-            valtype=bool,
+        self.include_directories = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("dirs", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
-        self.include_sockets = self.raw_data.get(
-            "sockets",
-            default=True,
-            valtype=bool,
+        self.include_symlinks = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("symlinks", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
-        self.include_block_devices = self.raw_data.get(
-            "block-devices",
-            default=True,
-            valtype=bool,
+        self.include_hardlinks = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("hardlinks", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
-        self.include_char_devices = self.raw_data.get(
-            "char-devices",
-            default=True,
-            valtype=bool,
+        self.include_fifos = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("fifos", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
-        devices = self.raw_data.get(
-            "devices",
-            default=True,
-            valtype=bool,
+        self.include_sockets = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("sockets", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
+        )
+        self.include_block_devices = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("block-devices", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
+        )
+        self.include_char_devices = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("char-devices", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
+        )
+        devices = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("devices", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
         if devices:
             self.include_block_devices = True
             self.include_char_devices = True
-        self.include_mountpoints = self.raw_data.get(
-            "mountpoints",
-            default=True,
-            valtype=bool,
+        self.include_mountpoints = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("mountpoints", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
         )
 
     def _need_ignore(self, path: Path) -> bool:
@@ -167,15 +237,17 @@ class GlobFileStep(Step):  # pylint: disable=R0902
         """Run the step."""
         selected: list[Path] = []
         for pattern in self.patterns:
-            selected.extend([
-                Path(src).absolute()
-                for src in glob.glob(  # noqa: PTH207
-                    pattern,
-                    root_dir=self.root_dir,
-                    recursive=self.recursive,
-                    include_hidden=self.include_hidden,
-                )
-            ])
+            selected.extend(
+                [
+                    Path(src).absolute()
+                    for src in glob.glob(  # noqa: PTH207
+                        pattern,
+                        root_dir=self.root_dir,
+                        recursive=self.recursive,
+                        include_hidden=self.include_hidden,
+                    )
+                ],
+            )
         excludes: list[Path] = []
         for pattern in self.exclude_patterns:
             excludes.extend(

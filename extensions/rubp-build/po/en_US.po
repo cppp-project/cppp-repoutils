@@ -1,5 +1,5 @@
 # English translations for rubp-build package.
-# Copyright (C) 2025 The C++ Plus Project.
+# Copyright (C) 2025 THE rubp-build'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the rubp-build package.
 # YiFei Chen <wushengwuxi-msctinoulk@outlook.com>, 2025.
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rubp-build 0.1.0\n"
 "Report-Msgid-Bugs-To: wushengwuxi-msctinoulk@outlook.com\n"
-"POT-Creation-Date: 2025-08-10 15:32+0800\n"
-"PO-Revision-Date: 2025-08-11 21:22+0800\n"
+"POT-Creation-Date: 2025-11-02 09:25+0800\n"
+"PO-Revision-Date: 2025-11-02 10:37+0800\n"
 "Last-Translator: YiFei Chen <wushengwuxi-msctinoulk@outlook.com>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -38,19 +38,15 @@ msgstr "Get RuBP metadata."
 msgid "Tag '${{tag}}' not found."
 msgstr "Tag '${{tag}}' not found."
 
-#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:97
-msgid "`dependencies` must be list of string"
-msgstr "`dependencies` must be list of string"
-
-#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:125
+#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:165
 msgid "No readme file found."
 msgstr "No readme file found."
 
-#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:151
+#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:191
 msgid "No license file found."
 msgstr "No license file found."
 
-#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:176
+#: /workspaces/cppp/rubisco/extensions/rubp-build/rubp_build/packaging.py:216
 msgid "Generating requirements.txt from ${{path}} ..."
 msgstr "Generating requirements.txt from ${{path}} ..."
 

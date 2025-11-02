@@ -20,7 +20,7 @@
 """SetvarStep, PopvarStep implementation."""
 
 from rubisco.kernel.workflow.step import Step
-from rubisco.lib.variable.format import format_str
+from rubisco.lib.variable.format import FormatMode, format_auto, format_str
 from rubisco.lib.variable.variable import pop_variables, push_variables
 
 __all__ = ["PopvarStep", "SetvarStep"]
@@ -31,17 +31,39 @@ class SetvarStep(Step):
 
     var_name: str
     var_value: object
+    format_recursive: bool  # If true, format the value if it is a list or dict.
 
     def init(self) -> None:
         """Initialize the step."""
-        self.var_name = self.raw_data.get("var", valtype=str)
-        self.var_value = self.raw_data.get("value", valtype=object)
+        self.var_name = format_auto(
+            self.raw_data["var"],
+            mode=FormatMode.EXECUTE,
+            valtype=str,
+        )
+        self.format_recursive = format_auto(
+            self.raw_data.get("format-recursive", True),
+            mode=FormatMode.EXECUTE,
+            valtype=bool,
+        )
+        # Format it later, when it is used.
+        # But I don't know why I have to do this.
+        self.var_value = self.raw_data["value"]
 
     def run(self) -> None:
         """Run the step."""
         push_variables(
             self.var_name,
-            format_str(self.var_value),
+            format_auto(
+                self.var_value,
+                mode=FormatMode.EXECUTE,
+                valtype=object,
+            )
+            if not self.format_recursive
+            else format_str(
+                self.var_value,
+                mode=FormatMode.EXECUTE,
+                valtype=object,
+            ),
         )
 
 
@@ -52,7 +74,11 @@ class PopvarStep(Step):
 
     def init(self) -> None:
         """Initialize the step."""
-        self.var_name = self.raw_data.get("popvar", valtype=str)
+        self.var_name = format_auto(
+            self.raw_data["popvar"],
+            mode=FormatMode.EXECUTE,
+            valtype=str,
+        )
 
     def run(self) -> None:
         """Run the step."""

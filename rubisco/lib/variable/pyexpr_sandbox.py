@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -26,24 +26,12 @@ from collections.abc import Callable
 from types import ModuleType
 from typing import Any, NoReturn
 
-from rubisco.lib.exceptions import RUError
+from rubisco.lib.exceptions import RUEvalError, RUFunctionDisallowedError
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
 from rubisco.lib.variable.variable import get_variable, has_variable, variables
 
-__all__ = [
-    "RUEvalError",
-    "RUFunctionDisallowedError",
-    "eval_pyexpr",
-]
-
-
-class RUFunctionDisallowedError(RUError):
-    """Raise when a function is disallowed in a python expression."""
-
-
-class RUEvalError(RUError):
-    """Raise when a python expression eval failed."""
+__all__ = ["eval_pyexpr"]
 
 
 def _copy_builtins() -> object:
@@ -126,7 +114,7 @@ def eval_pyexpr(expr: str) -> Any:  # noqa: ANN401
         )
     except RUFunctionDisallowedError:
         raise
-    except Exception as exc:
+    except (Exception, SystemExit, KeyboardInterrupt) as exc:
         raise RUEvalError(
             _("Eval python expression failed: ${{expr}}: ${{exc}}")
             .replace(

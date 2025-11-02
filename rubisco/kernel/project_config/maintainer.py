@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@ from dataclasses import dataclass
 from beartype import beartype
 
 from rubisco.lib.log import logger
-from rubisco.lib.variable.autoformatdict import AutoFormatDict
+from rubisco.lib.typecheck import get_dict_check
 
 _PATTERN = re.compile(r"^([^<(]+?)(?:\s*<([^>]+)>)?(?:\s*\(([^)]+)\))?$")
 
@@ -44,11 +44,14 @@ class Maintainer:
 
     @classmethod
     @beartype
-    def parse(cls, text: str | AutoFormatDict) -> "Maintainer":
+    def parse(
+        cls,
+        text: str | dict[str, str | None],
+    ) -> "Maintainer":
         """Parse maintainer text.
 
         Args:
-            text (str | AutoFormatDict): The maintainer text or dict.
+            text (str | dict[str, str | None]): The maintainer text or dict.
 
         Returns:
             Maintainer: Maintainer object.
@@ -67,9 +70,23 @@ class Maintainer:
                 email = None
                 homepage = None
         else:
-            name = text.get("name", valtype=str)
-            email = text.get("email", default=None, valtype=str | None)
-            homepage = text.get("homepage", default=None, valtype=str | None)
+            name = str(get_dict_check(text, "name", valtype=str))
+            email = str(
+                get_dict_check(
+                    text,
+                    "email",
+                    default=None,
+                    valtype=str | None,
+                ),
+            )
+            homepage = str(
+                get_dict_check(
+                    text,
+                    "homepage",
+                    default=None,
+                    valtype=str | None,
+                ),
+            )
         return Maintainer(name=name, email=email, homepage=homepage)
 
     def to_dict(self) -> dict[str, object]:

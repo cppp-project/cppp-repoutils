@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -20,21 +20,18 @@
 """Rubisco command event args and options class."""
 
 from dataclasses import dataclass, field
-from typing import Generic, TypeVar
 
 from rubisco.lib.exceptions import RUTypeError, RUValueError
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
+from rubisco.lib.typecheck import is_instance
 from rubisco.lib.variable.fast_format_str import fast_format_str
-from rubisco.lib.variable.typecheck import is_instance
 
 __all__ = ["Argument", "DynamicArguments", "Option", "load_callback_args"]
 
-T = TypeVar("T")
-
 
 @dataclass
-class OptionOrArgument(Generic[T]):  # pylint: disable=R0902
+class OptionOrArgument[T]:  # pylint: disable=R0902
     """Option or argument class.
 
     This is the base class for option and argument. It is used to store the
@@ -182,7 +179,7 @@ class OptionOrArgument(Generic[T]):  # pylint: disable=R0902
         self._frozen = False
 
 
-class Option(OptionOrArgument[T], Generic[T]):
+class Option[T](OptionOrArgument[T]):  # pylint: disable=R0903
     """Option class.
 
     Options is a key-value pair. It is used to pass non-positional and named
@@ -203,7 +200,7 @@ class Option(OptionOrArgument[T], Generic[T]):
 
 
 @dataclass
-class Argument(OptionOrArgument[T], Generic[T]):
+class Argument[T](OptionOrArgument[T]):
     """Argument class.
 
     Arguments is a positional argument. It is used to pass positional arguments
@@ -328,11 +325,7 @@ class DynamicArguments:  # pylint: disable=R0902
         self._frozen = False
 
 
-OT = TypeVar("OT")
-AT = TypeVar("AT")
-
-
-def load_callback_args(
+def load_callback_args[OT, AT](
     options: list[Option[OT]],
     args: list[Argument[AT]],
 ) -> tuple[dict[str, OT], list[AT]]:

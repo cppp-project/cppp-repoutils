@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -20,10 +20,12 @@
 """ExtensionLoadStep implementation."""
 
 from pathlib import Path
+from typing import cast
 
 from rubisco.envutils.env import GLOBAL_ENV, USER_ENV, WORKSPACE_ENV
 from rubisco.kernel.workflow._interfaces import WorkflowInterfaces
 from rubisco.kernel.workflow.step import Step
+from rubisco.lib.variable.format import FormatMode, format_auto
 
 __all__ = ["ExtensionLoadStep"]
 
@@ -35,7 +37,16 @@ class ExtensionLoadStep(Step):
 
     def init(self) -> None:
         """Initialize the step."""
-        self.path = Path(self.raw_data.get("extension", valtype=str))
+        self.path = Path(
+            cast(
+                "str",
+                format_auto(
+                    self.raw_data["extension"],
+                    mode=FormatMode.EXECUTE,
+                    valtype=str,
+                ),
+            ),
+        )
 
     def run(self) -> None:
         """Run the step."""

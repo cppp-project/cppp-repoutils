@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -21,9 +21,9 @@
 
 import glob
 from pathlib import Path
+from typing import cast
 
 from rubisco.kernel.workflow.step import Step
-from rubisco.lib.exceptions import RUValueError
 from rubisco.lib.fileutil import (
     assert_rel_path,
     check_file_exists,
@@ -32,7 +32,7 @@ from rubisco.lib.fileutil import (
 )
 from rubisco.lib.l10n import _
 from rubisco.lib.variable.fast_format_str import fast_format_str
-from rubisco.lib.variable.utils import assert_iter_types
+from rubisco.lib.variable.format import FormatMode, format_auto
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
 __all__ = ["CopyFileStep"]
@@ -49,29 +49,50 @@ class CopyFileStep(Step):
 
     def init(self) -> None:
         """Initialize the step."""
-        srcs = self.raw_data.get("copy", valtype=str | list)
-        self.dst = Path(self.raw_data.get("to", valtype=str))
-
-        if isinstance(srcs, str):
-            self.srcs = [srcs]
-        else:
-            assert_iter_types(
-                srcs,
-                str,
-                RUValueError(_("The copy item must be a string.")),
-            )
-            self.srcs = srcs
-
-        self.overwrite = self.raw_data.get("overwrite", True, valtype=bool)
-        self.keep_symlinks = self.raw_data.get(
-            "keep-symlinks",
-            False,
-            valtype=bool,
+        srcs = cast(
+            "str | list[str]",
+            format_auto(
+                self.raw_data["copy"],
+                mode=FormatMode.EXECUTE,
+                valtype=str | list,
+            ),
         )
-        self.excludes = self.raw_data.get(
-            "excludes",
-            None,
-            valtype=list | None,
+        self.dst = Path(
+            cast(
+                "str",
+                format_auto(
+                    self.raw_data["to"],
+                    mode=FormatMode.EXECUTE,
+                    valtype=str,
+                ),
+            ),
+        )
+
+        self.srcs = [srcs] if isinstance(srcs, str) else srcs
+
+        self.overwrite = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("overwrite", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
+        )
+        self.keep_symlinks = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("keep-symlinks", False),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
+        )
+        self.excludes = cast(
+            "list[str] | None",
+            format_auto(
+                self.raw_data.get("excludes", None),
+                mode=FormatMode.EXECUTE,
+                valtype=list[str] | None,
+            ),
         )
 
     def run(self) -> None:

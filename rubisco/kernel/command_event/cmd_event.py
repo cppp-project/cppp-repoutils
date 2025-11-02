@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -21,7 +21,6 @@
 
 Event object is internal object for a event. It's like a object in file system.
 """
-
 
 from dataclasses import dataclass, field
 from pathlib import PurePosixPath
@@ -426,7 +425,7 @@ class EventObject:
         for callback in file_data.callbacks:
             compiled_args: list[Argument[Any]] = []
             for arg in args:
-                compiled_arg = Argument(
+                compiled_arg = Argument[Any](
                     name=file_data_args.name,
                     title=file_data_args.title,
                     description=file_data_args.description,

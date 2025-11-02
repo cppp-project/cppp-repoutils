@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -32,6 +32,40 @@ from rubisco.lib.version import Version
 APP_NAME = "rubisco"
 APP_VERSION = Version((0, 1, 0))
 MINIMUM_PYTHON_VERSION = (3, 11)
+
+# Generated constants.
+STDOUT_IS_TTY = sys.stdout.isatty()
+PROGRAM_PATH = Path(sys.argv[0]).resolve()  # pylint: disable=C0103
+if not sys.argv[0]:
+    PROGRAM_PATH = Path(__file__).resolve().parent  # pylint: disable=C0103 # type: ignore[arg-type]
+
+# If the program is running in a packed environment. (e.g. PyInstaller)
+IS_PACKED = getattr(sys, "frozen", False) or hasattr(sys, "_MEIPASS")
+
+PYTHON_PATH = None if IS_PACKED else Path(sys.executable).resolve()
+
+RUBISCO_COMMAND = (
+    command(str(PROGRAM_PATH))
+    if IS_PACKED
+    else command(
+        [str(PYTHON_PATH), str(PROGRAM_PATH)],
+    )
+)
+
+PROGRAM_DIR = PROGRAM_PATH.parent.absolute()
+
+# Global directories on Windows.
+if os.name == "nt":
+    RUBISCO_GLOBAL_LOCAL_DIR = PROGRAM_DIR
+    RUBISCO_GLOBAL_CONFIG_DIR = PROGRAM_DIR / "config"
+    GLOBAL_CONFIG_FILE = RUBISCO_GLOBAL_CONFIG_DIR / "config.json"
+    GLOBAL_EXTENSIONS_VENV_DIR = RUBISCO_GLOBAL_LOCAL_DIR / "extensions"
+else:
+    # Global directories on Linux and macOS.
+    RUBISCO_GLOBAL_LOCAL_DIR = Path("/usr/local/lib") / APP_NAME
+    RUBISCO_GLOBAL_CONFIG_DIR = Path("/etc") / APP_NAME
+    GLOBAL_CONFIG_FILE = RUBISCO_GLOBAL_CONFIG_DIR / "config.json"
+    GLOBAL_EXTENSIONS_VENV_DIR = RUBISCO_GLOBAL_LOCAL_DIR / "extensions"
 
 # I18n configurations.
 TEXT_DOMAIN = APP_NAME
@@ -72,20 +106,17 @@ if sys.platform == "win32":
         os.getenv("LOCALAPPDATA", Path.home() / "AppData" / "Local"),
     )
     RUBISCO_USER_LOCAL_DIR = USER_LOCAL_DIR / APP_NAME
+    USER_CONFIG_DIR = Path(
+        os.getenv("APPDATA", Path.home() / "AppData" / "Roaming"),
+    )
+    RUBISCO_USER_CONFIG_DIR = USER_CONFIG_DIR / APP_NAME
 else:
     USER_LOCAL_DIR = Path.home() / ".local" / "share"
     RUBISCO_USER_LOCAL_DIR = USER_LOCAL_DIR / APP_NAME
-RUBISCO_USER_CONFIG_DIR = USER_LOCAL_DIR / "config" / APP_NAME
-USER_CONFIG_FILE = USER_LOCAL_DIR / "config.json"
+    USER_CONFIG_DIR = Path.home() / ".config"
+    RUBISCO_USER_CONFIG_DIR = USER_CONFIG_DIR / APP_NAME
+USER_CONFIG_FILE = RUBISCO_USER_CONFIG_DIR / "config.json"
 USER_EXTENSIONS_VENV_DIR = RUBISCO_USER_LOCAL_DIR / "extensions"
-
-# Global directories on Linux and macOS.
-# Override it on Windows later.
-RUBISCO_GLOBAL_LOCAL_DIR = Path("/usr/local/lib") / APP_NAME
-RUBISCO_GLOBAL_CONFIG_DIR = Path("/etc") / APP_NAME
-GLOBAL_CONFIG_FILE = RUBISCO_GLOBAL_CONFIG_DIR / "config.json"
-GLOBAL_EXTENSIONS_VENV_DIR = RUBISCO_GLOBAL_LOCAL_DIR / "extensions"
-
 
 # Logging configurations.
 # We don't need to absolute the path because rubisco supports '--root'
@@ -97,34 +128,6 @@ LOG_TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 LOG_LEVEL = "DEBUG"
 PIP_LOG_FILE = WORKSPACE_CONFIG_DIR / "pip.log"
 DEFAULT_LOG_KEEP_LINES = 5000
-
-# Constants that are not configurable.
-STDOUT_IS_TTY = sys.stdout.isatty()
-PROGRAM_PATH = Path(sys.argv[0]).resolve()
-if not sys.argv[0]:
-    PROGRAM_PATH = Path(__file__).resolve().parent  # type: ignore[arg-type]
-
-# If the program is running in a packed environment. (e.g. PyInstaller)
-IS_PACKED = getattr(sys, "frozen", False) or hasattr(sys, "_MEIPASS")
-
-PYTHON_PATH = None if IS_PACKED else Path(sys.executable).resolve()
-
-RUBISCO_COMMAND = (
-    command(str(PROGRAM_PATH))
-    if IS_PACKED
-    else command(
-        [str(PYTHON_PATH), str(PROGRAM_PATH)],
-    )
-)
-
-PROGRAM_DIR = PROGRAM_PATH.parent.absolute()
-
-# Global directories on Windows.
-if os.name == "nt":
-    RUBISCO_GLOBAL_LOCAL_DIR = PROGRAM_DIR
-    RUBISCO_GLOBAL_CONFIG_DIR = PROGRAM_DIR / "config"
-    GLOBAL_CONFIG_FILE = RUBISCO_GLOBAL_CONFIG_DIR / "config.json"
-    GLOBAL_EXTENSIONS_VENV_DIR = RUBISCO_GLOBAL_LOCAL_DIR / "extensions"
 
 # RuBP packaging configurations.
 RUBP_METADATA_FILE_NAME = f"{APP_NAME}.json"

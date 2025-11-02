@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -20,6 +20,7 @@
 """EchoStep implementation."""
 
 from rubisco.kernel.workflow.step import Step
+from rubisco.lib.variable.format import FormatMode, format_auto
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
 __all__ = ["EchoStep", "OutputStep"]
@@ -34,9 +35,9 @@ class EchoStep(Step):
         """Initialize the step."""
         msg = self.raw_data.get("output", None)
         if msg is None:
-            msg = self.raw_data.get("echo", None)
+            msg = self.raw_data["echo"]
 
-        self.msg = str(msg)
+        self.msg = str(format_auto(msg, mode=FormatMode.EXECUTE))
 
     def run(self) -> None:
         """Run the step."""

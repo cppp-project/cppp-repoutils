@@ -1,6 +1,6 @@
 # Chinese translations for subpackages package
 # subpackages 软件包的简体中文翻译.
-# Copyright (C) 2025 THE subpackages'S COPYRIGHT HOLDER
+# Copyright (C) 2025 The C++ Plus Project.
 # This file is distributed under the same license as the subpackages package.
 # YiFei Chen <wushengwuxi-msctinoulk@outlook.com>, 2025.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: subpackages 0.1.0\n"
 "Report-Msgid-Bugs-To: wushengwuxi-msctinoulk@outlook.com\n"
-"POT-Creation-Date: 2025-08-11 20:29+0800\n"
+"POT-Creation-Date: 2025-11-02 11:01+0800\n"
 "PO-Revision-Date: 2025-08-11 21:02+0800\n"
 "Last-Translator: YiFei Chen <wushengwuxi-msctinoulk@outlook.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -95,22 +95,26 @@ msgstr "递归"
 msgid "List subpackages recursively."
 msgstr "递归列出子软件包。"
 
-#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/package.py:132
+#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/package.py:129
 msgid "Subpackage ${{name}} does not exist."
 msgstr "子软件包 ${{name}} 不存在。"
 
-#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/package.py:135
+#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/package.py:132
 msgid "Please fetch the subpackage ITSELF first."
 msgstr "请先获取子软件包自身。"
 
-#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/package.py:180
+#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/package.py:179
 msgid "Subpackage reference ${{name}} is not a dict."
 msgstr "子软件包引用 ${{name}} 不是字典。"
 
-#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/package.py:193
+#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/package.py:199
 msgid "Subpackage reference ${{name}} has no path."
 msgstr "子软件包引用 ${{name}} 没有路径。"
 
-#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/steps.py:48
+#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/steps.py:51
 msgid "Missing URL for fetching subpackages."
 msgstr "获取子软件包时缺少 URL。"
+
+#: /workspaces/cppp/rubisco/extensions/subpackages/subpackages/steps.py:62
+msgid "Missing path for fetching subpackages."
+msgstr "获取子软件包时缺少路径。"

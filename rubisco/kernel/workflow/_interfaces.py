@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -22,13 +22,11 @@
 To avoid circular import, we use the protocol to define the interface.
 """
 
-
 from pathlib import Path
 from typing import ClassVar, Protocol, runtime_checkable
 
 from rubisco.envutils.env import RUEnvironment
 from rubisco.envutils.packages import ExtensionPackageInfo
-from rubisco.lib.variable.autoformatdict import AutoFormatDict
 
 __all__ = ["WorkflowInterfaces"]
 
@@ -80,7 +78,7 @@ class WorkflowInterfaces:
             *,
             fail_fast: bool = True,
             chdir: Path | None = None,
-        ) -> Exception | None: ...
+        ) -> BaseException | None: ...
 
     _run_workflow: ClassVar[_RunWorkflowFunction] = _notimplemented
 
@@ -108,11 +106,11 @@ class WorkflowInterfaces:
     class _RunInlineWorkflowFunction(Protocol):  # pylint: disable=R0903
         def __call__(
             self,
-            data: AutoFormatDict | list[AutoFormatDict],
+            data: dict[str, object] | list[dict[str, object]],
             default_id: str,
             *,
             fail_fast: bool = True,
-        ) -> Exception | None: ...
+        ) -> BaseException | None: ...
 
     _run_inline_workflow: ClassVar[_RunInlineWorkflowFunction] = _notimplemented
 

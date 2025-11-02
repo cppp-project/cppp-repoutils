@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -24,6 +24,7 @@ from pathlib import Path
 
 from rubisco.kernel.workflow.step import Step
 from rubisco.lib.fileutil import assert_rel_path, check_file_exists
+from rubisco.lib.variable.format import FormatMode, format_auto
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
 __all__ = ["MoveFileStep"]
@@ -37,8 +38,20 @@ class MoveFileStep(Step):
 
     def init(self) -> None:
         """Initialize the step."""
-        self.src = Path(self.raw_data.get("move", valtype=str))
-        self.dst = Path(self.raw_data.get("to", valtype=str))
+        self.src = Path(
+            format_auto(
+                self.raw_data["move"],
+                mode=FormatMode.EXECUTE,
+                valtype=str,
+            ),
+        )
+        self.dst = Path(
+            format_auto(
+                self.raw_data["to"],
+                mode=FormatMode.EXECUTE,
+                valtype=str,
+            ),
+        )
 
     def run(self) -> None:
         """Run the step."""

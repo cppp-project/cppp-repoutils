@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -17,18 +17,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Test rubisco.lib.variable.typecheck module."""
+"""Test rubisco.lib.typecheck.typecheck module."""
 
 from types import EllipsisType, NoneType
 from typing import Any
 
 import pytest
 
-from rubisco.lib.variable.typecheck import (
-    AutoFormatDict,
-    AutoFormatList,
-    is_instance,
-)
+from rubisco.lib.typecheck import is_instance
 
 
 class TestIsInstance:
@@ -49,25 +45,7 @@ class TestIsInstance:
             or not is_instance([], list)
             or not is_instance((), tuple)
             or not is_instance(set(), set)
-            or not is_instance(AutoFormatDict(), dict)
         ):
-            pytest.fail("Type check failed.")
-        if not is_instance(AutoFormatList(), list):
-            pytest.fail("Type check failed.")
-
-    def test_autoformat_types(self) -> None:
-        """Test for autoformat types."""
-        if not is_instance(AutoFormatDict(), dict):
-            pytest.fail("Type check failed.")
-        if not is_instance(AutoFormatList(), list):
-            pytest.fail("Type check failed.")
-        if not is_instance(AutoFormatDict(), AutoFormatDict):
-            pytest.fail("Type check failed.")
-        if not is_instance(AutoFormatList(), AutoFormatList):
-            pytest.fail("Type check failed.")
-        if not is_instance({}, AutoFormatDict):
-            pytest.fail("Type check failed.")
-        if not is_instance([], AutoFormatList):
             pytest.fail("Type check failed.")
 
     def test_union_type(self) -> None:
@@ -79,6 +57,10 @@ class TestIsInstance:
         if not is_instance(None, NoneType | None):
             pytest.fail("Type check failed.")
         if not is_instance(..., EllipsisType | None):
+            pytest.fail("Type check failed.")
+        if not is_instance(1, int | str) or not is_instance("", int | str):
+            pytest.fail("Type check failed.")
+        if is_instance([], int | str):
             pytest.fail("Type check failed.")
 
     def test_generic_alias(self) -> None:
@@ -121,11 +103,6 @@ class TestIsInstance:
             pytest.fail("Type check failed.")
         if not is_instance({"a": 1, "b": None}, dict[str, int | None]):
             pytest.fail("Type check failed.")
-        if not is_instance(
-            {"a": 1, "b": None},
-            AutoFormatDict,
-        ):
-            pytest.fail("Type check failed.")
 
     def test_nested(self) -> None:
         """Test nested."""
@@ -161,4 +138,23 @@ class TestIsInstance:
         if not is_instance(..., object):
             pytest.fail("Type check failed.")
         if not is_instance(Any, object):
+            pytest.fail("Type check failed.")
+
+    def test_unmatched(self) -> None:
+        """Test unmatched types."""
+        if is_instance(1, list):
+            pytest.fail("Type check failed.")
+        if is_instance("test", list[None]):
+            pytest.fail("Type check failed.")
+        if is_instance(None, list[int | str]):
+            pytest.fail("Type check failed.")
+        if not is_instance([1, 2, 3], list[int | str]):
+            pytest.fail("Type check failed.")
+        if is_instance(
+            {
+                "a": {"b": [(1, 2, 3), None]},
+                "c": 1,
+            },
+            dict[str, int],
+        ):
             pytest.fail("Type check failed.")

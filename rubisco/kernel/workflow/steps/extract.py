@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -20,9 +20,11 @@
 """ExtractStep implementation."""
 
 from pathlib import Path
+from typing import cast
 
 from rubisco.kernel.workflow.step import Step
 from rubisco.lib.archive import extract
+from rubisco.lib.variable.format import FormatMode, format_auto
 
 __all__ = ["ExtractStep"]
 
@@ -38,15 +40,50 @@ class ExtractStep(Step):
 
     def init(self) -> None:
         """Initialize the step."""
-        self.src = Path(self.raw_data.get("extract", valtype=str))
-        self.dst = Path(self.raw_data.get("to", valtype=str))
-        self.compress_format = self.raw_data.get(
-            "type",
-            None,
-            valtype=str | None,
+        self.src = Path(
+            cast(
+                "str",
+                format_auto(
+                    self.raw_data["extract"],
+                    mode=FormatMode.EXECUTE,
+                    valtype=str,
+                ),
+            ),
         )
-        self.overwrite = self.raw_data.get("overwrite", True, valtype=bool)
-        self.password = self.raw_data.get("password", None, valtype=str | None)
+        self.dst = Path(
+            cast(
+                "str",
+                format_auto(
+                    self.raw_data["to"],
+                    mode=FormatMode.EXECUTE,
+                    valtype=str,
+                ),
+            ),
+        )
+        self.compress_format = cast(
+            "str | None",
+            format_auto(
+                self.raw_data.get("type", None),
+                mode=FormatMode.EXECUTE,
+                valtype=str | None,
+            ),
+        )
+        self.overwrite = cast(
+            "bool",
+            format_auto(
+                self.raw_data.get("overwrite", True),
+                mode=FormatMode.EXECUTE,
+                valtype=bool,
+            ),
+        )
+        self.password = cast(
+            "str | None",
+            format_auto(
+                self.raw_data.get("password", None),
+                mode=FormatMode.EXECUTE,
+                valtype=str | None,
+            ),
+        )
 
     def run(self) -> None:
         """Run the step."""

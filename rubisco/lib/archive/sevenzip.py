@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@ from rubisco.kernel.config_file import config_file
 from rubisco.lib.archive.utils import get_includes, write_to_archive
 from rubisco.lib.fileutil import check_file_exists, rm_recursive
 from rubisco.lib.l10n import _
+from rubisco.lib.typecheck import get_dict_check
 from rubisco.lib.variable.fast_format_str import fast_format_str
 from rubisco.lib.variable.utils import make_pretty
 from rubisco.shared.ktrigger import (
@@ -67,7 +68,14 @@ def extract_7z(
 
         task_name = _("Extracting")
 
-        verbose = config_file.get("verbose", False, valtype=bool)
+        verbose = bool(
+            get_dict_check(
+                config_file.config,
+                "verbose",
+                valtype=bool,
+                default=False,
+            ),
+        )
 
         class _ExtractCallback(py7zr.callbacks.ExtractCallback):
             end: bool = False

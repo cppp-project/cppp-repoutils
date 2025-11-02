@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -27,9 +27,9 @@ from typing import TYPE_CHECKING, cast
 from pygit2.repository import Repository
 from rubisco.config import LOG_TIME_FORMAT
 from rubisco.kernel.config_loader import RUConfiguration
-from rubisco.lib.exceptions import RUValueError
-from rubisco.lib.l10n import _
-from rubisco.lib.variable.fast_format_str import fast_format_str
+from rubisco.shared.api.exception import RUValueError
+from rubisco.shared.api.l10n import _
+from rubisco.shared.api.variable import fast_format_str, format_auto
 from tzlocal import get_localzone
 
 if TYPE_CHECKING:
@@ -85,7 +85,7 @@ def get_tag_time(repo: Repository, tag_name: str) -> int:
     """
     tag_ref = f"refs/tags/{tag_name}"
     try:
-        ref = repo.references.get(tag_ref)
+        ref = repo.references[tag_ref]
     except KeyError as exc:
         msg = fast_format_str(
             _("Tag '${{tag}}' not found."),
@@ -117,7 +117,12 @@ def load_versions(
 
     """
     if repo is None:
-        version_list: set[str] = {project_config.get("version", valtype=str)}
+        version_list: set[str] = {
+            format_auto(
+                project_config.config["version"],
+                valtype=str,
+            ),
+        }
     else:
         version_list: set[str] = set()
         tags_list = (

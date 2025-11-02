@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -23,6 +23,7 @@ from pathlib import Path
 
 from rubisco.kernel.workflow.step import Step
 from rubisco.lib.process import Process
+from rubisco.lib.variable.format import FormatMode, format_auto
 from rubisco.lib.variable.variable import push_variables
 
 __all__ = ["PopenStep"]
@@ -31,7 +32,7 @@ __all__ = ["PopenStep"]
 class PopenStep(Step):
     """Read the output of a shell command."""
 
-    cmd: str
+    cmd: str | list[object]
     cwd: Path
     fail_on_error: bool
     stdout: bool
@@ -39,16 +40,34 @@ class PopenStep(Step):
 
     def init(self) -> None:
         """Initialize the step."""
-        self.cmd = self.raw_data.get("popen", valtype=str)
+        self.cmd = format_auto(
+            self.raw_data["popen"],
+            mode=FormatMode.EXECUTE,
+            valtype=str | list[object],
+        )
 
-        self.cwd = Path(self.raw_data.get("cwd", "", valtype=str))
-        self.fail_on_error = self.raw_data.get(
-            "fail-on-error",
-            True,
+        self.cwd = Path(
+            format_auto(
+                self.raw_data.get("cwd", "."),
+                mode=FormatMode.EXECUTE,
+                valtype=str,
+            ),
+        )
+        self.fail_on_error = format_auto(
+            self.raw_data.get("fail-on-error", True),
+            mode=FormatMode.EXECUTE,
             valtype=bool,
         )
-        self.stdout = self.raw_data.get("stdout", True, valtype=bool)
-        stderr_mode = self.raw_data.get("stderr", True, valtype=bool | str)
+        self.stdout = format_auto(
+            self.raw_data.get("stdout", True),
+            mode=FormatMode.EXECUTE,
+            valtype=bool,
+        )
+        stderr_mode = format_auto(
+            self.raw_data.get("stderr", True),
+            mode=FormatMode.EXECUTE,
+            valtype=bool | str,
+        )
         if stderr_mode is True:
             self.stderr = 1
         elif stderr_mode is False:

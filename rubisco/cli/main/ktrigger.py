@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -55,8 +55,8 @@ from rubisco.lib.l10n import _, locale_language, locale_language_name
 from rubisco.lib.log import logger
 from rubisco.lib.speedtest import C_INTMAX
 from rubisco.lib.tree import Tree as RUTree
-from rubisco.lib.variable import make_pretty
 from rubisco.lib.variable.fast_format_str import fast_format_str
+from rubisco.lib.variable.utils import make_pretty
 from rubisco.shared.ktrigger import (
     IKernelTrigger,
 )
@@ -70,7 +70,6 @@ if TYPE_CHECKING:
     from rubisco.kernel.workflow.step import Step
     from rubisco.kernel.workflow.workflow import Workflow
     from rubisco.lib.process import Process
-    from rubisco.lib.variable.autoformatdict import AutoFormatDict
     from rubisco.lib.version import Version
     from rubisco.shared.extension import IRUExtension
 
@@ -420,8 +419,8 @@ class RubiscoKTrigger(  # pylint: disable=too-many-public-methods
                 ),
             )
 
-    def pre_run_matrix(self, *, variables: AutoFormatDict) -> None:
-        if not config_file.get("verbose", False):
+    def pre_run_matrix(self, *, variables: dict[str, object]) -> None:
+        if not config_file.config.get("verbose", False):
             output_step(_("Running matrix jobs ..."))
             push_level()
             return
@@ -434,7 +433,7 @@ class RubiscoKTrigger(  # pylint: disable=too-many-public-methods
     def post_run_matrix(
         self,
         *,
-        variables: AutoFormatDict,  # noqa: ARG002
+        variables: dict[str, object],  # noqa: ARG002
     ) -> None:
         pop_level()
 
@@ -499,7 +498,7 @@ class RubiscoKTrigger(  # pylint: disable=too-many-public-methods
         )
 
     def on_file_selected(self, *, path: Path) -> None:
-        if not config_file.get("verbose", False):
+        if not config_file.config.get("verbose", False):
             return
 
         output_step(
@@ -515,7 +514,7 @@ class RubiscoKTrigger(  # pylint: disable=too-many-public-methods
         instance: IRUExtension,  # noqa: ARG002
         ext_info: ExtensionPackageInfo,
     ) -> None:
-        if not config_file.get("verbose", False):
+        if not config_file.config.get("verbose", False):
             return
 
         output_step(

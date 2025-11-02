@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -24,6 +24,7 @@ from typing import Any
 
 from rubisco.kernel.workflow.step import Step
 from rubisco.lib.process import Process
+from rubisco.lib.variable.format import FormatMode, format_auto
 from rubisco.lib.variable.variable import push_variables
 
 __all__ = ["ShellExecStep"]
@@ -38,11 +39,21 @@ class ShellExecStep(Step):
 
     def init(self) -> None:
         """Initialize the step."""
-        self.cmd = self.raw_data.get("run", valtype=str | list)
-        self.cwd = Path(self.raw_data.get("cwd", "", valtype=str))
-        self.fail_on_error = self.raw_data.get(
-            "fail-on-error",
-            default=True,
+        self.cmd = format_auto(
+            self.raw_data["run"],
+            mode=FormatMode.EXECUTE,
+            valtype=str | list,
+        )
+        self.cwd = Path(
+            format_auto(
+                self.raw_data.get("cwd", "."),
+                mode=FormatMode.EXECUTE,
+                valtype=str,
+            ),
+        )
+        self.fail_on_error = format_auto(
+            self.raw_data.get("fail-on-error", True),
+            mode=FormatMode.EXECUTE,
             valtype=bool,
         )
 

@@ -9,6 +9,9 @@
     "build": {
       "run": ".rubisco/build.yaml"
     },
+    "pot": {
+      "run": ".rubisco/pot.yaml"
+    },
     "format": {
       "exec": "python -m ruff format rubisco"
     },

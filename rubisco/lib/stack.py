@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -21,15 +21,12 @@
 
 from queue import Empty, LifoQueue
 from time import time
-from typing import Any, Generic, TypeVar
+from typing import Any
 
 __all__ = ["Stack"]
 
 
-T = TypeVar("T")
-
-
-class Stack(LifoQueue[T], Generic[T]):
+class Stack[T](LifoQueue[T]):
     """A LifoQueue that can get the top value."""
 
     def top(

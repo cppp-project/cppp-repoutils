@@ -141,4 +141,4 @@ result.json
 \#*#
 
 # rubp-build binary directory.
-.bindir
+.bindir/

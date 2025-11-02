@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -18,7 +18,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """Rubisco built-in variables."""
-
 
 import os
 import platform
@@ -48,6 +47,9 @@ def init_builtin_vars() -> None:
     push_variables("host.version", uname_result.version)
     push_variables("host.machine", uname_result.machine)
     push_variables("host.processor", uname_result.processor)
+    push_variables("python.executable", sys.executable)
+    push_variables("python.version", platform.python_version())
+    push_variables("python.impl", platform.python_implementation())
     if shutil.which("python"):
         push_variables("python", "python")
     else:

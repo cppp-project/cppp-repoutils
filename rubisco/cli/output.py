@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -31,7 +31,6 @@ from beartype.roar import BeartypeException
 from rubisco.lib.exceptions import RUError
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
-from rubisco.lib.variable import AFTypeError
 from rubisco.lib.variable.fast_format_str import fast_format_str
 
 __all__ = [
@@ -251,7 +250,7 @@ def show_exception(  # noqa: C901
     if isinstance(exc, BeartypeException):
         perror = output_line
 
-    if isinstance(exc, RUError | ValueError | AFTypeError | AssertionError):
+    if isinstance(exc, RUError | ValueError | AssertionError):
         if not message:
             message = _("Unknown error.")
         perror(message)

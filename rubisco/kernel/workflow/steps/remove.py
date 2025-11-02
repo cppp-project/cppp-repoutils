@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -23,10 +23,8 @@ import glob
 from pathlib import Path
 
 from rubisco.kernel.workflow.step import Step
-from rubisco.lib.exceptions import RUValueError
 from rubisco.lib.fileutil import rm_recursive
-from rubisco.lib.l10n import _
-from rubisco.lib.variable.utils import assert_iter_types
+from rubisco.lib.variable.format import FormatMode, format_auto
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
 __all__ = ["RemoveStep"]
@@ -44,23 +42,23 @@ class RemoveStep(Step):
 
     def init(self) -> None:
         """Initialize the step."""
-        remove = self.raw_data.get("remove", valtype=str | list)
-        if isinstance(remove, str):
-            self.globs = [remove]
-        else:
-            assert_iter_types(
-                remove,
-                str,
-                RUValueError(_("The remove item must be a string.")),
-            )
-            self.globs = remove
+        remove = format_auto(
+            self.raw_data["remove"],
+            mode=FormatMode.EXECUTE,
+            valtype=str | list[str],
+        )
+        self.globs = [remove] if isinstance(remove, str) else remove
 
-        self.include_hidden = self.raw_data.get(
-            "include-hidden",
-            False,
+        self.include_hidden = format_auto(
+            self.raw_data.get("include-hidden", False),
+            mode=FormatMode.EXECUTE,
             valtype=bool,
         )
-        self.excludes = self.raw_data.get("excludes", [], valtype=list)
+        self.excludes = format_auto(
+            self.raw_data.get("excludes", []),
+            mode=FormatMode.EXECUTE,
+            valtype=list[str],
+        )
 
     def run(self) -> None:
         """Run the step."""

@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -45,8 +45,9 @@ from rubisco.config import (
 from rubisco.lib.exceptions import RUNotRubiscoProjectError
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
-from rubisco.lib.variable import make_pretty
+from rubisco.lib.variable.builtin_vars import init_builtin_vars
 from rubisco.lib.variable.fast_format_str import fast_format_str
+from rubisco.lib.variable.utils import make_pretty
 from rubisco.shared.extension import load_all_extensions
 from rubisco.shared.ktrigger import (
     bind_ktrigger_interface,
@@ -85,6 +86,7 @@ def parse_early_arguments() -> None:
 def main() -> None:
     """Rubisco main entry point."""
     try:
+        init_builtin_vars()
         clean_logfile()
         logger.info("Rubisco CLI version %s started.", str(APP_VERSION))
         colorama.init()

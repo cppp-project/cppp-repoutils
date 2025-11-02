@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rubisco 0.1.0\n"
-"Report-Msgid-Bugs-To: cpppteam@email.cn\n"
-"POT-Creation-Date: 2025-08-11 20:29+0800\n"
+"Report-Msgid-Bugs-To: wushengwuxi-msctinoulk@outlook.com\n"
+"POT-Creation-Date: 2025-11-02 11:41+0800\n"
 "PO-Revision-Date: 2025-08-11 21:26+0800\n"
 "Last-Translator: YiFei Chen <wushengwuxi-msctinoulk@outlook.com>\n"
 "Language-Team: English\n"
@@ -17,1079 +17,1114 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../rubisco/kernel/project_config/hook.py:75
-msgid "Hook '${{name}}' is invalid."
-msgstr "Hook '${{name}}' is invalid."
-
-#: ../rubisco/kernel/project_config/hook.py:79
-msgid "A workflow [yellow]must[/yellow] contain at least 'exec', 'run' or 'workflow'."
-msgstr "A workflow [yellow]must[/yellow] contain at least 'exec', 'run' or 'workflow'."
-
-#: ../rubisco/kernel/project_config/project_config.py:86
-msgid "The minimum version of rubisco required by the project [underline][link=${{uri}}]${{name}}[/link][/underline]' is '[cyan]${{version}}[/cyan]'."
-msgstr "The minimum version of rubisco required by the project [underline][link=${{uri}}]${{name}}[/link][/underline]' is '[cyan]${{version}}[/cyan]'."
-
-#: ../rubisco/kernel/project_config/project_config.py:93
-#: ../rubisco/kernel/workflow/step.py:92
-#: ../rubisco/kernel/workflow/workflow.py:150
-#: ../rubisco/kernel/workflow/workflow.py:151
-msgid "<Unnamed>"
-msgstr "<Unnamed>"
-
-#: ../rubisco/kernel/project_config/project_config.py:97
-msgid "Please upgrade rubisco to the required version."
-msgstr "Please upgrade rubisco to the required version."
-
-#: ../rubisco/kernel/project_config/project_config.py:108
-msgid "Project configuration file '${{path}}' is not found."
-msgstr "Project configuration file '${{path}}' is not found."
-
-#: ../rubisco/kernel/project_config/project_config.py:164
-msgid "Hooks must be a dictionary."
-msgstr "Hooks must be a dictionary."
-
-#: ../rubisco/kernel/command_event/event_file_data.py:84
-msgid "Invalid args count of EventFileData: ${{ data }}"
-msgstr "Invalid args count of EventFileData: ${{ data }}"
-
-#: ../rubisco/kernel/command_event/event_types.py:60
-msgid "Directory"
-msgstr "Directory"
-
-#: ../rubisco/kernel/command_event/event_types.py:62
-msgid "File"
-msgstr "File"
-
-#: ../rubisco/kernel/command_event/event_types.py:64
-msgid "Alias"
-msgstr "Alias"
-
-#: ../rubisco/kernel/command_event/event_types.py:66
-msgid "Mount point"
-msgstr "Mount point"
-
-#: ../rubisco/kernel/command_event/args.py:76
-msgid "Missing required option: ${{name}}."
-msgstr "Missing required option: ${{name}}."
-
-#: ../rubisco/kernel/command_event/args.py:78
-msgid "Missing required argument: ${{name}}."
-msgstr "Missing required argument: ${{name}}."
-
-#: ../rubisco/kernel/command_event/args.py:84
-#: ../rubisco/kernel/command_event/args.py:111
-msgid "The option `${{name}}` is not the type `${{type}}`."
-msgstr "The option `${{name}}` is not the type `${{type}}`."
-
-#: ../rubisco/kernel/command_event/args.py:86
-#: ../rubisco/kernel/command_event/args.py:113
-msgid "The argument `${{name}}` is not the type `${{type}}`."
-msgstr "The argument `${{name}}` is not the type `${{type}}`."
-
-#: ../rubisco/kernel/command_event/args.py:125
-msgid "The option `${{name}}` is readonly now."
-msgstr "The option `${{name}}` is readonly now."
-
-#: ../rubisco/kernel/command_event/args.py:127
-#: ../rubisco/kernel/command_event/args.py:286
-msgid "The argument `${{name}}` is readonly now."
-msgstr "The argument `${{name}}` is readonly now."
-
-#: ../rubisco/kernel/command_event/args.py:252
-msgid "The minimum count of `${{name}}` must be greater than or equal to 0."
-msgstr "The minimum count of `${{name}}` must be greater than or equal to 0."
-
-#: ../rubisco/kernel/command_event/args.py:262
-msgid "The maximum count of `${{name}}` must be greater than the minimum count of `${{name}}`."
-msgstr "The maximum count of `${{name}}` must be greater than the minimum count of `${{name}}`."
-
-#: ../rubisco/kernel/command_event/cmd_event.py:224
-#: ../rubisco/kernel/command_event/cmd_event.py:242
-#: ../rubisco/kernel/command_event/cmd_event.py:260
-#: ../rubisco/kernel/command_event/cmd_event.py:278
-#: ../rubisco/kernel/command_event/cmd_event.py:296
-#: ../rubisco/kernel/command_event/cmd_event.py:318
-msgid "The node ${{name}} is not a event directory."
-msgstr "The node ${{name}} is not a event directory."
-
-#: ../rubisco/kernel/command_event/cmd_event.py:380
-msgid "The option ${{name}} does not exist."
-msgstr "The option ${{name}} does not exist."
-
-#: ../rubisco/kernel/command_event/cmd_event.py:394
-msgid "The node ${{name}} is not a file."
-msgstr "The node ${{name}} is not a file."
-
-#: ../rubisco/kernel/command_event/cmd_event.py:412
-msgid "The number of arguments is less than ${{mincount}}."
-msgstr "The number of arguments is less than ${{mincount}}."
-
-#: ../rubisco/kernel/command_event/cmd_event.py:420
-msgid "The number of arguments is more than ${{maxcount}}."
-msgstr "The number of arguments is more than ${{maxcount}}."
-
-#: ../rubisco/kernel/command_event/cmd_event.py:457
-#: ../rubisco/kernel/command_event/event_path.py:120
-#: ../rubisco/kernel/command_event/event_path.py:293
-msgid "Not a directory: ${{path}}."
-msgstr "Not a directory: ${{path}}."
-
-#: ../rubisco/kernel/command_event/cmd_event.py:499
-msgid "The number of arguments is not correct. Expected ${{expected}}, got ${{got}}."
-msgstr "The number of arguments is not correct. Expected ${{expected}}, got ${{got}}."
-
-#: ../rubisco/kernel/command_event/cmd_event.py:534
-msgid "The node ${{path}} is not a file."
-msgstr "The node ${{path}} is not a file."
-
-#: ../rubisco/kernel/command_event/event_path.py:145
-#: ../rubisco/kernel/command_event/event_path.py:278
-msgid "No such event: ${{path}}."
-msgstr "No such event: ${{path}}."
-
-#: ../rubisco/kernel/command_event/event_path.py:284
-msgid "Rubisco command event filesystem does not support recursive creation of directories. You must create the parent directory first because you must set the description explicitly."
-msgstr "Rubisco command event filesystem does not support recursive creation of directories. You must create the parent directory first because you must set the description explicitly."
-
-#: ../rubisco/kernel/command_event/event_path.py:329
-#: ../rubisco/kernel/command_event/event_path.py:379
-#: ../rubisco/kernel/command_event/event_path.py:448
-#: ../rubisco/kernel/command_event/event_path.py:482
-msgid "File exists: ${{path}}"
-msgstr "File exists: ${{path}}"
-
-#: ../rubisco/kernel/command_event/event_path.py:426
-msgid "Not a file: ${{path}}"
-msgstr "Not a file: ${{path}}"
-
-#: ../rubisco/kernel/command_event/cefs_fstab.py:79
-msgid "Parsing failed: {{line}}"
-msgstr "Parsing failed: {{line}}"
-
-#: ../rubisco/kernel/command_event/register.py:58
-msgid "You can only register callbacks to files."
-msgstr "You can only register callbacks to files."
-
-#: ../rubisco/kernel/command_event/register.py:68
-msgid "You must register callbacks to files."
-msgstr "You must register callbacks to files."
-
-#: ../rubisco/kernel/mirrorlist.py:146
+#: /workspaces/cppp/rubisco/rubisco/kernel/mirrorlist.py:151
 msgid "Recursion detected in mirrorlist: '${{name}}'"
 msgstr "Recursion detected in mirrorlist: '${{name}}'"
 
-#: ../rubisco/kernel/mirrorlist.py:150
+#: /workspaces/cppp/rubisco/rubisco/kernel/mirrorlist.py:155
 msgid "Please check your [underline]mirrorlist.json[/underline] file in workspace, user or global config directory."
 msgstr "Please check your [underline]mirrorlist.json[/underline] file in workspace, user or global config directory."
 
-#: ../rubisco/kernel/mirrorlist.py:197
+#: /workspaces/cppp/rubisco/rubisco/kernel/mirrorlist.py:203
 msgid "All mirrors are unreachable or canceled. Switching to official [underline][blue]${{url}}[/blue][/underline] ..."
 msgstr "All mirrors are unreachable or canceled. Switching to official [underline][blue]${{url}}[/blue][/underline] ..."
 
-#: ../rubisco/kernel/mirrorlist.py:206 ../rubisco/lib/l10n.py:79
-#: ../rubisco/envutils/env.py:250
+#: /workspaces/cppp/rubisco/rubisco/kernel/mirrorlist.py:213
+#: /workspaces/cppp/rubisco/rubisco/lib/l10n.py:79
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:250
 msgid "Unknown"
 msgstr "Unknown"
 
-#: ../rubisco/kernel/mirrorlist.py:257
+#: /workspaces/cppp/rubisco/rubisco/kernel/mirrorlist.py:264
 msgid "Mirror '${{p}}/${{site}}/${{mirror}}' not found."
 msgstr "Mirror '${{p}}/${{site}}/${{mirror}}' not found."
 
-#: ../rubisco/kernel/mirrorlist.py:269
-msgid "Mirror '${{mirror}}' is not a string."
-msgstr "Mirror '${{mirror}}' is not a string."
-
-#: ../rubisco/kernel/mirrorlist.py:284
+#: /workspaces/cppp/rubisco/rubisco/kernel/mirrorlist.py:284
 msgid "Source '${{protocol}}/${{website}}/${{name}}' not found."
 msgstr "Source '${{protocol}}/${{website}}/${{name}}' not found."
 
-#: ../rubisco/kernel/workflow/__init__.py:61
-msgid "Step type '${{name}}' registered multiple times. This may cause unexpected behavior. It's unsafe."
-msgstr "Step type '${{name}}' registered multiple times. This may cause unexpected behavior. It's unsafe."
-
-#: ../rubisco/kernel/workflow/__init__.py:109
-msgid "Workflow running failed: ${{exc}}"
-msgstr "Workflow running failed: ${{exc}}"
-
-#: ../rubisco/kernel/workflow/__init__.py:159
-msgid "The suffix of ${{path}} is invalid."
-msgstr "The suffix of ${{path}} is invalid."
-
-#: ../rubisco/kernel/workflow/__init__.py:164
-msgid "We only support '.json', '.json5', '.yaml', '.yml'."
-msgstr "We only support '.json', '.json5', '.yaml', '.yml'."
-
-#: ../rubisco/kernel/workflow/step.py:90
-msgid "Step '${{step}}' failed: ${{exc}}"
-msgstr "Step '${{step}}' failed: ${{exc}}"
-
-#: ../rubisco/kernel/workflow/steps/glob.py:65
-#: ../rubisco/kernel/workflow/steps/glob.py:75
-msgid "The glob item must be a string."
-msgstr "The glob item must be a string."
-
-#: ../rubisco/kernel/workflow/steps/matrix.py:80
-msgid "Matrix variables must be a dict."
-msgstr "Matrix variables must be a dict."
-
-#: ../rubisco/kernel/workflow/steps/compress.py:74
-msgid "Compress format must be a list of string or a string."
-msgstr "Compress format must be a list of string or a string."
-
-#: ../rubisco/kernel/workflow/steps/remove.py:54
-msgid "The remove item must be a string."
-msgstr "The remove item must be a string."
-
-#: ../rubisco/kernel/workflow/steps/mkdir.py:52
-msgid "The paths must be a list of strings."
-msgstr "The paths must be a list of strings."
-
-#: ../rubisco/kernel/workflow/steps/copyfile.py:61
-msgid "The copy item must be a string."
-msgstr "The copy item must be a string."
-
-#: ../rubisco/kernel/workflow/steps/copyfile.py:109
-msgid "No file matched the glob pattern: ${{glob}}."
-msgstr "No file matched the glob pattern: ${{glob}}."
-
-#: ../rubisco/kernel/workflow/workflow.py:103
-msgid "Step id '${{step_id}}' is duplicated."
-msgstr "Step id '${{step_id}}' is duplicated."
-
-#: ../rubisco/kernel/workflow/workflow.py:127
-msgid "Unknown step type: '${{step_type}}' of step '${{step_name}}'. Please check the workflow."
-msgstr "Unknown step type: '${{step_type}}' of step '${{step_name}}'. Please check the workflow."
-
-#: ../rubisco/kernel/workflow/workflow.py:136
-msgid "Consider use 'type' attribute manually."
-msgstr "Consider use 'type' attribute manually."
-
-#: ../rubisco/kernel/workflow/workflow.py:144
-msgid "The type of step '${{step}}'[black](${{step_id}})[/black] in workflow '${{workflow}}'[black](${{workflow_id}})[/black] is not provided and could not be inferred."
-msgstr "The type of step '${{step}}'[black](${{step_id}})[/black] in workflow '${{workflow}}'[black](${{workflow_id}})[/black] is not provided and could not be inferred."
-
-#: ../rubisco/kernel/git.py:53
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:53
 msgid "Checking out files"
 msgstr "Checking out files"
 
-#: ../rubisco/kernel/git.py:55
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:55
 msgid "Compressing objects"
 msgstr "Compressing objects"
 
-#: ../rubisco/kernel/git.py:57
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:57
 msgid "Counting objects"
 msgstr "Counting objects"
 
-#: ../rubisco/kernel/git.py:59
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:59
 msgid "Finding sources"
 msgstr "Finding sources"
 
-#: ../rubisco/kernel/git.py:61
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:61
 msgid "Receiving objects"
 msgstr "Receiving objects"
 
-#: ../rubisco/kernel/git.py:63
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:63
 msgid "Resolving deltas"
 msgstr "Resolving deltas"
 
-#: ../rubisco/kernel/git.py:65
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:65
 msgid "Writing objects"
 msgstr "Writing objects"
 
-#: ../rubisco/kernel/git.py:146
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:146
 msgid "Repository ${{path}} not found."
 msgstr "Repository ${{path}} not found."
 
-#: ../rubisco/kernel/git.py:158
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:158
 msgid "Repository ${{path}} is not a git repository."
 msgstr "Repository ${{path}} is not a git repository."
 
-#: ../rubisco/kernel/git.py:188 ../rubisco/kernel/git.py:256
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:188
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:256
 msgid "Git operation failed: ${{exc}}"
 msgstr "Git operation failed: ${{exc}}"
 
-#: ../rubisco/kernel/git.py:225
+#: /workspaces/cppp/rubisco/rubisco/kernel/git.py:225
 msgid "Repository ${{path}} already exists."
 msgstr "Repository ${{path}} already exists."
 
-#: ../rubisco/kernel/config_loader.py:82
+#: /workspaces/cppp/rubisco/rubisco/kernel/config_loader.py:89
 msgid "Unknown file type: ${{path}}"
 msgstr "Unknown file type: ${{path}}"
 
-#: ../rubisco/lib/convert.py:133
+#: /workspaces/cppp/rubisco/rubisco/kernel/project_config/hook.py:101
+msgid "Hook '${{name}}' is invalid."
+msgstr "Hook '${{name}}' is invalid."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/project_config/hook.py:105
+msgid "A workflow [yellow]must[/yellow] contain at least 'exec', 'run' or 'workflow'."
+msgstr "A workflow [yellow]must[/yellow] contain at least 'exec', 'run' or 'workflow'."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/project_config/project_config.py:82
+msgid "Project configuration file '${{path}}' is not found."
+msgstr "Project configuration file '${{path}}' is not found."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/project_config/project_config.py:98
+msgid "The minimum version of rubisco required by the project [underline][link=${{uri}}]${{name}}[/link][/underline]' is '[cyan]${{version}}[/cyan]'."
+msgstr "The minimum version of rubisco required by the project [underline][link=${{uri}}]${{name}}[/link][/underline]' is '[cyan]${{version}}[/cyan]'."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/project_config/project_config.py:104
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/step.py:116
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/workflow.py:182
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/workflow.py:183
+msgid "<Unnamed>"
+msgstr "<Unnamed>"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/project_config/project_config.py:108
+msgid "Please upgrade Rubisco to the required version."
+msgstr "Please upgrade Rubisco to the required version."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_file_data.py:84
+msgid "Invalid args count of EventFileData: ${{ data }}"
+msgstr "Invalid args count of EventFileData: ${{ data }}"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_types.py:60
+msgid "Directory"
+msgstr "Directory"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_types.py:62
+msgid "File"
+msgstr "File"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_types.py:64
+msgid "Alias"
+msgstr "Alias"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_types.py:66
+msgid "Mount point"
+msgstr "Mount point"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:73
+msgid "Missing required option: ${{name}}."
+msgstr "Missing required option: ${{name}}."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:75
+msgid "Missing required argument: ${{name}}."
+msgstr "Missing required argument: ${{name}}."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:81
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:108
+msgid "The option `${{name}}` is not the type `${{type}}`."
+msgstr "The option `${{name}}` is not the type `${{type}}`."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:83
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:110
+msgid "The argument `${{name}}` is not the type `${{type}}`."
+msgstr "The argument `${{name}}` is not the type `${{type}}`."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:122
+msgid "The option `${{name}}` is readonly now."
+msgstr "The option `${{name}}` is readonly now."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:124
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:283
+msgid "The argument `${{name}}` is readonly now."
+msgstr "The argument `${{name}}` is readonly now."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:249
+msgid "The minimum count of `${{name}}` must be greater than or equal to 0."
+msgstr "The minimum count of `${{name}}` must be greater than or equal to 0."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/args.py:259
+msgid "The maximum count of `${{name}}` must be greater than the minimum count of `${{name}}`."
+msgstr "The maximum count of `${{name}}` must be greater than the minimum count of `${{name}}`."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:223
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:241
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:259
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:277
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:295
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:317
+msgid "The node ${{name}} is not a event directory."
+msgstr "The node ${{name}} is not a event directory."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:379
+msgid "The option ${{name}} does not exist."
+msgstr "The option ${{name}} does not exist."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:393
+msgid "The node ${{name}} is not a file."
+msgstr "The node ${{name}} is not a file."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:411
+msgid "The number of arguments is less than ${{mincount}}."
+msgstr "The number of arguments is less than ${{mincount}}."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:419
+msgid "The number of arguments is more than ${{maxcount}}."
+msgstr "The number of arguments is more than ${{maxcount}}."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:456
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_path.py:120
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_path.py:293
+msgid "Not a directory: ${{path}}."
+msgstr "Not a directory: ${{path}}."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:498
+msgid "The number of arguments is not correct. Expected ${{expected}}, got ${{got}}."
+msgstr "The number of arguments is not correct. Expected ${{expected}}, got ${{got}}."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cmd_event.py:533
+msgid "The node ${{path}} is not a file."
+msgstr "The node ${{path}} is not a file."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_path.py:145
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_path.py:278
+msgid "No such event: ${{path}}."
+msgstr "No such event: ${{path}}."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_path.py:284
+msgid "Rubisco command event filesystem does not support recursive creation of directories. You must create the parent directory first because you must set the description explicitly."
+msgstr "Rubisco command event filesystem does not support recursive creation of directories. You must create the parent directory first because you must set the description explicitly."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_path.py:329
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_path.py:381
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_path.py:450
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_path.py:484
+msgid "File exists: ${{path}}"
+msgstr "File exists: ${{path}}"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/event_path.py:428
+msgid "Not a file: ${{path}}"
+msgstr "Not a file: ${{path}}"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/cefs_fstab.py:79
+msgid "Parsing failed: {{line}}"
+msgstr "Parsing failed: {{line}}"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/register.py:57
+msgid "You can only register callbacks to files."
+msgstr "You can only register callbacks to files."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/command_event/register.py:67
+msgid "You must register callbacks to files."
+msgstr "You must register callbacks to files."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/__init__.py:56
+msgid "Step type '${{name}}' registered multiple times. This may cause unexpected behavior. It's unsafe."
+msgstr "Step type '${{name}}' registered multiple times. This may cause unexpected behavior. It's unsafe."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/__init__.py:104
+msgid "Workflow running failed: ${{exc}}"
+msgstr "Workflow running failed: ${{exc}}"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/step.py:114
+msgid "Step '${{step}}' failed: ${{exc}}"
+msgstr "Step '${{step}}' failed: ${{exc}}"
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/workflow.py:135
+msgid "Step id '${{step_id}}' is duplicated."
+msgstr "Step id '${{step_id}}' is duplicated."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/workflow.py:159
+msgid "Unknown step type: '${{step_type}}' of step '${{step_name}}'. Please check the workflow."
+msgstr "Unknown step type: '${{step_type}}' of step '${{step_name}}'. Please check the workflow."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/workflow.py:168
+msgid "Consider use 'type' attribute manually."
+msgstr "Consider use 'type' attribute manually."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/workflow.py:176
+msgid "The type of step '${{step}}'[black](${{step_id}})[/black] in workflow '${{workflow}}'[black](${{workflow_id}})[/black] is not provided and could not be inferred."
+msgstr "The type of step '${{step}}'[black](${{step_id}})[/black] in workflow '${{workflow}}'[black](${{workflow_id}})[/black] is not provided and could not be inferred."
+
+#: /workspaces/cppp/rubisco/rubisco/kernel/workflow/steps/copyfile.py:130
+msgid "No file matched the glob pattern: ${{glob}}."
+msgstr "No file matched the glob pattern: ${{glob}}."
+
+#: /workspaces/cppp/rubisco/rubisco/lib/typecheck.py:189
+msgid "The value needs to be ${{type}} instead of ${{value_type}}."
+msgstr "The value needs to be ${{type}} instead of ${{value_type}}."
+
+#: /workspaces/cppp/rubisco/rubisco/lib/convert.py:130
 msgid "Cannot convert value ${{value}} to type ${{type}}"
 msgstr "Cannot convert value ${{value}} to type ${{type}}"
 
-#: ../rubisco/lib/wget.py:71
+#: /workspaces/cppp/rubisco/rubisco/lib/wget.py:71
 msgid "Downloading ${{url}} ..."
 msgstr "Downloading ${{url}} ..."
 
-#: ../rubisco/lib/wget.py:74
+#: /workspaces/cppp/rubisco/rubisco/lib/wget.py:74
 msgid "Download"
 msgstr "Download"
 
-#: ../rubisco/lib/sqlite_strerror.py:137
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:136
 msgid "Success."
 msgstr "Success."
 
-#: ../rubisco/lib/sqlite_strerror.py:139
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:138
 msgid "SQL error or missing database."
 msgstr "SQL error or missing database."
 
-#: ../rubisco/lib/sqlite_strerror.py:141
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:140
 msgid "Internal logic error in SQLite."
 msgstr "Internal logic error in SQLite."
 
-#: ../rubisco/lib/sqlite_strerror.py:143
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:142
 msgid "Access permission denied."
 msgstr "Access permission denied."
 
-#: ../rubisco/lib/sqlite_strerror.py:145
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:144
 msgid "Callback routine requested an abort."
 msgstr "Callback routine requested an abort."
 
-#: ../rubisco/lib/sqlite_strerror.py:147
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:146
 msgid "The database file is locked."
 msgstr "The database file is locked."
 
-#: ../rubisco/lib/sqlite_strerror.py:149
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:148
 msgid "A table in the database is locked."
 msgstr "A table in the database is locked."
 
-#: ../rubisco/lib/sqlite_strerror.py:151
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:150
 msgid "Memory allocation/reallocation failed."
 msgstr "Memory allocation/reallocation failed."
 
-#: ../rubisco/lib/sqlite_strerror.py:153
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:152
 msgid "Attempt to write a readonly database."
 msgstr "Attempt to write a readonly database."
 
-#: ../rubisco/lib/sqlite_strerror.py:155
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:154
 msgid "Operation terminated by sqlite3_interrupt()."
 msgstr "Operation terminated by sqlite3_interrupt()."
 
-#: ../rubisco/lib/sqlite_strerror.py:157
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:156
 msgid "I/O error."
 msgstr "I/O error."
 
-#: ../rubisco/lib/sqlite_strerror.py:159
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:158
 msgid "The database file has been corrupted."
 msgstr "The database file has been corrupted."
 
-#: ../rubisco/lib/sqlite_strerror.py:161
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:160
 msgid "Insertion failed because database is full."
 msgstr "Insertion failed because database is full."
 
-#: ../rubisco/lib/sqlite_strerror.py:163
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:162
 msgid "Unable to open the database file."
 msgstr "Unable to open the database file."
 
-#: ../rubisco/lib/sqlite_strerror.py:165
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:164
 msgid "Database file is malformed."
 msgstr "Database file is malformed."
 
-#: ../rubisco/lib/sqlite_strerror.py:170
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:169
 msgid "The database schema changed."
 msgstr "The database schema changed."
 
-#: ../rubisco/lib/sqlite_strerror.py:172
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:171
 msgid "String or BLOB was too large."
 msgstr "String or BLOB was too large."
 
-#: ../rubisco/lib/sqlite_strerror.py:174
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:173
 msgid "Abort due to constraint violation."
 msgstr "Abort due to constraint violation."
 
-#: ../rubisco/lib/sqlite_strerror.py:176
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:175
 msgid "Data type mismatch."
 msgstr "Data type mismatch."
 
-#: ../rubisco/lib/sqlite_strerror.py:178
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:177
 msgid "Library used incorrectly."
 msgstr "Library used incorrectly."
 
-#: ../rubisco/lib/sqlite_strerror.py:180
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:179
 msgid "No large file support."
 msgstr "No large file support."
 
-#: ../rubisco/lib/sqlite_strerror.py:182
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:181
 msgid "Illegal authorization request."
 msgstr "Illegal authorization request."
 
-#: ../rubisco/lib/sqlite_strerror.py:187
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:186
 msgid "2nd parameter to sqlite3_bind out of range."
 msgstr "2nd parameter to sqlite3_bind out of range."
 
-#: ../rubisco/lib/sqlite_strerror.py:189
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:188
 msgid "File opened that is not a database file."
 msgstr "File opened that is not a database file."
 
-#: ../rubisco/lib/sqlite_strerror.py:191
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:190
 msgid "Another row of output is available."
 msgstr "Another row of output is available."
 
-#: ../rubisco/lib/sqlite_strerror.py:193
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:192
 msgid "An operation is completed."
 msgstr "An operation is completed."
 
-#: ../rubisco/lib/sqlite_strerror.py:196
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:195
 msgid "An SQL statement could not be prepared because a collating sequence named in that SQL statement could not be located."
 msgstr "An SQL statement could not be prepared because a collating sequence named in that SQL statement could not be located."
 
-#: ../rubisco/lib/sqlite_strerror.py:201
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:200
 msgid "Operation could not continue because another process is busy recovering a WAL mode database file following a crash."
 msgstr "Operation could not continue because another process is busy recovering a WAL mode database file following a crash."
 
-#: ../rubisco/lib/sqlite_strerror.py:206
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:205
 msgid "Access to an SQLite data record is blocked by another database connection that is using the same record in shared cache mode."
 msgstr "Access to an SQLite data record is blocked by another database connection that is using the same record in shared cache mode."
 
-#: ../rubisco/lib/sqlite_strerror.py:212
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:211
 msgid "A WAL mode database cannot be opened because the database file needs to be recovered and recovery requires write access but only read access is available."
 msgstr "A WAL mode database cannot be opened because the database file needs to be recovered and recovery requires write access but only read access is available."
 
-#: ../rubisco/lib/sqlite_strerror.py:218
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:217
 msgid "Hardware malfunction or a filesystem came unmounted while the file was open."
 msgstr "Hardware malfunction or a filesystem came unmounted while the file was open."
 
-#: ../rubisco/lib/sqlite_strerror.py:222
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:221
 msgid "Content in the virtual table is corrupt."
 msgstr "Content in the virtual table is corrupt."
 
-#: ../rubisco/lib/sqlite_strerror.py:227
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:226
 msgid "A CHECK constraint failed."
 msgstr "A CHECK constraint failed."
 
-#: ../rubisco/lib/sqlite_strerror.py:230
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:229
 msgid "An operation was attempted on a database for which the logged in user lacks sufficient authorization."
 msgstr "An operation was attempted on a database for which the logged in user lacks sufficient authorization."
 
-#: ../rubisco/lib/sqlite_strerror.py:234
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:233
 msgid "A WAL mode database file has been recovered."
 msgstr "A WAL mode database file has been recovered."
 
-#: ../rubisco/lib/sqlite_strerror.py:237
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:236
 msgid "An SQL statement aborted because the transaction that was active when the SQL statement first started was rolled back."
 msgstr "An SQL statement aborted because the transaction that was active when the SQL statement first started was rolled back."
 
-#: ../rubisco/lib/sqlite_strerror.py:242
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:241
 msgid "A WAL mode database connection tries to promote a read transaction into a write transaction but finds that another database connection has already written to the database and thus invalidated prior reads."
 msgstr "A WAL mode database connection tries to promote a read transaction into a write transaction but finds that another database connection has already written to the database and thus invalidated prior reads."
 
-#: ../rubisco/lib/sqlite_strerror.py:249
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:248
 msgid "Virtual table implementations cannot complete the current operation because of locks held by other threads or processes."
 msgstr "Virtual table implementations cannot complete the current operation because of locks held by other threads or processes."
 
-#: ../rubisco/lib/sqlite_strerror.py:254
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:253
 msgid "SQLite is unable to obtain a read lock on a WAL mode database because the shared-memory file associated with that database is read-only."
 msgstr "SQLite is unable to obtain a read lock on a WAL mode database because the shared-memory file associated with that database is read-only."
 
-#: ../rubisco/lib/sqlite_strerror.py:260
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:259
 msgid "A read attempt in the VFS layer was unable to obtain as many bytes as was requested."
 msgstr "A read attempt in the VFS layer was unable to obtain as many bytes as was requested."
 
-#: ../rubisco/lib/sqlite_strerror.py:264
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:263
 msgid "The schema of the sqlite_sequence table is corrupt."
 msgstr "The schema of the sqlite_sequence table is corrupt."
 
-#: ../rubisco/lib/sqlite_strerror.py:267
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:266
 msgid "A file failed to open because the file is really a directory."
 msgstr "A file failed to open because the file is really a directory."
 
-#: ../rubisco/lib/sqlite_strerror.py:271
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:270
 msgid "A commit hook callback returned non-zero that thus caused the SQL statement to be rolled back."
 msgstr "A commit hook callback returned non-zero that thus caused the SQL statement to be rolled back."
 
-#: ../rubisco/lib/sqlite_strerror.py:275
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:274
 msgid "The historical snapshot is no longer available."
 msgstr "The historical snapshot is no longer available."
 
-#: ../rubisco/lib/sqlite_strerror.py:278
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:277
 msgid "A blocking POSIX advisory file lock request in the VFS layer failed due to a timeout."
 msgstr "A blocking POSIX advisory file lock request in the VFS layer failed due to a timeout."
 
-#: ../rubisco/lib/sqlite_strerror.py:283
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:282
 msgid "A database cannot be opened because it has a hot journal that needs to be rolled back but cannot because the database is readonly."
 msgstr "A database cannot be opened because it has a hot journal that needs to be rolled back but cannot because the database is readonly."
 
-#: ../rubisco/lib/sqlite_strerror.py:289
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:288
 msgid "An I/O error occured in the VFS layer while trying to write into a file on disk."
 msgstr "An I/O error occured in the VFS layer while trying to write into a file on disk."
 
-#: ../rubisco/lib/sqlite_strerror.py:293
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:292
 msgid "SQLite detected an entry is or was missing from an index."
 msgstr "SQLite detected an entry is or was missing from an index."
 
-#: ../rubisco/lib/sqlite_strerror.py:296
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:295
 msgid "A file open operation failed because the operating system was unable to convert the filename into a full pathname."
 msgstr "A file open operation failed because the operating system was unable to convert the filename into a full pathname."
 
-#: ../rubisco/lib/sqlite_strerror.py:300
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:299
 msgid "A foreign key constraint failed."
 msgstr "A foreign key constraint failed."
 
-#: ../rubisco/lib/sqlite_strerror.py:303
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:302
 msgid "A database cannot be modified because the database file has been moved since it was opened."
 msgstr "A database cannot be modified because the database file has been moved since it was opened."
 
-#: ../rubisco/lib/sqlite_strerror.py:308 ../rubisco/lib/sqlite_strerror.py:316
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:307
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:315
 msgid "An I/O error occured in the VFS layer while trying to fsync."
 msgstr "An I/O error occured in the VFS layer while trying to fsync."
 
-#: ../rubisco/lib/sqlite_strerror.py:311
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:310
 msgid "cygwin_conv_path() failed."
 msgstr "cygwin_conv_path() failed."
 
-#: ../rubisco/lib/sqlite_strerror.py:313
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:312
 msgid "A function constraint failed."
 msgstr "A function constraint failed."
 
-#: ../rubisco/lib/sqlite_strerror.py:322
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:321
 msgid "A NOT NULL constraint failed."
 msgstr "A NOT NULL constraint failed."
 
-#: ../rubisco/lib/sqlite_strerror.py:325
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:324
 msgid "The database is read-only because process does not have permission to create a journal file in the same directory as the database and the creation of a journal file is a prerequisite for writing."
 msgstr "The database is read-only because process does not have permission to create a journal file in the same directory as the database and the creation of a journal file is a prerequisite for writing."
 
-#: ../rubisco/lib/sqlite_strerror.py:332
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:331
 msgid "I/O error in the VFS layer while trying to truncate a file to a smaller size."
 msgstr "I/O error in the VFS layer while trying to truncate a file to a smaller size."
 
-#: ../rubisco/lib/sqlite_strerror.py:337
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:336
 msgid "SQLITE_OPEN_NOFOLLOW is used but the database file is a symlink."
 msgstr "SQLITE_OPEN_NOFOLLOW is used but the database file is a symlink."
 
-#: ../rubisco/lib/sqlite_strerror.py:340
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:339
 msgid "A PRIMARY KEY constraint failed."
 msgstr "A PRIMARY KEY constraint failed."
 
-#: ../rubisco/lib/sqlite_strerror.py:343
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:342
 msgid "An I/O error occured in the VFS layer while trying to invoke fstat() (or the equivalent) on a file in order to determine information such as the file size or access permissions."
 msgstr "An I/O error occured in the VFS layer while trying to invoke fstat() (or the equivalent) on a file in order to determine information such as the file size or access permissions."
 
-#: ../rubisco/lib/sqlite_strerror.py:349
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:348
 msgid "A RAISE function within a trigger fired, causing the SQL statement to abort."
 msgstr "A RAISE function within a trigger fired, causing the SQL statement to abort."
 
-#: ../rubisco/lib/sqlite_strerror.py:354
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:353
 msgid "An I/O error within xUnlock method on the sqlite3_io_methods object."
 msgstr "An I/O error within xUnlock method on the sqlite3_io_methods object."
 
-#: ../rubisco/lib/sqlite_strerror.py:358
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:357
 msgid "A UNIQUE constraint failed."
 msgstr "A UNIQUE constraint failed."
 
-#: ../rubisco/lib/sqlite_strerror.py:361
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:360
 msgid "I/O error within xLock method on the sqlite3_io_methods object while trying to obtain a read lock."
 msgstr "I/O error within xLock method on the sqlite3_io_methods object while trying to obtain a read lock."
 
-#: ../rubisco/lib/sqlite_strerror.py:365
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:364
 msgid "I/O error within xDelete method on the sqlite3_vfs object."
 msgstr "I/O error within xDelete method on the sqlite3_vfs object."
 
-#: ../rubisco/lib/sqlite_strerror.py:367
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:366
 msgid "A rowid is not unique."
 msgstr "A rowid is not unique."
 
-#: ../rubisco/lib/sqlite_strerror.py:373
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:372
 msgid "An UPDATE trigger attempted do delete the row that was being updated in the middle of the update."
 msgstr "An UPDATE trigger attempted do delete the row that was being updated in the middle of the update."
 
-#: ../rubisco/lib/sqlite_strerror.py:378
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:377
 msgid "An operation could not be completed due to the inability to allocate sufficient memory."
 msgstr "An operation could not be completed due to the inability to allocate sufficient memory."
 
-#: ../rubisco/lib/sqlite_strerror.py:383
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:382
 msgid "I/O error occured within the xAccess method on the sqlite3_vfs object."
 msgstr "I/O error occured within the xAccess method on the sqlite3_vfs object."
 
-#: ../rubisco/lib/sqlite_strerror.py:388
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:387
 msgid "I/O error within the xCheckReservedLock method on the sqlite3_io_methods object."
 msgstr "I/O error within the xCheckReservedLock method on the sqlite3_io_methods object."
 
-#: ../rubisco/lib/sqlite_strerror.py:392
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:391
 msgid "I/O error in the advisory file locking logic."
 msgstr "I/O error in the advisory file locking logic."
 
-#: ../rubisco/lib/sqlite_strerror.py:395
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:394
 msgid "I/O error within the xClose method on the sqlite3_io_methods object."
 msgstr "I/O error within the xClose method on the sqlite3_io_methods object."
 
-#: ../rubisco/lib/sqlite_strerror.py:403
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:402
 msgid "I/O error within the xShmMap method on the sqlite3_io_methods object while trying to open a new shared memory segment."
 msgstr "I/O error within the xShmMap method on the sqlite3_io_methods object while trying to open a new shared memory segment."
 
-#: ../rubisco/lib/sqlite_strerror.py:409
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:408
 msgid "I/O error within the xShmMap method on the sqlite3_io_methods object while trying to enlarge a \"shm\" file as part of WAL mode transaction processing. This error may indicate that the underlying filesystem volume is out of space."
 msgstr "I/O error within the xShmMap method on the sqlite3_io_methods object while trying to enlarge a \"shm\" file as part of WAL mode transaction processing. This error may indicate that the underlying filesystem volume is out of space."
 
-#: ../rubisco/lib/sqlite_strerror.py:419
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:418
 msgid "I/O error within the xShmMap method on the sqlite3_io_methods object while trying to map a shared memory segment into the process address space."
 msgstr "I/O error within the xShmMap method on the sqlite3_io_methods object while trying to map a shared memory segment into the process address space."
 
-#: ../rubisco/lib/sqlite_strerror.py:425
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:424
 msgid "I/O error within the xRead or xWrite methods on the sqlite3_io_methods object while trying to seek a file descriptor to the beginning point of the file where the read or write is to occur."
 msgstr "I/O error within the xRead or xWrite methods on the sqlite3_io_methods object while trying to seek a file descriptor to the beginning point of the file where the read or write is to occur."
 
-#: ../rubisco/lib/sqlite_strerror.py:432
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:431
 msgid "The xDelete method on the sqlite3_vfs object failed because the file being deleted does not exist."
 msgstr "The xDelete method on the sqlite3_vfs object failed because the file being deleted does not exist."
 
-#: ../rubisco/lib/sqlite_strerror.py:437
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:436
 msgid "I/O error within the xFetch or xUnfetch methods on the sqlite3_io_methods object while trying to map or unmap part of the database file into the process address space."
 msgstr "I/O error within the xFetch or xUnfetch methods on the sqlite3_io_methods object while trying to map or unmap part of the database file into the process address space."
 
-#: ../rubisco/lib/sqlite_strerror.py:443
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:442
 msgid "The VFS is unable to determine a suitable directory in which to place temporary files."
 msgstr "The VFS is unable to determine a suitable directory in which to place temporary files."
 
-#: ../rubisco/lib/sqlite_strerror.py:447
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:446
 msgid "The cygwin_conv_path() system call failed."
 msgstr "The cygwin_conv_path() system call failed."
 
-#: ../rubisco/lib/sqlite_strerror.py:450
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:449
 msgid "The underlying operating system reported and error on the SQLITE_FCNTL_BEGIN_ATOMIC_WRITE file-control."
 msgstr "The underlying operating system reported and error on the SQLITE_FCNTL_BEGIN_ATOMIC_WRITE file-control."
 
-#: ../rubisco/lib/sqlite_strerror.py:455
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:454
 msgid "The underlying operating system reported and error on the SQLITE_FCNTL_COMMIT_ATOMIC_WRITE file-control."
 msgstr "The underlying operating system reported and error on the SQLITE_FCNTL_COMMIT_ATOMIC_WRITE file-control."
 
-#: ../rubisco/lib/sqlite_strerror.py:460
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:459
 msgid "The underlying operating system reported and error on the SQLITE_FCNTL_ROLLBACK_ATOMIC_WRITE file-control."
 msgstr "The underlying operating system reported and error on the SQLITE_FCNTL_ROLLBACK_ATOMIC_WRITE file-control."
 
-#: ../rubisco/lib/sqlite_strerror.py:464
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:463
 msgid "The checksum on a page of the database file is incorrect."
 msgstr "The checksum on a page of the database file is incorrect."
 
-#: ../rubisco/lib/sqlite_strerror.py:467
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:466
 msgid "A seek or read failure was due to the request not falling within the file's boundary rather than an ordinary device failure."
 msgstr "A seek or read failure was due to the request not falling within the file's boundary rather than an ordinary device failure."
 
-#: ../rubisco/lib/sqlite_strerror.py:471
+#: /workspaces/cppp/rubisco/rubisco/lib/sqlite_strerror.py:470
 msgid "Unknown error code."
 msgstr "Unknown error code."
 
-#: ../rubisco/lib/exceptions.py:112
+#: /workspaces/cppp/rubisco/rubisco/lib/exceptions.py:132
 msgid "Subprocess return code is ${{retcode}}."
 msgstr "Subprocess return code is ${{retcode}}."
 
-#: ../rubisco/lib/exceptions.py:118
+#: /workspaces/cppp/rubisco/rubisco/lib/exceptions.py:138
 msgid "Subprocess return code is ${{retcode}}. It may be caused by command not found."
 msgstr "Subprocess return code is ${{retcode}}. It may be caused by command not found."
 
-#: ../rubisco/lib/archive/__init__.py:112 ../rubisco/lib/archive/sevenzip.py:58
-#: ../rubisco/lib/archive/tar.py:84 ../rubisco/lib/archive/zip.py:66
-msgid "Extracting ${{file}} to ${{path}} as '${{type}}' ..."
-msgstr "Extracting ${{file}} to ${{path}} as '${{type}}' ..."
-
-#: ../rubisco/lib/archive/__init__.py:120 ../rubisco/lib/archive/sevenzip.py:68
-#: ../rubisco/lib/archive/tar.py:92 ../rubisco/lib/archive/zip.py:74
-msgid "Extracting"
-msgstr "Extracting"
-
-#: ../rubisco/lib/archive/__init__.py:224
-msgid "Unable to guess compression type of ${{path}}."
-msgstr "Unable to guess compression type of ${{path}}."
-
-#: ../rubisco/lib/archive/__init__.py:229
-#: ../rubisco/lib/archive/__init__.py:504
-msgid "Please specify the compression type explicitly."
-msgstr "Please specify the compression type explicitly."
-
-#: ../rubisco/lib/archive/__init__.py:245
-#: ../rubisco/lib/archive/__init__.py:522
-msgid "Unsupported compression type: ${{type}}"
-msgstr "Unsupported compression type: ${{type}}"
-
-#: ../rubisco/lib/archive/__init__.py:249
-#: ../rubisco/lib/archive/__init__.py:526
-msgid "Supported types are 'gz', 'bz2', 'xz', 'zip', '7z', 'tar', 'tar.gz', 'tar.bz2', 'tar.xz'. You can also use the 'tgz', 'txz' and 'tbz2'."
-msgstr "Supported types are 'gz', 'bz2', 'xz', 'zip', '7z', 'tar', 'tar.gz', 'tar.bz2', 'tar.xz'. You can also use the 'tgz', 'txz' and 'tbz2'."
-
-#: ../rubisco/lib/archive/__init__.py:269
-msgid "Failed to extract ${{file}} to ${{dest}}: ${{exc}}"
-msgstr "Failed to extract ${{file}} to ${{dest}}: ${{exc}}"
-
-#: ../rubisco/lib/archive/__init__.py:333
-#: ../rubisco/lib/archive/sevenzip.py:201 ../rubisco/lib/archive/tar.py:168
-#: ../rubisco/lib/archive/zip.py:137
-msgid "Compressing ${{path}} to ${{file}} as '${{type}}' ..."
-msgstr "Compressing ${{path}} to ${{file}} as '${{type}}' ..."
-
-#: ../rubisco/lib/archive/__init__.py:341 ../rubisco/lib/archive/utils.py:77
-msgid "Compressing"
-msgstr "Compressing"
-
-#: ../rubisco/lib/archive/__init__.py:499
-msgid "Unable to determine compression type of ${{path}}."
-msgstr "Unable to determine compression type of ${{path}}."
-
-#: ../rubisco/lib/archive/__init__.py:546
-msgid "Failed to compress ${{src}} to ${{dest}}: ${{exc}}"
-msgstr "Failed to compress ${{src}} to ${{dest}}: ${{exc}}"
-
-#: ../rubisco/lib/archive/utils.py:93
-msgid "${{path}} is not in the subpath of ${{start}}"
-msgstr "${{path}} is not in the subpath of ${{start}}"
-
-#: ../rubisco/lib/process.py:135 ../rubisco/lib/process.py:194
+#: /workspaces/cppp/rubisco/rubisco/lib/process.py:139
+#: /workspaces/cppp/rubisco/rubisco/lib/process.py:196
 msgid "Shell execution error."
 msgstr "Shell execution error."
 
-#: ../rubisco/lib/fileutil.py:92
+#: /workspaces/cppp/rubisco/rubisco/lib/fileutil.py:92
 msgid "Absolute path ${{path}} is not allowed."
 msgstr "Absolute path ${{path}} is not allowed."
 
-#: ../rubisco/lib/fileutil.py:118
+#: /workspaces/cppp/rubisco/rubisco/lib/fileutil.py:118
 msgid "Cannot remove root directory."
 msgstr "Cannot remove root directory."
 
-#: ../rubisco/lib/fileutil.py:132
+#: /workspaces/cppp/rubisco/rubisco/lib/fileutil.py:132
 msgid "Error while removing ${{path}}: ${{error}}"
 msgstr "Error while removing ${{path}}: ${{error}}"
 
-#: ../rubisco/lib/fileutil.py:245
+#: /workspaces/cppp/rubisco/rubisco/lib/fileutil.py:245
 msgid "File ${{path}} already exists."
 msgstr "File ${{path}} already exists."
 
-#: ../rubisco/lib/fileutil.py:563
+#: /workspaces/cppp/rubisco/rubisco/lib/fileutil.py:563
 msgid "Invalid type: ${{path}}, expected file."
 msgstr "Invalid type: ${{path}}, expected file."
 
-#: ../rubisco/lib/fileutil.py:573
+#: /workspaces/cppp/rubisco/rubisco/lib/fileutil.py:573
 msgid "Invalid type: ${{path}}, expected directory."
 msgstr "Invalid type: ${{path}}, expected directory."
 
-#: ../rubisco/lib/fileutil.py:680
+#: /workspaces/cppp/rubisco/rubisco/lib/fileutil.py:680
 msgid "Command '${{cmd}}' not found."
 msgstr "Command '${{cmd}}' not found."
 
-#: ../rubisco/lib/variable/fast_format_str.py:78
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:112
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/sevenzip.py:59
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/tar.py:85
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/zip.py:67
+msgid "Extracting ${{file}} to ${{path}} as '${{type}}' ..."
+msgstr "Extracting ${{file}} to ${{path}} as '${{type}}' ..."
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:120
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/sevenzip.py:69
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/tar.py:93
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/zip.py:75
+msgid "Extracting"
+msgstr "Extracting"
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:224
+msgid "Unable to guess compression type of ${{path}}."
+msgstr "Unable to guess compression type of ${{path}}."
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:229
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:504
+msgid "Please specify the compression type explicitly."
+msgstr "Please specify the compression type explicitly."
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:245
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:522
+msgid "Unsupported compression type: ${{type}}"
+msgstr "Unsupported compression type: ${{type}}"
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:249
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:526
+msgid "Supported types are 'gz', 'bz2', 'xz', 'zip', '7z', 'tar', 'tar.gz', 'tar.bz2', 'tar.xz'. You can also use the 'tgz', 'txz' and 'tbz2'."
+msgstr "Supported types are 'gz', 'bz2', 'xz', 'zip', '7z', 'tar', 'tar.gz', 'tar.bz2', 'tar.xz'. You can also use the 'tgz', 'txz' and 'tbz2'."
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:269
+msgid "Failed to extract ${{file}} to ${{dest}}: ${{exc}}"
+msgstr "Failed to extract ${{file}} to ${{dest}}: ${{exc}}"
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:333
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/sevenzip.py:209
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/tar.py:176
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/zip.py:145
+msgid "Compressing ${{path}} to ${{file}} as '${{type}}' ..."
+msgstr "Compressing ${{path}} to ${{file}} as '${{type}}' ..."
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:341
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/utils.py:77
+msgid "Compressing"
+msgstr "Compressing"
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:499
+msgid "Unable to determine compression type of ${{path}}."
+msgstr "Unable to determine compression type of ${{path}}."
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:546
+msgid "Failed to compress ${{src}} to ${{dest}}: ${{exc}}"
+msgstr "Failed to compress ${{src}} to ${{dest}}: ${{exc}}"
+
+#: /workspaces/cppp/rubisco/rubisco/lib/archive/utils.py:100
+msgid "${{path}} is not in the subpath of ${{start}}"
+msgstr "${{path}} is not in the subpath of ${{start}}"
+
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/fast_format_str.py:78
 msgid "fast_format_str() only supports simple variable expressions."
 msgstr "fast_format_str() only supports simple variable expressions."
 
-#: ../rubisco/lib/variable/fast_format_str.py:84
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/fast_format_str.py:84
 msgid "fast_format_str() does not support default value."
 msgstr "fast_format_str() does not support default value."
 
-#: ../rubisco/lib/variable/pyexpr_sandbox.py:48
-#: ../rubisco/lib/variable/pyexpr_sandbox.py:112
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/pyexpr_sandbox.py:38
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/pyexpr_sandbox.py:102
 msgid "<rubisco inline python expression>"
 msgstr "<rubisco inline python expression>"
 
-#: ../rubisco/lib/variable/pyexpr_sandbox.py:70
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/pyexpr_sandbox.py:60
 msgid "${{func}} is disallowed in Rubisco variable expression."
 msgstr "${{func}} is disallowed in Rubisco variable expression."
 
-#: ../rubisco/lib/variable/pyexpr_sandbox.py:125
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/pyexpr_sandbox.py:119
 msgid "Eval python expression failed: ${{expr}}: ${{exc}}"
 msgstr "Eval python expression failed: ${{expr}}: ${{exc}}"
 
-#: ../rubisco/lib/variable/autoformatdict.py:119
-msgid "The value of key ${{key}} needs to be ${{type}} instead of ${{value_type}}."
-msgstr "The value of key ${{key}} needs to be ${{type}} instead of ${{value_type}}."
-
-#: ../rubisco/lib/variable/lexer.py:123 ../rubisco/lib/variable/lexer.py:162
-#: ../rubisco/lib/variable/lexer.py:206
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/lexer.py:123
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/lexer.py:162
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/lexer.py:206
 msgid "Invalid variable expression."
 msgstr "Invalid variable expression."
 
-#: ../rubisco/lib/variable/lexer.py:189
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/lexer.py:189
 msgid "Invalid variable decorate expression."
 msgstr "Invalid variable decorate expression."
 
-#: ../rubisco/lib/variable/lexer.py:213
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/lexer.py:213
 msgid "Invalid variable name."
 msgstr "Invalid variable name."
 
-#: ../rubisco/lib/variable/lexer.py:217
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/lexer.py:217
 msgid "Variable name must only contain letters, numbers, and '-', '.', '_'."
 msgstr "Variable name must only contain letters, numbers, and '-', '.', '_'."
 
-#: ../rubisco/lib/variable/execute.py:53
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/execute.py:47
 msgid "Undefined variable: ${{var}}"
 msgstr "Undefined variable: ${{var}}"
 
-#: ../rubisco/shared/ktrigger.py:733
+#: /workspaces/cppp/rubisco/rubisco/lib/variable/execute.py:80
+msgid "Permission denied to execute Python expression."
+msgstr "Permission denied to execute Python expression."
+
+#: /workspaces/cppp/rubisco/rubisco/shared/ktrigger.py:733
 msgid "Kernel trigger id '${{name}}' is already exists."
 msgstr "Kernel trigger id '${{name}}' is already exists."
 
-#: ../rubisco/shared/extension.py:158
+#: /workspaces/cppp/rubisco/rubisco/shared/extension.py:158
 msgid "The extension '${{name}}' does not exist in workspace, user, or global extension directory."
 msgstr "The extension '${{name}}' does not exist in workspace, user, or global extension directory."
 
-#: ../rubisco/shared/extension.py:163
+#: /workspaces/cppp/rubisco/rubisco/shared/extension.py:163
 msgid "Try to load the extension as a path."
 msgstr "Try to load the extension as a path."
 
-#: ../rubisco/shared/extension.py:178
+#: /workspaces/cppp/rubisco/rubisco/shared/extension.py:178
 msgid "The extension path ${{path}} does not exist."
 msgstr "The extension path ${{path}} does not exist."
 
-#: ../rubisco/shared/extension.py:188
+#: /workspaces/cppp/rubisco/rubisco/shared/extension.py:188
 msgid "The extension ${{path}} does not have an instance."
 msgstr "The extension ${{path}} does not have an instance."
 
-#: ../rubisco/shared/extension.py:194
+#: /workspaces/cppp/rubisco/rubisco/shared/extension.py:194
 msgid "Please make sure this extension is valid."
 msgstr "Please make sure this extension is valid."
 
-#: ../rubisco/shared/extension.py:290
+#: /workspaces/cppp/rubisco/rubisco/shared/extension.py:290
 msgid "Extension name '${{name}}' invalid."
 msgstr "Extension name '${{name}}' invalid."
 
-#: ../rubisco/shared/extension.py:295
+#: /workspaces/cppp/rubisco/rubisco/shared/extension.py:295
 msgid "Extension name must be lowercase and only contain 0-9, a-z, A-Z, '_', '.' and '-'."
 msgstr "Extension name must be lowercase and only contain 0-9, a-z, A-Z, '_', '.' and '-'."
 
-#: ../rubisco/shared/extension.py:355
+#: /workspaces/cppp/rubisco/rubisco/shared/extension.py:355
 msgid "Failed to load extension '${{env}}/${{name}}': ${{exc}}"
 msgstr "Failed to load extension '${{env}}/${{name}}': ${{exc}}"
 
-#: ../rubisco/cli/input.py:62
+#: /workspaces/cppp/rubisco/rubisco/cli/input.py:62
 msgid "[yellow]Invalid input. Please enter '[green]Y[/green]' or '[red]N[/red]'."
 msgstr "[yellow]Invalid input. Please enter '[green]Y[/green]' or '[red]N[/red]'."
 
-#: ../rubisco/cli/input.py:69
+#: /workspaces/cppp/rubisco/rubisco/cli/input.py:69
 msgid "Invalid input."
 msgstr "Invalid input."
 
-#: ../rubisco/cli/main/main.py:78 ../rubisco/cli/main/ktrigger.py:897
+#: /workspaces/cppp/rubisco/rubisco/cli/argparse_generator.py:133
+msgid "The advanced options must be a list."
+msgstr "The advanced options must be a list."
+
+#: /workspaces/cppp/rubisco/rubisco/cli/argparse_generator.py:135
+msgid "Advanced options must be a list of `dict[str, list[str] | int | str | None]`."
+msgstr "Advanced options must be a list of `dict[str, list[str] | int | str | None]`."
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:197
+msgid "[red]Error: ${{msg}}[/red]"
+msgstr "[red]Error: ${{msg}}[/red]"
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:210
+msgid "[yellow]Warning: ${{msg}}[/yellow]"
+msgstr "[yellow]Warning: ${{msg}}[/yellow]"
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:225
+msgid "[italic][magenta]Hint:[/magenta] ${{msg}}[/italic]"
+msgstr "[italic][magenta]Hint:[/magenta] ${{msg}}[/italic]"
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:255
+msgid "Unknown error."
+msgstr "Unknown error."
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:258
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:534
+msgid "Interrupted by user."
+msgstr "Interrupted by user."
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:262
+msgid "JSON5 decode error."
+msgstr "JSON5 decode error."
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:264
+msgid "Is may caused by a invalid JSON5 configuration file."
+msgstr "Is may caused by a invalid JSON5 configuration file."
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:268
+msgid "Missing key: ${{msg}}"
+msgstr "Missing key: ${{msg}}"
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:272
+msgid "Is may caused by a invalid configuration file."
+msgstr "Is may caused by a invalid configuration file."
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:278
+msgid "Internal error: ${{type}}: ${{msg}}"
+msgstr "Internal error: ${{type}}: ${{msg}}"
+
+#: /workspaces/cppp/rubisco/rubisco/cli/output.py:286
+msgid "See: ${{url}}"
+msgstr "See: ${{url}}"
+
+#: /workspaces/cppp/rubisco/rubisco/cli/main/main.py:79
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:896
 msgid "Entering directory ${{path}} ..."
 msgstr "Entering directory ${{path}} ..."
 
-#: ../rubisco/cli/main/builtin_cmds.py:66
+#: /workspaces/cppp/rubisco/rubisco/cli/main/builtin_cmds.py:66
 msgid "Default callback for showing Rubisco project infomation."
 msgstr "Default callback for showing Rubisco project infomation."
 
-#: ../rubisco/cli/main/builtin_cmds.py:71
-#: ../rubisco/cli/main/extman_cmds.py:327
+#: /workspaces/cppp/rubisco/rubisco/cli/main/builtin_cmds.py:71
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:326
 msgid "Show project information."
 msgstr "Show project information."
 
-#: ../rubisco/cli/main/project_config.py:78
-#: ../rubisco/cli/main/project_config.py:148
+#: /workspaces/cppp/rubisco/rubisco/cli/main/project_config.py:78
+#: /workspaces/cppp/rubisco/rubisco/cli/main/project_config.py:148
 msgid "Working directory ${{path}} is not a Rubisco project."
 msgstr "Working directory ${{path}} is not a Rubisco project."
 
-#: ../rubisco/cli/main/project_config.py:128
+#: /workspaces/cppp/rubisco/rubisco/cli/main/project_config.py:128
 msgid "Undefined command or hook ${{name}}."
 msgstr "Undefined command or hook ${{name}}."
 
-#: ../rubisco/cli/main/project_config.py:131
+#: /workspaces/cppp/rubisco/rubisco/cli/main/project_config.py:131
 msgid "Perhaps a typo?"
 msgstr "Perhaps a typo?"
 
-#: ../rubisco/cli/main/project_config.py:153
+#: /workspaces/cppp/rubisco/rubisco/cli/main/project_config.py:153
 msgid "${{path}} is not found."
 msgstr "${{path}} is not found."
 
-#: ../rubisco/cli/main/ktrigger.py:140
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:139
 msgid "Executing: [cyan]${{cmd}}[/cyan] ..."
 msgstr "Executing: [cyan]${{cmd}}[/cyan] ..."
 
-#: ../rubisco/cli/main/ktrigger.py:161
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:160
 msgid "${{path}} already exists. [yellow]Overwrite[/yellow]?"
 msgstr "${{path}} already exists. [yellow]Overwrite[/yellow]?"
 
-#: ../rubisco/cli/main/ktrigger.py:269
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:268
 msgid "Please install the following packages manually: [bold]${{packages}}[/bold]."
 msgstr "Please install the following packages manually: [bold]${{packages}}[/bold]."
 
-#: ../rubisco/cli/main/ktrigger.py:276
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:275
 msgid "Continue anyway?"
 msgstr "Continue anyway?"
 
-#: ../rubisco/cli/main/ktrigger.py:283
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:282
 msgid "Updating Git repository ${{path}}(${{branch}}) ..."
 msgstr "Updating Git repository ${{path}}(${{branch}}) ..."
 
-#: ../rubisco/cli/main/ktrigger.py:299
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:298
 msgid "Cloning Git repository ${{url}} (${{branch}}) into ${{path}} ..."
 msgstr "Cloning Git repository ${{url}} (${{branch}}) into ${{path}} ..."
 
-#: ../rubisco/cli/main/ktrigger.py:326
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:325
 msgid "Testing ${{host}} ... ${{status}}"
 msgstr "Testing ${{host}} ... ${{status}}"
 
-#: ../rubisco/cli/main/ktrigger.py:336
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:335
 msgid "Performing websites speed test ..."
 msgstr "Performing websites speed test ..."
 
-#: ../rubisco/cli/main/ktrigger.py:340 ../rubisco/cli/main/ktrigger.py:362
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:339
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:361
 msgid "[yellow]Testing[/yellow] ..."
 msgstr "[yellow]Testing[/yellow] ..."
 
-#: ../rubisco/cli/main/ktrigger.py:348
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:347
 msgid "[red]Canceled[/red]"
 msgstr "[red]Canceled[/red]"
 
-#: ../rubisco/cli/main/ktrigger.py:350
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:349
 msgid "[red]Failed[/red]"
 msgstr "[red]Failed[/red]"
 
-#: ../rubisco/cli/main/ktrigger.py:353
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:352
 msgid "${{speed}} us"
 msgstr "${{speed}} us"
 
-#: ../rubisco/cli/main/ktrigger.py:378
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:377
 msgid "Selected mirror: ${{url}}"
 msgstr "Selected mirror: ${{url}}"
 
-#: ../rubisco/cli/main/ktrigger.py:388
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:387
 msgid "Running: [white]${{name}}[/white] [black](${{id}})[/black]"
 msgstr "Running: [white]${{name}}[/white] [black](${{id}})[/black]"
 
-#: ../rubisco/cli/main/ktrigger.py:405
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:404
 msgid "Running workflow: [white]${{name}}[/white] [black](${{id}})[/black]"
 msgstr "Running workflow: [white]${{name}}[/white] [black](${{id}})[/black]"
 
-#: ../rubisco/cli/main/ktrigger.py:418
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:417
 msgid "Workflow '${{name}}' finished."
 msgstr "Workflow '${{name}}' finished."
 
-#: ../rubisco/cli/main/ktrigger.py:425
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:424
 msgid "Running matrix jobs ..."
 msgstr "Running matrix jobs ..."
 
-#: ../rubisco/cli/main/ktrigger.py:429
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:428
 msgid "Running jobs with variables:"
 msgstr "Running jobs with variables:"
 
-#: ../rubisco/cli/main/ktrigger.py:444
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:443
 msgid "Creating directory: ${{path}} ..."
 msgstr "Creating directory: ${{path}} ..."
 
-#: ../rubisco/cli/main/ktrigger.py:474
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:473
 msgid "Moving file ${{src}} to ${{dst}} ..."
 msgstr "Moving file ${{src}} to ${{dst}} ..."
 
-#: ../rubisco/cli/main/ktrigger.py:485
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:484
 msgid "Copying ${{src}} to ${{dst}} ..."
 msgstr "Copying ${{src}} to ${{dst}} ..."
 
-#: ../rubisco/cli/main/ktrigger.py:496
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:495
 msgid "Removing ${{path}} ..."
 msgstr "Removing ${{path}} ..."
 
-#: ../rubisco/cli/main/ktrigger.py:507
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:506
 msgid "Selected: ${{path}}"
 msgstr "Selected: ${{path}}"
 
-#: ../rubisco/cli/main/ktrigger.py:523
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:522
 msgid "Extension '${{name}}' loaded."
 msgstr "Extension '${{name}}' loaded."
 
-#: ../rubisco/cli/main/ktrigger.py:532
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:531
 msgid "[dark_orange]Rubisco CLI Language:[/dark_orange] '${{locale}}' '${{charset}}' '${{language_name}}'"
 msgstr "[dark_orange]Rubisco CLI Language:[/dark_orange] '${{locale}}' '${{charset}}' '${{language_name}}'"
 
-#: ../rubisco/cli/main/ktrigger.py:544
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:543
 msgid "[dark_orange]Project:[/dark_orange] ${{name}}"
 msgstr "[dark_orange]Project:[/dark_orange] ${{name}}"
 
-#: ../rubisco/cli/main/ktrigger.py:550
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:549
 msgid "[dark_orange]Configuration:[/dark_orange] ${{path}}"
 msgstr "[dark_orange]Configuration:[/dark_orange] ${{path}}"
 
-#: ../rubisco/cli/main/ktrigger.py:557
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:556
 msgid "[dark_orange]Version:[/dark_orange] v[white]${{version}}[/white]"
 msgstr "[dark_orange]Version:[/dark_orange] v[white]${{version}}[/white]"
 
-#: ../rubisco/cli/main/ktrigger.py:570
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:569
 msgid "[dark_orange]Maintainers:[/dark_orange] ${{maintainers}}"
 msgstr "[dark_orange]Maintainers:[/dark_orange] ${{maintainers}}"
 
-#: ../rubisco/cli/main/ktrigger.py:574
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:573
 msgid "[yellow]Unknown[/yellow]"
 msgstr "[yellow]Unknown[/yellow]"
 
-#: ../rubisco/cli/main/ktrigger.py:577
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:576
 msgid "[dark_orange]License:[/dark_orange] ${{license}}"
 msgstr "[dark_orange]License:[/dark_orange] ${{license}}"
 
-#: ../rubisco/cli/main/ktrigger.py:583
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:582
 msgid "[dark_orange]Description:[/dark_orange] ${{desc}}"
 msgstr "[dark_orange]Description:[/dark_orange] ${{desc}}"
 
-#: ../rubisco/cli/main/ktrigger.py:588
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:587
 msgid "[dark_orange]Hooks:[/dark_orange]"
 msgstr "[dark_orange]Hooks:[/dark_orange]"
 
-#: ../rubisco/cli/main/ktrigger.py:596
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:595
 msgid "(${{num}} hooks)"
 msgstr "(${{num}} hooks)"
 
-#: ../rubisco/cli/main/ktrigger.py:613
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:612
 msgid "Creating symbolic link: ${{src}} -> ${{dst}} ..."
 msgstr "Creating symbolic link: ${{src}} -> ${{dst}} ..."
 
-#: ../rubisco/cli/main/ktrigger.py:625
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:624
 msgid "Creating hard link: ${{src}} -> ${{dst}} ..."
 msgstr "Creating hard link: ${{src}} -> ${{dst}} ..."
 
-#: ../rubisco/cli/main/ktrigger.py:638
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:637
 msgid "Creating Rubisco extension environment: ${{path}} ..."
 msgstr "Creating Rubisco extension environment: ${{path}} ..."
 
-#: ../rubisco/cli/main/ktrigger.py:652 ../rubisco/cli/main/ktrigger.py:700
-#: ../rubisco/cli/main/ktrigger.py:748 ../rubisco/cli/main/ktrigger.py:795
-#: ../rubisco/cli/main/extman_cmds.py:63
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:651
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:699
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:747
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:794
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:63
 msgid "global"
 msgstr "global"
 
-#: ../rubisco/cli/main/ktrigger.py:654 ../rubisco/cli/main/ktrigger.py:702
-#: ../rubisco/cli/main/ktrigger.py:750 ../rubisco/cli/main/ktrigger.py:797
-#: ../rubisco/cli/main/extman_cmds.py:65
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:653
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:701
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:749
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:796
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:65
 msgid "user"
 msgstr "user"
 
-#: ../rubisco/cli/main/ktrigger.py:656 ../rubisco/cli/main/ktrigger.py:704
-#: ../rubisco/cli/main/ktrigger.py:752 ../rubisco/cli/main/ktrigger.py:799
-#: ../rubisco/cli/main/extman_cmds.py:67
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:655
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:703
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:751
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:798
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:67
 msgid "workspace"
 msgstr "workspace"
 
-#: ../rubisco/cli/main/ktrigger.py:660
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:659
 msgid "Installing extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] to [yellow]${{dest}}[/yellow] (${{path}}) ..."
 msgstr "Installing extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] to [yellow]${{dest}}[/yellow] (${{path}}) ..."
 
-#: ../rubisco/cli/main/ktrigger.py:685
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:684
 msgid "Extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] was successfully installed."
 msgstr "Extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] was successfully installed."
 
-#: ../rubisco/cli/main/ktrigger.py:708
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:707
 msgid "Uninstalling extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] from [yellow]${{dest}}[/yellow] (${{path}}) ..."
 msgstr "Uninstalling extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] from [yellow]${{dest}}[/yellow] (${{path}}) ..."
 
-#: ../rubisco/cli/main/ktrigger.py:733
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:732
 msgid "Extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] was successfully uninstalled."
 msgstr "Extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] was successfully uninstalled."
 
-#: ../rubisco/cli/main/ktrigger.py:756
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:755
 msgid "Upgrading extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] from [yellow]${{dest}}[/yellow] (${{path}}) ..."
 msgstr "Upgrading extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] from [yellow]${{dest}}[/yellow] (${{path}}) ..."
 
-#: ../rubisco/cli/main/ktrigger.py:781
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:780
 msgid "Extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] was successfully upgraded."
 msgstr "Extension [green]${{name}}[/green]:[cyan]${{version}}[/cyan] was successfully upgraded."
 
-#: ../rubisco/cli/main/ktrigger.py:802
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:801
 msgid "The following extensions will be uninstalled from [yellow]${{dest}}[/yellow] (${{path}}):"
 msgstr "The following extensions will be uninstalled from [yellow]${{dest}}[/yellow] (${{path}}):"
 
-#: ../rubisco/cli/main/ktrigger.py:818
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:817
 msgid "Continue?"
 msgstr "Continue?"
 
-#: ../rubisco/cli/main/ktrigger.py:911
+#: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:910
 msgid "Leaving directory ${{path}} ..."
 msgstr "Leaving directory ${{path}} ..."
 
-#: ../rubisco/cli/main/version_action.py:43
+#: /workspaces/cppp/rubisco/rubisco/cli/main/version_action.py:43
 msgid ""
 "[bold]Copyright (C) 2025 [link=https://github.com/cppp-project]The C++ Plus Project[/link].[/bold]\n"
 "License [bold]GPLv3+[/bold]: GNU GPL version [cyan]3[/cyan] or later <https://www.gnu.org/licenses/gpl.html>.\n"
@@ -1103,859 +1138,615 @@ msgstr ""
 "There is [yellow]NO WARRANTY[/yellow], to the extent permitted by law.\n"
 "Written by [link=https://github.com/ChenPi11]ChenPi11[/link]."
 
-#: ../rubisco/cli/main/version_action.py:68
+#: /workspaces/cppp/rubisco/rubisco/cli/main/version_action.py:68
 msgid "Show program's version number and exit."
 msgstr "Show program's version number and exit."
 
-#: ../rubisco/cli/main/arg_parser.py:67
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:67
 msgid "Rubisco CommandEventFS Debugger CLI exited."
 msgstr "Rubisco CommandEventFS Debugger CLI exited."
 
-#: ../rubisco/cli/main/arg_parser.py:91
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:91
 msgid "Project root"
 msgstr "Project root"
 
-#: ../rubisco/cli/main/arg_parser.py:92
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:92
 msgid "The root directory of Rubisco project."
 msgstr "The root directory of Rubisco project."
 
-#: ../rubisco/cli/main/arg_parser.py:99
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:99
 msgid "Used prompt colors (for CLI)."
 msgstr "Used prompt colors (for CLI)."
 
-#: ../rubisco/cli/main/arg_parser.py:101 ../rubisco/cli/main/arg_parser.py:270
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:101
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:270
 msgid "Prompt colors used by rubisco parent process."
 msgstr "Prompt colors used by rubisco parent process."
 
-#: ../rubisco/cli/main/arg_parser.py:108
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:108
 msgid "Enable Rubisco log"
 msgstr "Enable Rubisco log"
 
-#: ../rubisco/cli/main/arg_parser.py:110
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:110
 msgid "Allow Rubisco to save log. Do not use this option directly. Use `--log` to allow Rubisco log. It will be saved to `.rubisco/rubisco.log`."
 msgstr "Allow Rubisco to save log. Do not use this option directly. Use `--log` to allow Rubisco log. It will be saved to `.rubisco/rubisco.log`."
 
-#: ../rubisco/cli/main/arg_parser.py:121
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:121
 msgid "Allow Rubisco to save log."
 msgstr "Allow Rubisco to save log."
 
-#: ../rubisco/cli/main/arg_parser.py:129
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:129
 msgid "Enable debug mode."
 msgstr "Enable debug mode."
 
-#: ../rubisco/cli/main/arg_parser.py:131
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:131
 msgid "Run rubisco in debug mode. Don't use this option directly. Use `--debug` to enable debug mode. It's parsed when Rubisco log system initializing."
 msgstr "Run rubisco in debug mode. Don't use this option directly. Use `--debug` to enable debug mode. It's parsed when Rubisco log system initializing."
 
-#: ../rubisco/cli/main/arg_parser.py:143
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:143
 msgid "Run rubisco in debug mode."
 msgstr "Run rubisco in debug mode."
 
-#: ../rubisco/cli/main/arg_parser.py:151
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:151
 msgid "Verbose"
 msgstr "Verbose"
 
-#: ../rubisco/cli/main/arg_parser.py:152 ../rubisco/cli/main/arg_parser.py:159
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:152
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:159
 msgid "Enable verbose output."
 msgstr "Enable verbose output."
 
-#: ../rubisco/cli/main/arg_parser.py:170
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:170
 msgid "Parse options in '/' and init Rubisco configs."
 msgstr "Parse options in '/' and init Rubisco configs."
 
-#: ../rubisco/cli/main/arg_parser.py:183
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:183
 msgid "Show version."
 msgstr "Show version."
 
-#: ../rubisco/cli/main/arg_parser.py:189
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:189
 msgid "Show Rubisco version."
 msgstr "Show Rubisco version."
 
-#: ../rubisco/cli/main/arg_parser.py:198
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:198
 msgid "Launch CommandEventFS Debugger."
 msgstr "Launch CommandEventFS Debugger."
 
-#: ../rubisco/cli/main/arg_parser.py:205
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:205
 msgid "Launch Rubisco CommandEventFS Debugger CLI."
 msgstr "Launch Rubisco CommandEventFS Debugger CLI."
 
-#: ../rubisco/cli/main/arg_parser.py:215
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:215
 msgid "Extension directory."
 msgstr "Extension directory."
 
-#: ../rubisco/cli/main/arg_parser.py:261
+#: /workspaces/cppp/rubisco/rubisco/cli/main/arg_parser.py:261
 msgid "Project root directory."
 msgstr "Project root directory."
 
-#: ../rubisco/cli/main/extman_cmds.py:69
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:69
 msgid "foreign-package"
 msgstr "foreign-package"
 
-#: ../rubisco/cli/main/extman_cmds.py:70
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:70
 msgid "unknown"
 msgstr "unknown"
 
-#: ../rubisco/cli/main/extman_cmds.py:96
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:95
 msgid "No environment exists or selected."
 msgstr "No environment exists or selected."
 
-#: ../rubisco/cli/main/extman_cmds.py:144
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:143
 msgid "Package: [green]${{name}}[/green]"
 msgstr "Package: [green]${{name}}[/green]"
 
-#: ../rubisco/cli/main/extman_cmds.py:151
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:150
 msgid "Version: [cyan]${{ver}}[/cyan]"
 msgstr "Version: [cyan]${{ver}}[/cyan]"
 
-#: ../rubisco/cli/main/extman_cmds.py:158
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:157
 msgid "Installation Location: ${{loc}}"
 msgstr "Installation Location: ${{loc}}"
 
-#: ../rubisco/cli/main/extman_cmds.py:165
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:164
 msgid "Maintainers: ${{maintainers}}"
 msgstr "Maintainers: ${{maintainers}}"
 
-#: ../rubisco/cli/main/extman_cmds.py:172
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:171
 msgid "Homepage: ${{homepage}}"
 msgstr "Homepage: ${{homepage}}"
 
-#: ../rubisco/cli/main/extman_cmds.py:179
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:178
 msgid "License: ${{license}}"
 msgstr "License: ${{license}}"
 
-#: ../rubisco/cli/main/extman_cmds.py:186
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:185
 msgid "Tags: ${{tags}}"
 msgstr "Tags: ${{tags}}"
 
-#: ../rubisco/cli/main/extman_cmds.py:193
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:192
 msgid "Description: ${{desc}}"
 msgstr "Description: ${{desc}}"
 
-#: ../rubisco/cli/main/extman_cmds.py:224
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:223
 msgid "No packages found."
 msgstr "No packages found."
 
-#: ../rubisco/cli/main/extman_cmds.py:258
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:257
 msgid "Invalid install destination: ${{dest}}. Supported destinations are 'workspace', 'user', 'global'."
 msgstr "Invalid install destination: ${{dest}}. Supported destinations are 'workspace', 'user', 'global'."
 
-#: ../rubisco/cli/main/extman_cmds.py:268
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:267
 msgid "No files found."
 msgstr "No files found."
 
-#: ../rubisco/cli/main/extman_cmds.py:299
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:298
 msgid "Invalid uninstall destination: ${{dest}}. Supported destinations are 'workspace', 'user', 'global'."
 msgstr "Invalid uninstall destination: ${{dest}}. Supported destinations are 'workspace', 'user', 'global'."
 
-#: ../rubisco/cli/main/extman_cmds.py:314
-#: ../rubisco/cli/main/extman_cmds.py:315
-#: ../rubisco/cli/main/extman_cmds.py:400
-#: ../rubisco/cli/main/extman_cmds.py:401
-#: ../rubisco/cli/main/extman_cmds.py:542
-#: ../rubisco/cli/main/extman_cmds.py:543
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:313
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:314
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:399
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:400
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:541
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:542
 msgid "Packages matching patterns."
 msgstr "Packages matching patterns."
 
-#: ../rubisco/cli/main/extman_cmds.py:322
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:321
 msgid "Default callback for list Rubisco extensions."
 msgstr "Default callback for list Rubisco extensions."
 
-#: ../rubisco/cli/main/extman_cmds.py:331
-#: ../rubisco/cli/main/extman_cmds.py:332
-#: ../rubisco/cli/main/extman_cmds.py:339
-#: ../rubisco/cli/main/extman_cmds.py:417
-#: ../rubisco/cli/main/extman_cmds.py:418
-#: ../rubisco/cli/main/extman_cmds.py:425
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:330
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:331
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:338
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:416
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:417
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:424
 msgid "Show workspace extensions."
 msgstr "Show workspace extensions."
 
-#: ../rubisco/cli/main/extman_cmds.py:344
-#: ../rubisco/cli/main/extman_cmds.py:430
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:343
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:429
 msgid "Hide workspace extensions."
 msgstr "Hide workspace extensions."
 
-#: ../rubisco/cli/main/extman_cmds.py:352
-#: ../rubisco/cli/main/extman_cmds.py:353
-#: ../rubisco/cli/main/extman_cmds.py:360
-#: ../rubisco/cli/main/extman_cmds.py:438
-#: ../rubisco/cli/main/extman_cmds.py:439
-#: ../rubisco/cli/main/extman_cmds.py:446
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:351
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:352
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:359
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:437
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:438
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:445
 msgid "Show user extensions."
 msgstr "Show user extensions."
 
-#: ../rubisco/cli/main/extman_cmds.py:365
-#: ../rubisco/cli/main/extman_cmds.py:451
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:364
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:450
 msgid "Hide user extensions."
 msgstr "Hide user extensions."
 
-#: ../rubisco/cli/main/extman_cmds.py:373
-#: ../rubisco/cli/main/extman_cmds.py:374
-#: ../rubisco/cli/main/extman_cmds.py:381
-#: ../rubisco/cli/main/extman_cmds.py:459
-#: ../rubisco/cli/main/extman_cmds.py:460
-#: ../rubisco/cli/main/extman_cmds.py:467
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:372
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:373
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:380
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:458
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:459
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:466
 msgid "Show global extensions."
 msgstr "Show global extensions."
 
-#: ../rubisco/cli/main/extman_cmds.py:386
-#: ../rubisco/cli/main/extman_cmds.py:472
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:385
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:471
 msgid "Hide global extensions."
 msgstr "Hide global extensions."
 
-#: ../rubisco/cli/main/extman_cmds.py:408
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:407
 msgid "Default callback for show Rubisco extensions."
 msgstr "Default callback for show Rubisco extensions."
 
-#: ../rubisco/cli/main/extman_cmds.py:413
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:412
 msgid "Show extensions info with matching patterns."
 msgstr "Show extensions info with matching patterns."
 
-#: ../rubisco/cli/main/extman_cmds.py:486
-#: ../rubisco/cli/main/extman_cmds.py:487
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:485
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:486
 msgid "Extension package files glob patterns."
 msgstr "Extension package files glob patterns."
 
-#: ../rubisco/cli/main/extman_cmds.py:494
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:493
 msgid "Default callback for install Rubisco extensions."
 msgstr "Default callback for install Rubisco extensions."
 
-#: ../rubisco/cli/main/extman_cmds.py:499
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:498
 msgid "Install extensions with matching patterns."
 msgstr "Install extensions with matching patterns."
 
-#: ../rubisco/cli/main/extman_cmds.py:504
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:503
 msgid "Install to destination."
 msgstr "Install to destination."
 
-#: ../rubisco/cli/main/extman_cmds.py:506
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:505
 msgid "Install extension packages to destination. support 'workspace', 'user', 'global'."
 msgstr "Install extension packages to destination. support 'workspace', 'user', 'global'."
 
-#: ../rubisco/cli/main/extman_cmds.py:515
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:514
 msgid "Install to workspace."
 msgstr "Install to workspace."
 
-#: ../rubisco/cli/main/extman_cmds.py:521
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:520
 msgid "Install to user."
 msgstr "Install to user."
 
-#: ../rubisco/cli/main/extman_cmds.py:527
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:526
 msgid "Install to global."
 msgstr "Install to global."
 
-#: ../rubisco/cli/main/extman_cmds.py:550
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:549
 msgid "Default callback for uninstall Rubisco extensions."
 msgstr "Default callback for uninstall Rubisco extensions."
 
-#: ../rubisco/cli/main/extman_cmds.py:555
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:554
 msgid "Uninstall extensions with matching patterns."
 msgstr "Uninstall extensions with matching patterns."
 
-#: ../rubisco/cli/main/extman_cmds.py:559
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:558
 msgid "Uninstall to destination."
 msgstr "Uninstall to destination."
 
-#: ../rubisco/cli/main/extman_cmds.py:561
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:560
 msgid "Uninstall extension packages to destination. support 'workspace', 'user', 'global'."
 msgstr "Uninstall extension packages to destination. support 'workspace', 'user', 'global'."
 
-#: ../rubisco/cli/main/extman_cmds.py:570
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:569
 msgid "Uninstall to workspace."
 msgstr "Uninstall to workspace."
 
-#: ../rubisco/cli/main/extman_cmds.py:576
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:575
 msgid "Uninstall to user."
 msgstr "Uninstall to user."
 
-#: ../rubisco/cli/main/extman_cmds.py:582
+#: /workspaces/cppp/rubisco/rubisco/cli/main/extman_cmds.py:581
 msgid "Uninstall to global."
 msgstr "Uninstall to global."
 
-#: ../rubisco/cli/main/help_formatter.py:48
+#: /workspaces/cppp/rubisco/rubisco/cli/main/help_formatter.py:48
 msgid "Show this help message and exit."
 msgstr "Show this help message and exit."
 
-#: ../rubisco/cli/main/help_formatter.py:54
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:149
+#: /workspaces/cppp/rubisco/rubisco/cli/main/help_formatter.py:54
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:148
 msgid "Usage:"
 msgstr "Usage:"
 
-#: ../rubisco/cli/main/help_formatter.py:57
+#: /workspaces/cppp/rubisco/rubisco/cli/main/help_formatter.py:57
 msgid "Positional Arguments:"
 msgstr "Positional Arguments:"
 
-#: ../rubisco/cli/main/help_formatter.py:60 ../rubisco/cli/cefs_dbg/cli.py:299
+#: /workspaces/cppp/rubisco/rubisco/cli/main/help_formatter.py:60
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:299
 msgid "Options:"
 msgstr "Options:"
 
-#: ../rubisco/cli/argparse_generator.py:137
-msgid "The advanced options must be a list."
-msgstr "The advanced options must be a list."
-
-#: ../rubisco/cli/argparse_generator.py:139
-msgid "Advanced options must be a list of `dict[str, list[str] | int | str | None]`."
-msgstr "Advanced options must be a list of `dict[str, list[str] | int | str | None]`."
-
-#: ../rubisco/cli/output.py:198
-msgid "[red]Error: ${{msg}}[/red]"
-msgstr "[red]Error: ${{msg}}[/red]"
-
-#: ../rubisco/cli/output.py:211
-msgid "[yellow]Warning: ${{msg}}[/yellow]"
-msgstr "[yellow]Warning: ${{msg}}[/yellow]"
-
-#: ../rubisco/cli/output.py:226
-msgid "[italic][magenta]Hint:[/magenta] ${{msg}}[/italic]"
-msgstr "[italic][magenta]Hint:[/magenta] ${{msg}}[/italic]"
-
-#: ../rubisco/cli/output.py:256
-msgid "Unknown error."
-msgstr "Unknown error."
-
-#: ../rubisco/cli/output.py:259 ../rubisco/envutils/packages.py:537
-msgid "Interrupted by user."
-msgstr "Interrupted by user."
-
-#: ../rubisco/cli/output.py:263
-msgid "JSON5 decode error."
-msgstr "JSON5 decode error."
-
-#: ../rubisco/cli/output.py:265
-msgid "Is may caused by a invalid JSON5 configuration file."
-msgstr "Is may caused by a invalid JSON5 configuration file."
-
-#: ../rubisco/cli/output.py:269
-msgid "Missing key: ${{msg}}"
-msgstr "Missing key: ${{msg}}"
-
-#: ../rubisco/cli/output.py:273
-msgid "Is may caused by a invalid configuration file."
-msgstr "Is may caused by a invalid configuration file."
-
-#: ../rubisco/cli/output.py:279
-msgid "Internal error: ${{type}}: ${{msg}}"
-msgstr "Internal error: ${{type}}: ${{msg}}"
-
-#: ../rubisco/cli/output.py:287
-msgid "See: ${{url}}"
-msgstr "See: ${{url}}"
-
-#: ../rubisco/cli/cefs_dbg/cli.py:132
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:132
 msgid "Command not found: ${{cmd}}"
 msgstr "Command not found: ${{cmd}}"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:150 ../rubisco/cli/cefs_dbg/cli.py:263
-#: ../rubisco/cli/cefs_dbg/cli.py:292 ../rubisco/cli/cefs_dbg/cli.py:365
-#: ../rubisco/cli/cefs_dbg/cli.py:419
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:150
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:263
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:292
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:365
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:419
 msgid "Too many arguments."
 msgstr "Too many arguments."
 
-#: ../rubisco/cli/cefs_dbg/cli.py:154
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:154
 msgid "No such file or directory."
 msgstr "No such file or directory."
 
-#: ../rubisco/cli/cefs_dbg/cli.py:157
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:157
 msgid "Not a directory."
 msgstr "Not a directory."
 
-#: ../rubisco/cli/cefs_dbg/cli.py:194 ../rubisco/cli/cefs_dbg/helpmsg.py:151
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:194
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:150
 msgid "Arguments:"
 msgstr "Arguments:"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:198 ../rubisco/cli/cefs_dbg/cli.py:250
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:198
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:250
 msgid "None."
 msgstr "None."
 
-#: ../rubisco/cli/cefs_dbg/cli.py:200
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:200
 msgid "Dynamic Arguments:"
 msgstr "Dynamic Arguments:"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:204
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:204
 msgid "From ${{mincount}} to ${{maxcount}}."
 msgstr "From ${{mincount}} to ${{maxcount}}."
 
-#: ../rubisco/cli/cefs_dbg/cli.py:210
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:210
 msgid "unlimited"
 msgstr "unlimited"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:221 ../rubisco/cli/cefs_dbg/cli.py:237
-#: ../rubisco/cli/cefs_dbg/cli.py:239
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:221
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:237
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:239
 msgid "Unknown."
 msgstr "Unknown."
 
-#: ../rubisco/cli/cefs_dbg/cli.py:224
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:224
 msgid "Callbacks:"
 msgstr "Callbacks:"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:230
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:230
 msgid "Function: ${{repr}}"
 msgstr "Function: ${{repr}}"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:245
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:245
 msgid "Source: ${{src}}"
 msgstr "Source: ${{src}}"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:260 ../rubisco/cli/cefs_dbg/cli.py:362
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:260
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:362
 msgid "No file specified."
 msgstr "No file specified."
 
-#: ../rubisco/cli/cefs_dbg/cli.py:269 ../rubisco/cli/cefs_dbg/cli.py:371
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:269
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:371
 msgid "No such file or directory: ${{path}}"
 msgstr "No such file or directory: ${{path}}"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:274
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:274
 msgid "Not a file."
 msgstr "Not a file."
 
-#: ../rubisco/cli/cefs_dbg/cli.py:305 ../rubisco/cli/cefs_dbg/cli.py:396
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:305
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:396
 msgid "Description: [yellow]${{description}}[/yellow]"
 msgstr "Description: [yellow]${{description}}[/yellow]"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:312
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:312
 msgid "Type: [green]${{type}}[/green]"
 msgstr "Type: [green]${{type}}[/green]"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:320
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:320
 msgid "Aliases: [blue]${{aliases}}[/blue]"
 msgstr "Aliases: [blue]${{aliases}}[/blue]"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:328
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:328
 msgid "Default value: ${{default}}"
 msgstr "Default value: ${{default}}"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:336
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:336
 msgid "Extra attributes: ${{ext_attributes}}"
 msgstr "Extra attributes: ${{ext_attributes}}"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:347
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:347
 msgid "Current value: ${{value}}"
 msgstr "Current value: ${{value}}"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:384
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:384
 msgid "File: ${{path}} ${{alias_to}}"
 msgstr "File: ${{path}} ${{alias_to}}"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:390
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:390
 msgid "Type: ${{type}}"
 msgstr "Type: ${{type}}"
 
-#: ../rubisco/cli/cefs_dbg/cli.py:403
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/cli.py:403
 msgid "Mount point: ${{path}}"
 msgstr "Mount point: ${{path}}"
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:47
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:46
 msgid "Change the debugger's working directory."
 msgstr "Change the debugger's working directory."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:51
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:50
 msgid "Change the current directory to [italic]\\[PATH][/italic]. The default [italic]\\[PATH][/italic] is the root directory"
 msgstr "Change the current directory to [italic]\\[PATH][/italic]. The default [italic]\\[PATH][/italic] is the root directory"
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:58
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:57
 msgid "Display the file's data."
 msgstr "Display the file's data."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:61
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:60
 msgid "The file path to display."
 msgstr "The file path to display."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:65
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:64
 msgid "Display file or directory status."
 msgstr "Display file or directory status."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:68
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:67
 msgid "The file path to display status."
 msgstr "The file path to display status."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:72
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:71
 msgid "List directory contents."
 msgstr "List directory contents."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:76
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:75
 msgid "List the directory contents of [italic]\\[PATH][/italic]. The default [italic]\\[PATH][/italic] is the current directory"
 msgstr "List the directory contents of [italic]\\[PATH][/italic]. The default [italic]\\[PATH][/italic] is the current directory"
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:83
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:82
 msgid "Exit the debugger."
 msgstr "Exit the debugger."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:87
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:86
 msgid "Display information about builtin commands."
 msgstr "Display information about builtin commands."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:91
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:90
 msgid "The command to display help information. If not specified, display help information about all builtin commands."
 msgstr "The command to display help information. If not specified, display help information about all builtin commands."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:98
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:97
 msgid "Clear the terminal screen and scrollback buffer."
 msgstr "Clear the terminal screen and scrollback buffer."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:110
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:109
 msgid "Command"
 msgstr "Command"
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:111
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:110
 msgid "Description"
 msgstr "Description"
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:119
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:118
 msgid "Use [green]help[/green] [bold]<COMMAND>[/] to get more help."
 msgstr "Use [green]help[/green] [bold]<COMMAND>[/] to get more help."
 
-#: ../rubisco/cli/cefs_dbg/helpmsg.py:124
+#: /workspaces/cppp/rubisco/rubisco/cli/cefs_dbg/helpmsg.py:123
 msgid "`help` use \"[italic][COMMAND][/italic]\" for optional arguments. Use \"[bold]<COMMAND>[/bold]\" for required arguments."
 msgstr "`help` use \"[italic][COMMAND][/italic]\" for optional arguments. Use \"[bold]<COMMAND>[/bold]\" for required arguments."
 
-#: ../rubisco/envutils/packages.py:112
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:108
 msgid "'${{name}}' package must contain a directory with the same name as the package name and a '${{metafile}}' file."
 msgstr "'${{name}}' package must contain a directory with the same name as the package name and a '${{metafile}}' file."
 
-#: ../rubisco/envutils/packages.py:131
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:127
 msgid "'${{name}}' package contains files that not allowed in the root directory."
 msgstr "'${{name}}' package contains files that not allowed in the root directory."
 
-#: ../rubisco/envutils/packages.py:172
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:170
 msgid "Package name '${{name}}' invalid."
 msgstr "Package name '${{name}}' invalid."
 
-#: ../rubisco/envutils/packages.py:177
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:175
 msgid "Package name must be lowercase and only contain 0-9, a-z, A-Z, '_', '.' and '-'."
 msgstr "Package name must be lowercase and only contain 0-9, a-z, A-Z, '_', '.' and '-'."
 
-#: ../rubisco/envutils/packages.py:192
-msgid "Tags must be a list of strings."
-msgstr "Tags must be a list of strings."
-
-#: ../rubisco/envutils/packages.py:199
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:196
 msgid "Tags must be lowercase and only contain 0-9, a-z, A-Z, '_' and '-'."
 msgstr "Tags must be lowercase and only contain 0-9, a-z, A-Z, '_' and '-'."
 
-#: ../rubisco/envutils/packages.py:220
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:217
 msgid "${{path}} package configuration file is not a valid JSON5 file."
 msgstr "${{path}} package configuration file is not a valid JSON5 file."
 
-#: ../rubisco/envutils/packages.py:230
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:227
 msgid "${{path}} package configuration file is missing a required key: ${{key}}."
 msgstr "${{path}} package configuration file is missing a required key: ${{key}}."
 
-#: ../rubisco/envutils/packages.py:272
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:269
 msgid "${{path}} is not a valid Rubisco extension package."
 msgstr "${{path}} is not a valid Rubisco extension package."
 
-#: ../rubisco/envutils/packages.py:276
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:273
 msgid "Rubisco extension package must be a zip file."
 msgstr "Rubisco extension package must be a zip file."
 
-#: ../rubisco/envutils/packages.py:284
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:281
 msgid "Error while opening ${{metafile}} in ${{path}}: '${{msg}}'."
 msgstr "Error while opening ${{metafile}} in ${{path}}: '${{msg}}'."
 
-#: ../rubisco/envutils/packages.py:297
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:294
 msgid "${{path}} package configuration file is missing a required key: '${{key}}'."
 msgstr "${{path}} package configuration file is missing a required key: '${{key}}'."
 
-#: ../rubisco/envutils/packages.py:328
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:325
 msgid "Multiple instances of '${{name}}' extension found in the database. Selecting the last one."
 msgstr "Multiple instances of '${{name}}' extension found in the database. Selecting the last one."
 
-#: ../rubisco/envutils/packages.py:403
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:400
 msgid "${{path}} already exists in the filesystem."
 msgstr "${{path}} already exists in the filesystem."
 
-#: ../rubisco/envutils/packages.py:454
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:451
 msgid "No extension installed."
 msgstr "No extension installed."
 
-#: ../rubisco/envutils/packages.py:462
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:459
 msgid "No extension found matching '${{pattern}}'."
 msgstr "No extension found matching '${{pattern}}'."
 
-#: ../rubisco/envutils/packages.py:473
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:470
 msgid "Selected '${{name}}'."
 msgstr "Selected '${{name}}'."
 
-#: ../rubisco/envutils/packages.py:494
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:491
 msgid "Extension '${{name}}'(${{path}}) is not found in the filesystem."
 msgstr "Extension '${{name}}'(${{path}}) is not found in the filesystem."
 
-#: ../rubisco/envutils/packages.py:576 ../rubisco/envutils/packages.py:645
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:573
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:642
 msgid "The same version of '${{name}}' extension is already installed."
 msgstr "The same version of '${{name}}' extension is already installed."
 
-#: ../rubisco/envutils/packages.py:588 ../rubisco/envutils/packages.py:657
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:585
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:654
 msgid "The higher version of '${{name}}' extension is already installed."
 msgstr "The higher version of '${{name}}' extension is already installed."
 
-#: ../rubisco/envutils/packages.py:627
+#: /workspaces/cppp/rubisco/rubisco/envutils/packages.py:624
 msgid "Rubisco Binary Package (RuBP) '${{path}}' must be a zipfile with '.rubp' suffix."
 msgstr "Rubisco Binary Package (RuBP) '${{path}}' must be a zipfile with '.rubp' suffix."
 
-#: ../rubisco/envutils/env.py:118
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:118
 msgid "The database ${{path}} is broken."
 msgstr "The database ${{path}} is broken."
 
-#: ../rubisco/envutils/env.py:125
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:125
 msgid "Failed to check the environment."
 msgstr "Failed to check the environment."
 
-#: ../rubisco/envutils/env.py:128
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:128
 msgid "The ${{path}} is not a valid venv but exists.Please remove it and try again."
 msgstr "The ${{path}} is not a valid venv but exists.Please remove it and try again."
 
-#: ../rubisco/envutils/env.py:149
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:149
 msgid "Failed to create venv. Consider to check thepermissions of the path."
 msgstr "Failed to create venv. Consider to check thepermissions of the path."
 
-#: ../rubisco/envutils/env.py:157
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:157
 msgid "Failed to create the database for the environment."
 msgstr "Failed to create the database for the environment."
 
-#: ../rubisco/envutils/env.py:209
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:209
 msgid "Waiting for the environment to be unlocked (${{path}}): ${{seconds}} seconds."
 msgstr "Waiting for the environment to be unlocked (${{path}}): ${{seconds}} seconds."
 
-#: ../rubisco/envutils/env.py:255
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:255
 msgid "The environment ${{path}} is already locked by PID ${{pid}}. If you want to force unlock it, please remove the lock file ${{lockfile}} manually."
 msgstr "The environment ${{path}} is already locked by PID ${{pid}}. If you want to force unlock it, please remove the lock file ${{lockfile}} manually."
 
-#: ../rubisco/envutils/env.py:271
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:271
 msgid "The PID '${{pid}}' is not valid. Maybe the process has already exited. Remove the lock file if you believe the process has already exited."
 msgstr "The PID '${{pid}}' is not valid. Maybe the process has already exited. Remove the lock file if you believe the process has already exited."
 
-#: ../rubisco/envutils/env.py:303
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:303
 msgid "The lock file ${{path}} is broken."
 msgstr "The lock file ${{path}} is broken."
 
-#: ../rubisco/envutils/env.py:317
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:317
 msgid "Failed to read the lock file ${{path}}: ${{msg}}"
 msgstr "Failed to read the lock file ${{path}}: ${{msg}}"
 
-#: ../rubisco/envutils/env.py:375
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:375
 msgid "The environment ${{path}} is locked by another thread (PID ${{pid}}, Thread ${{thread}}). Unlock request is ignored."
 msgstr "The environment ${{path}} is locked by another thread (PID ${{pid}}, Thread ${{thread}}). Unlock request is ignored."
 
-#: ../rubisco/envutils/env.py:395
+#: /workspaces/cppp/rubisco/rubisco/envutils/env.py:395
 msgid "Failed to unlock the extension environment ${{path}}: ${{msg}}"
 msgstr "Failed to unlock the extension environment ${{path}}: ${{msg}}"
 
-#: ../rubisco/envutils/env_db.py:142
+#: /workspaces/cppp/rubisco/rubisco/envutils/env_db.py:143
 msgid "[SQLite3 Errorcode ${{codename}}(${{code}})]: ${{msg}}"
 msgstr "[SQLite3 Errorcode ${{codename}}(${{code}})]: ${{msg}}"
 
-#: ../rubisco/envutils/env_db.py:155
+#: /workspaces/cppp/rubisco/rubisco/envutils/env_db.py:156
 msgid "Failed to open or operate on database ${{path}}: ${{exc}}"
 msgstr "Failed to open or operate on database ${{path}}: ${{exc}}"
 
-#: ../rubisco/envutils/env_db.py:290
+#: /workspaces/cppp/rubisco/rubisco/envutils/env_db.py:291
 msgid "Invalid regex pattern: '${{pattern}}'."
 msgstr "Invalid regex pattern: '${{pattern}}'."
 
-#: ../rubisco/envutils/utils.py:79
+#: /workspaces/cppp/rubisco/rubisco/envutils/utils.py:79
 msgid "Failed to add ${{path}} to sys.path: ${{exc}}"
 msgstr "Failed to add ${{path}} to sys.path: ${{exc}}"
 
-#: ../rubisco/envutils/pip.py:78
+#: /workspaces/cppp/rubisco/rubisco/envutils/pip.py:78
 msgid "You are installing a extension to the global environment. Please make sure that you have the right permissions."
 msgstr "You are installing a extension to the global environment. Please make sure that you have the right permissions."
-
-#: /usr/lib/python3.13/argparse.py:227
-#, python-format
-msgid "%(heading)s:"
-msgstr "%(heading)s:"
-
-#: /usr/lib/python3.13/argparse.py:300
-msgid "usage: "
-msgstr "usage: "
-
-#: /usr/lib/python3.13/argparse.py:676
-#, python-format
-msgid " (default: %(default)s)"
-msgstr " (default: %(default)s)"
-
-#: /usr/lib/python3.13/argparse.py:738
-#, python-format
-msgid "argument %(argument_name)s: %(message)s"
-msgstr "argument %(argument_name)s: %(message)s"
-
-#: /usr/lib/python3.13/argparse.py:847
-msgid ".__call__() not defined"
-msgstr ".__call__() not defined"
-
-#: /usr/lib/python3.13/argparse.py:1138
-msgid "show program's version number and exit"
-msgstr "show program's version number and exit"
-
-#: /usr/lib/python3.13/argparse.py:1201
-#, python-format
-msgid "conflicting subparser: %s"
-msgstr "conflicting subparser: %s"
-
-#: /usr/lib/python3.13/argparse.py:1205
-#, python-format
-msgid "conflicting subparser alias: %s"
-msgstr "conflicting subparser alias: %s"
-
-#: /usr/lib/python3.13/argparse.py:1244
-#, python-format
-msgid "unknown parser %(parser_name)r (choices: %(choices)s)"
-msgstr "unknown parser %(parser_name)r (choices: %(choices)s)"
-
-#: /usr/lib/python3.13/argparse.py:1248
-#, python-format
-msgid "command '%(parser_name)s' is deprecated"
-msgstr "command '%(parser_name)s' is deprecated"
-
-#: /usr/lib/python3.13/argparse.py:1309
-#, python-format
-msgid "argument \"-\" with mode %r"
-msgstr "argument \"-\" with mode %r"
-
-#: /usr/lib/python3.13/argparse.py:1318
-#, python-format
-msgid "can't open '%(filename)s': %(error)s"
-msgstr "can't open '%(filename)s': %(error)s"
-
-#: /usr/lib/python3.13/argparse.py:1532
-#, python-format
-msgid "cannot merge actions - two groups are named %r"
-msgstr "cannot merge actions - two groups are named %r"
-
-#: /usr/lib/python3.13/argparse.py:1574
-msgid "'required' is an invalid argument for positionals"
-msgstr "'required' is an invalid argument for positionals"
-
-#: /usr/lib/python3.13/argparse.py:1595
-#, python-format
-msgid "invalid option string %(option)r: must start with a character %(prefix_chars)r"
-msgstr "invalid option string %(option)r: must start with a character %(prefix_chars)r"
-
-#: /usr/lib/python3.13/argparse.py:1613
-#, python-format
-msgid "dest= is required for options like %r"
-msgstr "dest= is required for options like %r"
-
-#: /usr/lib/python3.13/argparse.py:1630
-#, python-format
-msgid "invalid conflict_resolution value: %r"
-msgstr "invalid conflict_resolution value: %r"
-
-#: /usr/lib/python3.13/argparse.py:1648
-#, python-format
-msgid "conflicting option string: %s"
-msgid_plural "conflicting option strings: %s"
-msgstr[0] "conflicting option string: %s"
-msgstr[1] "conflicting option strings: %s"
-
-#: /usr/lib/python3.13/argparse.py:1723
-msgid "mutually exclusive arguments must be optional"
-msgstr "mutually exclusive arguments must be optional"
-
-#: /usr/lib/python3.13/argparse.py:1800
-msgid "positional arguments"
-msgstr "positional arguments"
-
-#: /usr/lib/python3.13/argparse.py:1801
-msgid "options"
-msgstr "options"
-
-#: /usr/lib/python3.13/argparse.py:1816
-msgid "show this help message and exit"
-msgstr "show this help message and exit"
-
-#: /usr/lib/python3.13/argparse.py:1847
-msgid "cannot have multiple subparser arguments"
-msgstr "cannot have multiple subparser arguments"
-
-#: /usr/lib/python3.13/argparse.py:1853
-msgid "subcommands"
-msgstr "subcommands"
-
-#: /usr/lib/python3.13/argparse.py:1900 /usr/lib/python3.13/argparse.py:2463
-#, python-format
-msgid "unrecognized arguments: %s"
-msgstr "unrecognized arguments: %s"
-
-#: /usr/lib/python3.13/argparse.py:2006
-#, python-format
-msgid "not allowed with argument %s"
-msgstr "not allowed with argument %s"
-
-#: /usr/lib/python3.13/argparse.py:2025
-#, python-format
-msgid "ambiguous option: %(option)s could match %(matches)s"
-msgstr "ambiguous option: %(option)s could match %(matches)s"
-
-#: /usr/lib/python3.13/argparse.py:2057 /usr/lib/python3.13/argparse.py:2089
-#, python-format
-msgid "ignored explicit argument %r"
-msgstr "ignored explicit argument %r"
-
-#: /usr/lib/python3.13/argparse.py:2109
-#, python-format
-msgid "option '%(option)s' is deprecated"
-msgstr "option '%(option)s' is deprecated"
-
-#: /usr/lib/python3.13/argparse.py:2141
-#, python-format
-msgid "argument '%(argument_name)s' is deprecated"
-msgstr "argument '%(argument_name)s' is deprecated"
-
-#: /usr/lib/python3.13/argparse.py:2234
-#, python-format
-msgid "the following arguments are required: %s"
-msgstr "the following arguments are required: %s"
-
-#: /usr/lib/python3.13/argparse.py:2249
-#, python-format
-msgid "one of the arguments %s is required"
-msgstr "one of the arguments %s is required"
-
-#: /usr/lib/python3.13/argparse.py:2293
-msgid "expected one argument"
-msgstr "expected one argument"
-
-#: /usr/lib/python3.13/argparse.py:2294
-msgid "expected at most one argument"
-msgstr "expected at most one argument"
-
-#: /usr/lib/python3.13/argparse.py:2295
-msgid "expected at least one argument"
-msgstr "expected at least one argument"
-
-#: /usr/lib/python3.13/argparse.py:2299
-#, python-format
-msgid "expected %s argument"
-msgid_plural "expected %s arguments"
-msgstr[0] "expected %s argument"
-msgstr[1] "expected %s arguments"
-
-#: /usr/lib/python3.13/argparse.py:2409
-#, python-format
-msgid "unexpected option string: %s"
-msgstr "unexpected option string: %s"
-
-#: /usr/lib/python3.13/argparse.py:2546
-#, python-format
-msgid "%r is not callable"
-msgstr "%r is not callable"
-
-#: /usr/lib/python3.13/argparse.py:2562
-#, python-format
-msgid "invalid %(type)s value: %(value)r"
-msgstr "invalid %(type)s value: %(value)r"
-
-#: /usr/lib/python3.13/argparse.py:2577
-#, python-format
-msgid "invalid choice: %(value)r (choose from %(choices)s)"
-msgstr "invalid choice: %(value)r (choose from %(choices)s)"
-
-#: /usr/lib/python3.13/argparse.py:2658
-#, python-format
-msgid "%(prog)s: error: %(message)s\n"
-msgstr "%(prog)s: error: %(message)s\n"
-
-#: /usr/lib/python3.13/argparse.py:2662
-#, python-format
-msgid "%(prog)s: warning: %(message)s\n"
-msgstr "%(prog)s: warning: %(message)s\n"

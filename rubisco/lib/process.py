@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -25,6 +25,7 @@ import os
 import sys
 from pathlib import Path
 from subprocess import PIPE, STDOUT, Popen
+from typing import TYPE_CHECKING
 
 from rubisco.config import DEFAULT_CHARSET
 from rubisco.lib.command import command
@@ -33,6 +34,9 @@ from rubisco.lib.fileutil import TemporaryObject
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
 
 if sys.platform != "cygwin":
     import psutil
@@ -69,7 +73,7 @@ class Process:
 
     def __init__(
         self,
-        cmd: list[str] | str,
+        cmd: Iterable[object] | str,
         cwd: Path | None = None,
         shell: str | None = get_system_shell(),
     ) -> None:
@@ -175,9 +179,7 @@ class Process:
             stdin=sys.stdin,
             stdout=PIPE if stdout else sys.stdout,
             stderr=(
-                PIPE
-                if stderr == 1
-                else (STDOUT if stderr == 2 else sys.stderr)  # noqa: PLR2004
+                PIPE if stderr == 1 else (STDOUT if stderr == 2 else sys.stderr)  # noqa: PLR2004
             ),
         ) as self.process:
             ret = self.process.wait()

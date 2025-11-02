@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -22,6 +22,7 @@
 import json
 import tomllib
 from pathlib import Path
+from typing import cast
 
 from rubisco.config import (
     APP_NAME,
@@ -32,13 +33,13 @@ from rubisco.config import (
     RUBP_REQUIREMENTS_FILE_NAME,
 )
 from rubisco.shared.api.archive import compress
-from rubisco.shared.api.exception import RUTypeError
 from rubisco.shared.api.kernel import RUConfiguration
 from rubisco.shared.api.l10n import _
 from rubisco.shared.api.variable import (
-    assert_iter_types,
     fast_format_str,
+    get_dict_check,
     make_pretty,
+    type_assert,
 )
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
@@ -64,15 +65,55 @@ class RuBP:
         self.config = config
         self.metadata = RUBPMatadata.from_json(config)
         self.bindir = Path(
-            config.get("rubp-bindir", default=".bindir", valtype=str),
+            cast(
+                "str",
+                get_dict_check(
+                    config.config,
+                    "rubp-bindir",
+                    default=".bindir",
+                    valtype=str,
+                ),
+            ),
         )
-        readme = config.get("rubp-readme", default="", valtype=str)
+        readme = cast(
+            "str",
+            get_dict_check(
+                config.config,
+                "rubp-readme",
+                default="",
+                valtype=str,
+            ),
+        )
         self.readme = Path(readme) if readme else None
-        license_ = config.get("rubp-license", default="", valtype=str)
+        license_ = cast(
+            "str",
+            get_dict_check(
+                config.config,
+                "rubp-license",
+                default="",
+                valtype=str,
+            ),
+        )
         self.license = Path(license_) if license_ else None
-        distdir = config.get("rubp-distdir", default="dist", valtype=str)
+        distdir = cast(
+            "str",
+            get_dict_check(
+                config.config,
+                "rubp-distdir",
+                default="dist",
+                valtype=str,
+            ),
+        )
         self.distdir = Path(distdir)
-        self.version = config.get("version", valtype=str) or "0.0.0"
+        self.version = cast(
+            "str",
+            get_dict_check(
+                config.config,
+                "version",
+                default="0.0.0",
+                valtype=str,
+            ),
+        )
 
     def get_requirements_txt(self) -> tuple[str, Path | None]:
         """Get requirements.txt data."""
@@ -94,8 +135,7 @@ class RuBP:
                     "dependencies",
                     "",
                 )
-                exc = RUTypeError(_("`dependencies` must be list of string"))
-                assert_iter_types(deps, str, exc)
+                type_assert(deps, list[str])
                 res: list[str] = []
                 for dep in deps:
                     if dep.lstrip().startswith(APP_NAME):

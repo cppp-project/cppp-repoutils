@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -32,6 +32,10 @@ from rubisco.lib.l10n import _
 
 __all__ = [
     "RUError",
+    "RUEvalError",
+    "RUExprError",
+    "RUExprPermissionError",
+    "RUFunctionDisallowedError",
     "RUNotRubiscoExtensionError",
     "RUNotRubiscoProjectError",
     "RUOSError",
@@ -86,6 +90,22 @@ class RUNotRubiscoExtensionError(RUError, FileNotFoundError):
 
 class RUOSError(RUError, OSError):
     """OS Exception."""
+
+
+class RUExprError(RUValueError):
+    """Rubisco variable expression exception."""
+
+
+class RUExprPermissionError(RUExprError):
+    """Rubisco variable expression permission exception."""
+
+
+class RUFunctionDisallowedError(RUExprError):
+    """Raise when a function is disallowed in a python expression."""
+
+
+class RUEvalError(RUExprError):
+    """Raise when a python expression eval failed."""
 
 
 class RUShellExecutionError(RUError):

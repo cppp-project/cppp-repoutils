@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -17,15 +17,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Fetching package pool infomation."""
+"""Test rubisco.lib.typecheck.list_type_check module."""
 
-from dataclasses import dataclass
+import pytest
+
+from rubisco.lib.exceptions import RUTypeError
+from rubisco.lib.typecheck import get_list_check
 
 
-@dataclass
-class Package:
-    """Package information."""
+def test_list_type_checking() -> None:
+    """Test list type checking."""
+    lst: list[int] = [1, 2, 3]
 
-    name: str
-    description: str
-    version: str
+    if get_list_check(lst, 0, int) != 1:
+        pytest.fail("TypeCheckingList get method failed.")
+
+    with pytest.raises(RUTypeError):
+        get_list_check(lst, 1, str)
+
+    with pytest.raises(IndexError):
+        get_list_check(lst, 10, int)

@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024-2025 The C++ Plus Project.
+# Copyright (C) 2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -17,23 +17,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Rubisco variable callbacks."""
-
-from collections.abc import Callable
-
-__all__ = [
-    "add_undefined_var_callback",
-    "undefined_var_callbacks",
-]
-
-undefined_var_callbacks: list[Callable[[str], None]] = []
-
-
-def add_undefined_var_callback(callback: Callable[[str], None]) -> None:
-    """Add the callback to the list.
-
-    Args:
-        callback (Callable[[str], None]): The callback to add.
-
-    """
-    undefined_var_callbacks.append(callback)
+"""Test suites."""

@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -21,48 +21,39 @@
 
 import warnings
 from types import EllipsisType, GenericAlias, UnionType
-from typing import Any, Generic, TypeVar, cast, get_args, get_origin
+from typing import Any, cast, get_args, get_origin
 
-__all__ = ["is_instance"]
+from beartype import beartype
 
-T = TypeVar("T")
+from rubisco.lib.exceptions import RUTypeError
+from rubisco.lib.l10n import _
+from rubisco.lib.variable.fast_format_str import fast_format_str
+
+__all__ = [
+    "ValType",
+    "get_dict_check",
+    "get_list_check",
+    "is_instance",
+    "rubisco_isinstance",
+    "type_assert",
+]
+
+type ValType[T] = type[object | T] | GenericAlias | UnionType | None
 
 
-class AutoFormatDict(dict[str, Any]):
-    """AutoFormatDict type for TESTING."""
-
-    orig_items = dict[str, Any].items
-
-
-class AutoFormatList(list[T], Generic[T]):
-    """AutoFormatList type for TESTING."""
-
-
-def rubisco_isinstance(obj: Any, objtype: type | UnionType) -> bool:  # noqa: ANN401
+def rubisco_isinstance(obj: object, objtype: type | UnionType) -> bool:
     """Check if an object is an instance of a type.
 
-    But treat AutoFormatList and AutoFormatDict as list and dict.
-
     Args:
-        obj (Any): Object to check.
-        objtype (type): Type to check against.
+        obj (object): Object to check.
+        objtype (type | UnionType): Type to check against.
 
     Returns:
         bool: True if obj is an instance of objtype, False otherwise.
 
     """
-    # Avoid circular import.
-    if getattr(objtype, "__name__", None) == "AutoFormatList":
-        objtype = list
-    elif getattr(objtype, "__name__", None) == "AutoFormatDict":
-        objtype = dict
-
-    if type(obj).__name__ == "AutoFormatList" and objtype is list:
-        return True
-    if type(obj).__name__ == "AutoFormatDict" and objtype is dict:
-        return True
-
-    if objtype is Any:
+    # Check aliases.
+    if objtype is Any or objtype is object:
         return True
 
     return isinstance(obj, objtype)
@@ -78,15 +69,16 @@ def _is_instance_generic_alias_dict(
     keytype, valtype = args
     keytype: type | GenericAlias | UnionType | None
     valtype: type | GenericAlias | UnionType | None
-    if type(obj).__name__ == "AutoFormatDict":
+
+    if hasattr(obj, "items") and callable(
+        obj.items,
+    ):
         return all(
             is_instance(key, keytype) and is_instance(val, valtype)
-            for key, val in cast("AutoFormatDict", obj).orig_items()
+            for key, val in obj.items()
         )
-    return all(
-        is_instance(key, keytype) and is_instance(val, valtype)
-        for key, val in obj.items()
-    )
+
+    return False
 
 
 def _is_instance_generic_alias_tuple(
@@ -127,11 +119,11 @@ def _is_instance_generic_alias(  # pylint: disable=R0911  # noqa: PLR0911
     if not args:
         return True
 
-    if orig in (list, set, AutoFormatList):
+    if orig in (list, set):
         argtype = args[0]
         argtype: type | GenericAlias | UnionType | None
         return all(is_instance(item, argtype) for item in obj)
-    if orig is dict or orig.__name__ == "AutoFormatDict":
+    if orig is dict:
         return _is_instance_generic_alias_dict(obj, args)
     if orig is tuple:
         return _is_instance_generic_alias_tuple(obj, args)
@@ -172,3 +164,89 @@ def is_instance(
         return _is_instance_generic_alias(obj, ot)
 
     return rubisco_isinstance(obj, cast("type", objtype))
+
+
+@beartype
+def type_assert[AT](instance: AT, valtype: ValType[AT]) -> AT:
+    """Assert the type of the instance.
+
+    Args:
+        instance (AT): The instance to check.
+        valtype (ValType[AT]): The expected type.
+
+    Raises:
+        RUTypeError: If the instance is not of the expected type.
+
+    Returns:
+        AT: The instance.
+
+    """
+    if not is_instance(instance, valtype):
+        valtype_name = getattr(valtype, "__name__", repr(valtype))
+        raise RUTypeError(
+            fast_format_str(
+                _(
+                    "The value needs to be ${{type}}"
+                    " instead of ${{value_type}}.",
+                ),
+                fmt={
+                    "type": valtype_name,
+                    "value_type": repr(type(instance).__name__),
+                },
+            ),
+        )
+
+    return instance
+
+
+@beartype
+def get_list_check[LT](
+    instance: list[LT],
+    idx: int,
+    valtype: ValType[LT],
+) -> LT:
+    """Get the item at the index and check its type.
+
+    Args:
+        instance (list[LT]): The list to get the item from.
+        idx (int): The index of the item.
+        valtype (ValType[LT]): The type of the item.
+
+    Raises:
+        IndexError: If the index is out of range.
+        RUTypeError: If the item is not of the type.
+
+    Returns:
+        T: The item at the index.
+
+    """
+    val = instance[idx]
+    type_assert(val, valtype)
+
+    return val
+
+
+@beartype
+def get_dict_check[KT, VT](
+    instance: dict[KT, VT],
+    key: KT,
+    valtype: ValType[VT],
+    default: VT | EllipsisType = ...,
+) -> VT:
+    """Get the value of the key and check its type.
+
+    Args:
+        instance (dict[KT, VT]): The dict to get the value from.
+        key (KT): The key of the value.
+        valtype (ValType[VT]): The type of the value.
+        default (VT, optional): The default value. Defaults to Ellipsis.
+
+    Returns:
+        VT: The value of the key.
+
+    """
+    val = instance[key] if default is ... else instance.get(key, default)
+
+    type_assert(val, valtype)
+
+    return val
