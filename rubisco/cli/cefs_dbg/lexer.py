@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -39,6 +39,7 @@ KEYWORDS = {
     "exit",
     "help",
     "clear",
+    "python",
 }
 
 

@@ -1,7 +1,7 @@
 # -*- mode: python -*-
 # vi: set ft=python :
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024-2025 The C++ Plus Project.
 # This file is part of the Rubisco.
 #
 # Rubisco is free software: you can redistribute it and/or modify
@@ -24,6 +24,7 @@ from pathlib import Path
 from traceback import FrameSummary
 from typing import Any
 
+import IPython
 import rich
 from prompt_toolkit import PromptSession
 from prompt_toolkit.formatted_text import FormattedText
@@ -70,6 +71,13 @@ class RubiscoCEFSDebuggerCLI:
     def run(self) -> None:
         """Run the RubiscoCEFSDebuggerCLI class."""
         logger.info("Rubisco CEFS Debugger CLI is running.")
+        rich.print(
+            _(
+                "[bold]Welcome to Rubisco Command Event "
+                "Filesystem Debugger.\nType '[green]help"
+                "[/green]' for help.[/bold]",
+            ),
+        )
         while True:
             try:
                 prompt = FormattedText(
@@ -104,7 +112,7 @@ class RubiscoCEFSDebuggerCLI:
                 logger.exception("Error while executing command.")
                 rich.print(f"[red]{exc}[/red]")
 
-    def _parse(self, cmdline: str) -> None:
+    def _parse(self, cmdline: str) -> None:  # noqa: C901
         tokens = shlex.split(cmdline)
         if not tokens:
             return
@@ -124,6 +132,8 @@ class RubiscoCEFSDebuggerCLI:
             self.cat(rest)
         elif cmd == "stat":
             self.stat(rest)
+        elif cmd == "python":
+            self.python(rest)
         elif cmd == "help":
             self.help(rest)
         else:
@@ -407,6 +417,25 @@ class RubiscoCEFSDebuggerCLI:
         if path.is_dir():
             self._cat_callbacks(stat.dir_callbacks)
         self._list_options(stat.options)
+
+    def python(
+        self,
+        args: list[str],  # noqa: ARG002 # pylint: disable=W0613
+    ) -> None:
+        """`python` command.
+
+        Args:
+            args (list[str]): The arguments of `python` command.
+
+        """
+        try:
+            IPython.embed()  # type: ignore[call-arg]
+        except BaseException as exc:
+            msg = fast_format_str(
+                _("Error while executing Python code: ${{error}}"),
+                fmt={"error": str(exc)},
+            )
+            raise RUError(msg) from exc
 
     def help(self, args: list[str]) -> None:
         """`help` command.

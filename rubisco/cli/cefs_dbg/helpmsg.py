@@ -78,6 +78,10 @@ def init_helps() -> dict[str, dict[str, str | dict[str, str]]]:
                 ),
             },
         },
+        "python": {
+            "short": _("Open a embed IPython shell."),
+            "usage": "[green]python[/green]",
+        },
         "exit": {
             "short": _("Exit the debugger."),
             "usage": "[green]exit[/green]",

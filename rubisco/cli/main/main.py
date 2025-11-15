@@ -28,6 +28,7 @@ from pathlib import Path
 
 import colorama
 
+from rubisco.cli.cefs_dbg.callback import cefs_callback
 from rubisco.cli.main.arg_parser import (
     early_arg_parser,
     get_arg_parser,
@@ -113,6 +114,10 @@ def main() -> None:
 
         arg_parser = get_arg_parser()
         args = arg_parser.parse_args()
+
+        # Run CEFS Debugger if needed.
+        if getattr(args, "enable-cefs-debugger", False):
+            cefs_callback([], [])
 
         args.callback(args)
         sys.exit(0)

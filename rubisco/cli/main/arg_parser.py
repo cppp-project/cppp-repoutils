@@ -23,10 +23,9 @@ import argparse
 from typing import Any
 
 from rubisco.cli.argparse_generator import gen_argparse
-from rubisco.cli.cefs_dbg.cli import RubiscoCEFSDebuggerCLI
+from rubisco.cli.cefs_dbg.callback import cefs_callback
 from rubisco.cli.main.help_formatter import RUHelpFormatter
 from rubisco.cli.main.version_action import CLIVersionAction, version_callback
-from rubisco.cli.output import output_step
 from rubisco.kernel.command_event.args import (
     Argument,
     Option,
@@ -48,23 +47,6 @@ __all__ = [
     "get_arg_parser",
     "init_arg_parser",
 ]
-
-
-def cefs_callback(
-    options: list[Option[Any]],  # noqa: ARG001 # pylint: disable=W0613
-    args: list[Argument[Any]],  # noqa: ARG001 # pylint: disable=W0613
-) -> None:
-    """Launch Rubisco CommandEventFS Debugger CLI.
-
-    Args:
-        options (list[Option[Any]]): Options of command line.
-        args (list[Argument[Any]]): Arguments of command line.
-
-    """
-    try:
-        RubiscoCEFSDebuggerCLI().run()
-    except (SystemExit, KeyboardInterrupt, EOFError):
-        output_step(_("Rubisco CommandEventFS Debugger CLI exited."))
 
 
 def init_options(options: list[Option[Any]], args: list[Argument[Any]]) -> None:
@@ -157,6 +139,28 @@ def init_arg_parser() -> None:
                             {
                                 "name": "--verbose",
                                 "help": _("Enable verbose output."),
+                                "action": "store_true",
+                            },
+                        ],
+                    },
+                ),
+                Option[bool](
+                    name="enable-cefs-debugger",
+                    title=_("Run CommandEventFS Debugger"),
+                    description=_(
+                        "Launch Rubisco CommandEventFS Debugger CLI"
+                        " after CEFS initialized.",
+                    ),
+                    typecheck=bool,
+                    default=False,
+                    ext_attributes={
+                        "cli-advanced-options": [
+                            {
+                                "name": ["--cefs-debug", "-D"],
+                                "help": _(
+                                    "Launch Rubisco CommandEventFS Debugger CLI"
+                                    " after CEFS initialized.",
+                                ),
                                 "action": "store_true",
                             },
                         ],
