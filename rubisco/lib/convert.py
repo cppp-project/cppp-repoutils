@@ -30,6 +30,8 @@ from rubisco.lib.exceptions import RUTypeError
 from rubisco.lib.l10n import _
 from rubisco.lib.variable.fast_format_str import fast_format_str
 
+__all__ = ["convert_to", "to_python_type"]
+
 
 def _size_to_int(  # noqa: PLR0911 PLR0912 C901 # pylint: disable=R0911, R0912
     value: str,
@@ -129,5 +131,42 @@ def convert_to[T](  # noqa: PLR0911 C901  # pylint: disable=R0911
         fast_format_str(
             _("Cannot convert value ${{value}} to type ${{type}}"),
             fmt={"value": repr(value), "type": as_type.__name__},
+        ),
+    )
+
+
+def to_python_type(  # noqa: PLR0911 # pylint: disable=R0911
+    typename: str,
+) -> type[object]:
+    """Convert a typename to a Python type.
+
+    Args:
+        typename (str): The typename.
+
+    Returns:
+        type[object]: The Python type.
+
+    """
+    typename = typename.lower()
+    if typename in {"bool", "boolean"}:
+        return bool
+    if typename in {"int", "integer", "size"}:
+        return int
+    if typename in {"float", "double"}:
+        return float
+    if typename in {"str", "string", "text"}:
+        return str
+    if typename in {"list", "array"}:
+        return list
+    if typename in {"tuple"}:
+        return tuple
+    if typename in {"set"}:
+        return set
+    if typename in {"dict", "dictionary", "map", "object"}:
+        return dict
+    raise RUTypeError(
+        fast_format_str(
+            _("Unknown type name: ${{type}}"),
+            fmt={"type": typename},
         ),
     )

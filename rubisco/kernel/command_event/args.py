@@ -20,14 +20,25 @@
 """Rubisco command event args and options class."""
 
 from dataclasses import dataclass, field
+from typing import Any, cast
 
+from beartype import beartype
+
+from rubisco.lib.convert import to_python_type
 from rubisco.lib.exceptions import RUTypeError, RUValueError
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
-from rubisco.lib.typecheck import is_instance
+from rubisco.lib.typecheck import get_dict_check, is_instance
 from rubisco.lib.variable.fast_format_str import fast_format_str
 
-__all__ = ["Argument", "DynamicArguments", "Option", "load_callback_args"]
+__all__ = [
+    "Argument",
+    "DynamicArguments",
+    "Option",
+    "argument_from_dict",
+    "load_callback_args",
+    "option_from_dict",
+]
 
 
 @dataclass
@@ -50,10 +61,10 @@ class OptionOrArgument[T]:  # pylint: disable=R0902
 
     ext_attributes: dict[str, object] = field(default_factory=dict[str, object])
 
-    _value: T | None = None
+    _value: T | None = field(default=None, repr=False)
 
-    _is_option: bool = False
-    _frozen: bool = False
+    _is_option: bool = field(default=False, repr=False)
+    _frozen: bool = field(default=False, repr=False)
 
     def get(self) -> T:
         """Get the value.
@@ -237,9 +248,9 @@ class DynamicArguments:  # pylint: disable=R0902
 
     _value: list[Argument[str]] | None = field(
         default_factory=list[Argument[str]],
+        repr=False,
     )
-
-    _frozen: bool = False
+    _frozen: bool = field(default=False, repr=False)
 
     def __post_init__(self) -> None:
         """Post init."""
@@ -344,3 +355,186 @@ def load_callback_args[OT, AT](
         opt_dict[opt.name] = opt.value
 
     return opt_dict, [arg.get() for arg in args]
+
+
+def option_from_dict(
+    option_dict: dict[str, object],
+) -> Option[Any]:
+    """Create an Option from a dictionary.
+
+    Args:
+        option_dict (dict[str, object]): The option dictionary.
+
+    Returns:
+        Option[Any]: The option.
+
+    """
+    name = cast("str", get_dict_check(option_dict, "name", str))
+    title = cast("str", get_dict_check(option_dict, "title", str, default=name))
+    description = cast(
+        "str",
+        get_dict_check(option_dict, "description", str, default=""),
+    )
+    description = cast(
+        "str",
+        get_dict_check(option_dict, "desc", str, default=description),
+    )
+    typecheck_str = cast(
+        "str",
+        get_dict_check(option_dict, "type", str, default="object"),
+    )
+    typecheck = to_python_type(typecheck_str)
+    aliases = cast(
+        "list[str]",
+        get_dict_check(option_dict, "aliases", list[str], default=[]),
+    )
+    default = get_dict_check(option_dict, "default", object, default=None)
+    ext_attributes = cast(
+        "dict[str, object]",
+        get_dict_check(
+            option_dict,
+            "ext_attributes",
+            dict[str, object],
+            default={},
+        ),
+    )
+
+    return Option(
+        name=name,
+        title=title,
+        description=description,
+        typecheck=typecheck,
+        aliases=aliases,
+        default=default,
+        ext_attributes=ext_attributes,
+    )
+
+
+def _arg_from_dict(
+    argument_dict: dict[str, object],
+) -> Argument[Any]:
+    """Create an Argument from a dictionary.
+
+    Args:
+        argument_dict (dict[str, object]): The argument dictionary.
+
+    Returns:
+        Argument[Any]: The argument.
+
+    """
+    name = cast("str", get_dict_check(argument_dict, "name", str))
+    title = cast(
+        "str",
+        get_dict_check(argument_dict, "title", str, default=name),
+    )
+    description = cast(
+        "str",
+        get_dict_check(argument_dict, "description", str, default=""),
+    )
+    description = cast(
+        "str",
+        get_dict_check(argument_dict, "desc", str, default=description),
+    )
+    typecheck_str = cast(
+        "str",
+        get_dict_check(argument_dict, "type", str, default="object"),
+    )
+    typecheck = to_python_type(typecheck_str)
+    aliases = cast(
+        "list[str]",
+        get_dict_check(argument_dict, "aliases", list[str], default=[]),
+    )
+    default = get_dict_check(argument_dict, "default", object, default=None)
+    ext_attributes = cast(
+        "dict[str, object]",
+        get_dict_check(
+            argument_dict,
+            "ext_attributes",
+            dict[str, object],
+            default={},
+        ),
+    )
+
+    return Argument[Any](
+        name=name,
+        title=title,
+        description=description,
+        typecheck=typecheck,
+        aliases=aliases,
+        default=default,
+        ext_attributes=ext_attributes,
+    )
+
+
+def _dyarg_from_dict(
+    argument_dict: dict[str, object],
+) -> DynamicArguments:
+    """Create a DynamicArguments from a dictionary.
+
+    Args:
+        argument_dict (dict[str, object]): The argument dictionary.
+
+    Returns:
+        DynamicArguments: The dynamic arguments.
+
+    """
+    name = cast("str", get_dict_check(argument_dict, "name", str))
+    title = cast(
+        "str",
+        get_dict_check(argument_dict, "title", str, default=name),
+    )
+    description = cast(
+        "str",
+        get_dict_check(argument_dict, "description", str, default=""),
+    )
+    description = cast(
+        "str",
+        get_dict_check(argument_dict, "desc", str, default=description),
+    )
+    mincount = cast(
+        "int",
+        get_dict_check(argument_dict, "mincount", int),
+    )
+    maxcount = cast(
+        "int",
+        get_dict_check(argument_dict, "maxcount", int, default=-1),
+    )
+    ext_attributes = cast(
+        "dict[str, object]",
+        get_dict_check(
+            argument_dict,
+            "ext_attributes",
+            dict[str, object],
+            default={},
+        ),
+    )
+
+    return DynamicArguments(
+        name=name,
+        title=title,
+        description=description,
+        mincount=mincount,
+        maxcount=maxcount,
+        ext_attributes=ext_attributes,
+    )
+
+
+@beartype
+def argument_from_dict(
+    argument_dict: list[dict[str, object]] | dict[str, object] | None,
+) -> list[Argument[Any]] | DynamicArguments:
+    """Create an Argument from a dictionary.
+
+    Args:
+        argument_dict (list[dict[str, object]] | dict[str, object] | None): The
+            argument dictionary.
+
+    Returns:
+        list[Argument[Any]] | DynamicArguments: The argument.
+
+    """
+    if isinstance(argument_dict, list):
+        return [_arg_from_dict(arg) for arg in argument_dict]
+    if not argument_dict:
+        return []
+    return _dyarg_from_dict(argument_dict)

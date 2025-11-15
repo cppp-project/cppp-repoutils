@@ -31,10 +31,12 @@ import rich.progress
 from pygments import highlight  # type: ignore[attr-defined]
 from pygments.formatters.terminal256 import Terminal256Formatter
 from pygments.lexers import get_lexer_by_name
+from rich import box
+from rich.table import Table
+from rich.text import Text
 from rich.tree import Tree
 
 from rubisco.cli.input import ask_yesno
-from rubisco.cli.main.project_config import get_hooks
 from rubisco.cli.osc9 import ProgressBarState, conemu_progress
 from rubisco.cli.output import (
     format_and_output,
@@ -587,19 +589,11 @@ class RubiscoKTrigger(  # pylint: disable=too-many-public-methods
             ),
         )
 
-        rich.print(_("[dark_orange]Hooks:[/dark_orange]"))
-
-        for hook_name in project.hooks:  # Bind all hooks.
-            hook_text = fast_format_str(
-                "\t[cyan]${{name}}[/cyan]",
-                fmt={"name": hook_name},
-            )
-            num_text = fast_format_str(
-                _("(${{num}} hooks)"),
-                fmt={"num": str(len(get_hooks()[hook_name]))},
-            )
-            formatted_str = f"{hook_text:<60}\t{num_text:<10}"
-            rich.print(formatted_str)
+        rich.print(_("[dark_orange]Hooks:[/dark_orange]"), end="")
+        table = Table(box=box.SIMPLE_HEAD, show_header=False)
+        for hook_name, hook in project.hooks.items():
+            table.add_row(Text(hook_name, style="cyan"), Text(hook.description))
+        rich.print(table)
 
     def on_mklink(
         self,

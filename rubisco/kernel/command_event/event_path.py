@@ -348,9 +348,7 @@ class EventPath(PurePosixPath):  # pylint: disable=R0904
                 dir_callbacks=(
                     []
                     if callback is None
-                    else callback
-                    if isinstance(callback, list)
-                    else [callback]
+                    else callback if isinstance(callback, list) else [callback]
                 ),
             ),
         )
@@ -421,7 +419,8 @@ class EventPath(PurePosixPath):  # pylint: disable=R0904
 
         """
         if self.exists():
-            file_data = self.resolve().event_object.file_data
+            inode = self.resolve().event_object
+            file_data = inode.file_data
             if not file_data:
                 raise RUValueError(
                     fast_format_str(
@@ -430,6 +429,12 @@ class EventPath(PurePosixPath):  # pylint: disable=R0904
                     ),
                 )
             file_data.merge(data)
+            inode.stat().description = str(
+                fast_format_str(
+                    _("(${{num}} hooks)"),
+                    fmt={"num": len(file_data.callbacks)},
+                ),
+            )
         else:
             self.mkfile(data, options, description)
         return self

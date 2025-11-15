@@ -26,7 +26,11 @@ from typing import cast
 
 from beartype import beartype
 
-from rubisco.config import APP_VERSION, WORKSPACE_REPO_CONFIG
+from rubisco.config import (
+    APP_VERSION,
+    WORKSPACE_REPO_CONFIG,
+    WORKSPACE_WORKFLOWS_DIR,
+)
 from rubisco.kernel.config_loader import RUConfiguration
 from rubisco.kernel.project_config.hook import ProjectHook
 from rubisco.kernel.project_config.maintainer import Maintainer
@@ -63,7 +67,7 @@ class ProjectConfigration:  # pylint: disable=too-many-instance-attributes
     rubisco_min_version: Version
     maintainers: list[Maintainer] | Maintainer
     license: str | None
-    hooks: dict[str, object]
+    hooks: dict[str, ProjectHook]
 
     pushed_variables: list[str]
 
@@ -174,6 +178,20 @@ class ProjectConfigration:  # pylint: disable=too-many-instance-attributes
             ),
         )
 
+        # Automatically load workflow hooks.
+        workflow_files = list(WORKSPACE_WORKFLOWS_DIR.glob("*.yaml"))
+        workflow_files += list(WORKSPACE_WORKFLOWS_DIR.glob("*.yml"))
+        workflow_files += list(WORKSPACE_WORKFLOWS_DIR.glob("*.json"))
+        workflow_files += list(WORKSPACE_WORKFLOWS_DIR.glob("*.json5"))
+        workflow_files += list(WORKSPACE_WORKFLOWS_DIR.glob("*.toml"))
+        for wf_file in workflow_files:
+            hook_dict: dict[str, object] = {
+                "run": str(wf_file),
+            }
+            name = wf_file.stem
+            self.hooks[name] = ProjectHook(hook_dict, name)
+            logger.info("Binded workflow hook: %s", wf_file)
+
         # Only hooks supported format.
         hooks = cast(
             "dict[str, dict[str, object]]",
@@ -187,12 +205,8 @@ class ProjectConfigration:  # pylint: disable=too-many-instance-attributes
             ),
         )
 
-        # TODO(ChenPi11): Use CEFS.  # noqa: FIX002, TD003
         for name, data in hooks.items():
-            self.hooks[name] = ProjectHook(
-                data,  # type: ignore[assignment]
-                name,
-            )
+            self.hooks[name] = ProjectHook(data, name)
 
         # Serialize configuration to variables.
         def _push_vars(
@@ -227,14 +241,10 @@ class ProjectConfigration:  # pylint: disable=too-many-instance-attributes
         """
         return f"<ProjectConfiguration: {self.name} {self.version}>"
 
-    def run_hook(self, name: str) -> None:
-        """Run a hook by its name.
-
-        Args:
-            name (str): The hook name.
-
-        """
-        cast("ProjectHook", self.hooks[name]).run()
+    def mount_to_cefs(self) -> None:
+        """Mount the project configuration to the CEFS."""
+        for hook in self.hooks.values():
+            hook.mount_to_cefs()
 
     def __del__(self) -> None:
         """Remove all pushed variables."""

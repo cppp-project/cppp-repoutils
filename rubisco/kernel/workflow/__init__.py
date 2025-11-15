@@ -26,17 +26,31 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+from typing import Any, cast
 
+from rubisco.kernel.command_event.args import (
+    Argument,
+    DynamicArguments,
+    Option,
+    argument_from_dict,
+    option_from_dict,
+)
 from rubisco.kernel.config_loader import RUConfiguration
 from rubisco.kernel.workflow._interfaces import WorkflowInterfaces
 from rubisco.kernel.workflow.steps import step_contributes, step_types
 from rubisco.kernel.workflow.workflow import Workflow
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
+from rubisco.lib.typecheck import get_dict_check
 from rubisco.lib.variable.fast_format_str import fast_format_str
 from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
 
-__all__ = ["register_step_type", "run_inline_workflow", "run_workflow"]
+__all__ = [
+    "parse_workflow_meta",
+    "register_step_type",
+    "run_inline_workflow",
+    "run_workflow",
+]
 
 
 def register_step_type(name: str, cls: type, contributes: list[str]) -> None:
@@ -151,6 +165,70 @@ def run_workflow(
         if cwd:
             call_ktrigger(IKernelTrigger.on_leaving_dir, path=chdir)
             os.chdir(cwd)
+
+
+def parse_workflow_meta(
+    file: Path,
+) -> tuple[list[Option[Any]], list[Argument[Any]] | DynamicArguments, str]:
+    """Parse workflow options and arguments.
+
+    Returns:
+        tuple[list[Option[Any]], list[Argument[Any]] | DynamicArguments]:
+            The options and arguments and description parsed.
+
+    """
+    config = RUConfiguration.load_from_file(file)
+    options_json: list[dict[str, object]] = cast(
+        "list[dict[str, object]]",
+        get_dict_check(
+            config.config,
+            "options",
+            default=[],
+            valtype=list[dict[str, object]] | None,
+        ),
+    )
+    options_json.extend(
+        cast(
+            "list[dict[str, object]]",
+            get_dict_check(
+                config.config,
+                "opts",
+                default=[],
+                valtype=list[dict[str, object]] | None,
+            ),
+        ),
+    )
+    args_json: dict[str, object] | None = cast(
+        "dict[str, object] | None",
+        get_dict_check(
+            config.config,
+            "args",
+            default=None,
+            valtype=dict[str, object] | None,
+        ),
+    )
+
+    description: str | None = cast(
+        "str | None",
+        get_dict_check(
+            config.config,
+            "name",  # Yes, the title of the workflow is the description.
+            default="",
+            valtype=str | None,
+        ),
+    )
+
+    options = [option_from_dict(opt_json) for opt_json in options_json]
+    args = argument_from_dict(args_json)
+
+    logger.debug(
+        "Workflow %s parsed options %s and arguments %s",
+        file,
+        options,
+        args,
+    )
+
+    return options, args, description or ""
 
 
 WorkflowInterfaces.set_run_workflow(run_workflow)

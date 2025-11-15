@@ -37,7 +37,9 @@ MINIMUM_PYTHON_VERSION = (3, 11)
 STDOUT_IS_TTY = sys.stdout.isatty()
 PROGRAM_PATH = Path(sys.argv[0]).resolve()  # pylint: disable=C0103
 if not sys.argv[0]:
-    PROGRAM_PATH = Path(__file__).resolve().parent  # pylint: disable=C0103 # type: ignore[arg-type]
+    PROGRAM_PATH = (  # pylint: disable=C0103 # type: ignore[assignment]
+        Path(__file__).resolve().parent
+    )  # pylint: disable=C0103 # type: ignore[arg-type]
 
 # If the program is running in a packed environment. (e.g. PyInstaller)
 IS_PACKED = getattr(sys, "frozen", False) or hasattr(sys, "_MEIPASS")
@@ -88,6 +90,7 @@ RUXR_PACKAGE_METADATA_FILE_PATH = f"/pool/${{package}}/{APP_NAME}.json"
 WORKSPACE_CONFIG_DIR = Path(f".{APP_NAME}")
 WORKSPACE_CONFIG_FILE = WORKSPACE_CONFIG_DIR / "config.json"
 WORKSPACE_EXTENSIONS_VENV_DIR = WORKSPACE_CONFIG_DIR / "extensions"
+WORKSPACE_WORKFLOWS_DIR = WORKSPACE_CONFIG_DIR / "workflows"
 WORKSPACE_REPO_CONFIG_NAME = "repo.json"
 WORKSPACE_REPO_CONFIG = Path(WORKSPACE_REPO_CONFIG_NAME)
 

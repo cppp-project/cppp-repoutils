@@ -36,7 +36,7 @@ else:
 
 __all__ = ["RUBISCO_INCLUDE_FILE", "Manifest"]
 
-
+# TODO: WORKSPACE_CONFIG_DIR
 RUBISCO_INCLUDE_FILE = ".rubisco/includes"
 
 logger = rubisco_get_logger("cppp-srcpkg")
