@@ -31,7 +31,9 @@ from beartype import beartype
 from rubisco.lib.log import logger
 from rubisco.lib.typecheck import get_dict_check
 
-_PATTERN = re.compile(r"^([^<(]+?)(?:\s*<([^>]+)>)?(?:\s*\(([^)]+)\))?$")
+_PATTERN = re.compile(
+    r"^([^<]+?)(?:\s*<([^>]+)>)?(?:\s*\(([^)]+)\))?(?:\s*\[([^\]]+)\])?$",
+)
 
 
 @dataclass(frozen=True)
@@ -41,6 +43,7 @@ class Maintainer:
     name: str
     email: str | None
     homepage: str | None
+    avatar: str | None = None
 
     @classmethod
     @beartype
@@ -60,15 +63,17 @@ class Maintainer:
         if isinstance(text, str):
             match = re.match(_PATTERN, text)
             if match:
-                name, email, homepage = match.groups()
+                name, email, homepage, avatar = match.groups()
                 name = str(name)
                 email = str(email) if email else None
                 homepage = str(homepage) if homepage else None
+                avatar = str(avatar) if avatar else None
             else:
                 logger.warning("Failed to match maintainer: %s", text)
                 name = text
                 email = None
                 homepage = None
+                avatar = None
         else:
             name = str(get_dict_check(text, "name", valtype=str))
             email = str(
@@ -87,7 +92,20 @@ class Maintainer:
                     valtype=str | None,
                 ),
             )
-        return Maintainer(name=name, email=email, homepage=homepage)
+            avatar = str(
+                get_dict_check(
+                    text,
+                    "avatar",
+                    default=None,
+                    valtype=str | None,
+                ),
+            )
+        return Maintainer(
+            name=name,
+            email=email,
+            homepage=homepage,
+            avatar=avatar,
+        )
 
     def to_dict(self) -> dict[str, object]:
         """Convert maintainer to dict.
@@ -100,6 +118,7 @@ class Maintainer:
             "name": self.name,
             "email": self.email,
             "homepage": self.homepage,
+            "avatar": self.avatar,
         }
 
     def __str__(self) -> str:

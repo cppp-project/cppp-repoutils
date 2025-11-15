@@ -49,6 +49,7 @@ class RUBPMatadata:  # pylint: disable=R0902
     tags: list[str]
     deps: list[dict[str, str]]
     latest_release: str | None
+    icon: str | None = None
 
     @staticmethod
     def open_repo(path: Path) -> Repository | None:
@@ -139,6 +140,15 @@ class RUBPMatadata:  # pylint: disable=R0902
                     default=None,
                 ),
             ),
+            icon=cast(
+                "str | None",
+                get_dict_check(
+                    json.config,
+                    "icon",
+                    valtype=str | None,
+                    default=None,
+                ),
+            ),
         )
 
     def to_dict(self) -> dict[str, object]:
@@ -154,4 +164,5 @@ class RUBPMatadata:  # pylint: disable=R0902
             "tags": self.tags,
             "deps": self.deps,
             "latest-release": self.latest_release,
+            "icon": self.icon,
         }

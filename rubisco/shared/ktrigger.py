@@ -26,6 +26,7 @@ Interface can do something before or after kernel operations.
 from __future__ import annotations
 
 from collections.abc import Callable
+from enum import Enum
 from functools import partial
 from typing import TYPE_CHECKING, Any
 
@@ -47,6 +48,7 @@ if TYPE_CHECKING:
 
 __all__ = [
     "IKernelTrigger",
+    "OutputMethod",
     "bind_ktrigger_interface",
     "call_ktrigger",
 ]
@@ -63,6 +65,32 @@ def _null_trigger(
         repr(args),
         repr(kwargs),
     )
+
+
+class OutputMethod(Enum):
+    """Output method.
+
+    Note that RUTree will be always formatted, but it's item will follow this
+    setting.
+    """
+
+    # Output raw message.
+    # Output message as-is. If the message is a str, it will be output as-is.
+    # Otherwise, it will be output by repr().
+    RAW = 0
+
+    # Format message by type.
+    # If the message is a str, it will be output as-is.
+    # Otherwise, it will be output by its type. For example, if the message is
+    # a serializable object, it will be output as a JSON string.
+    FORMAT_TYPE = 1
+
+    # Format message by Rich markup.
+    # It will be formatted by Rich markup.
+    FORMAT_MARKUP = 2
+
+    # Format message in Markdown format.
+    FORMAT_MARKDOWN = 3
 
 
 class IKernelTrigger:  # pylint: disable=too-many-public-methods
@@ -365,16 +393,21 @@ class IKernelTrigger:  # pylint: disable=too-many-public-methods
         """
         _null_trigger("on_file_selected", path=path)
 
-    def on_output(self, *, message: object, raw: bool = True) -> None:
+    def on_output(
+        self,
+        *,
+        message: object,
+        method: OutputMethod = OutputMethod.FORMAT_MARKUP,
+    ) -> None:
         """Output a message.
 
         Args:
             message (object): Message or object to output.
-            raw (bool): If false, UCI cannot convert the message to its favorite
-                format.
+            method (OutputMethod, optional): Output method. Defaults to
+                OutputMethod.FORMAT_MARKUP.
 
         """
-        _null_trigger("on_output", message=message, raw=raw)
+        _null_trigger("on_output", message=message, method=method)
 
     def on_move_file(self, *, src: Path, dst: Path) -> None:
         """On we are moving files.

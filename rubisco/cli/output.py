@@ -21,19 +21,33 @@
 
 from __future__ import annotations
 
+import json
 import os
 import random
+from typing import TYPE_CHECKING, Any, cast
 
-import json5 as json
+import json5
 import rich
 from beartype.roar import BeartypeException
+from rich.markdown import Markdown
+from rich.markup import escape
+from rich.padding import Padding
+from rich.text import Text
+from rich.tree import Tree
 
 from rubisco.lib.exceptions import RUError
 from rubisco.lib.l10n import _
 from rubisco.lib.log import logger
+from rubisco.lib.typecheck import is_instance
 from rubisco.lib.variable.fast_format_str import fast_format_str
+from rubisco.shared.api.uci import Tree as RUTree
+from rubisco.shared.ktrigger import OutputMethod
+
+if TYPE_CHECKING:
+    from rich.console import RenderableType
 
 __all__ = [
+    "format_and_output",
     "get_prompt",
     "output_error",
     "output_hint",
@@ -99,7 +113,7 @@ def pop_level() -> None:
     step_level -= 1
 
 
-def sum_level_indent(level: int) -> str:
+def sum_level_indent(level: int) -> int:
     """Sum the indent of the level.
 
     Args:
@@ -107,31 +121,170 @@ def sum_level_indent(level: int) -> str:
         `step_level - level - 1`.
 
     Returns:
-        str: Indent string. Only contains spaces.
+        int: Indent space count.
 
     """
     if level <= -1:
         level = step_level - level - 1
-    return "    " * level
+    return level * 4
 
 
-def output_line(message: str, level: int = -1, end: str = "\n") -> None:
+def _default_serialize(obj: object) -> list[Any] | str:
+    if isinstance(obj, set | frozenset):
+        return list(cast("set[Any] | frozenset[Any]", obj))
+    if isinstance(obj, bytes):
+        try:
+            return obj.decode()
+        except UnicodeDecodeError:
+            return str(obj)
+    return repr(obj)
+
+
+def _is_rich_renderable(obj: object) -> bool:
+    return hasattr(obj, "__rich_console__") or hasattr(obj, "__rich__")
+
+
+def _format_output_type(message: object) -> tuple[str, RenderableType]:
+    if isinstance(message, dict | list | tuple | set | frozenset):
+        try:
+            json_str = json.dumps(
+                message,
+                indent=2,
+                sort_keys=True,
+                default=_default_serialize,
+            )
+            return ("json", json_str)  # noqa: TRY300
+        except (TypeError, RecursionError):
+            logger.warning("Failed to serialize object to JSON.")
+            return ("repr", repr(cast("object", message)))
+    msg = str(message) if isinstance(message, str) else repr(message)
+    return ("str", escape(msg))
+
+
+def _format_output(
+    message: object,
+    method: OutputMethod,
+) -> tuple[str, RenderableType]:
+    if _is_rich_renderable(message):
+        return ("rich", cast("RenderableType", message))
+
+    if method == OutputMethod.RAW:
+        msg = message if isinstance(message, str) else repr(message)
+        return ("raw", escape(msg))
+    if method == OutputMethod.FORMAT_MARKUP:
+        return ("markup", str(message))
+    if method == OutputMethod.FORMAT_TYPE:
+        return _format_output_type(message)
+    if method == OutputMethod.FORMAT_MARKDOWN:
+        md = Markdown(str(message))
+        return ("markdown", md)
+
+    # Internal error. Don't use Rubisco exceptions.
+    msg = f"Unknown output method: {method}"
+    raise ValueError(msg)
+
+
+def _convert_tree(
+    tree: RUTree[object],
+    rich_tree_root: Tree,
+    method: OutputMethod,
+) -> None:
+    """Convert RUTree to rich Tree."""
+    for ru_node in tree.children:
+        if is_instance(ru_node.value, tuple[object, OutputMethod]):
+            node_output, node_method = cast(
+                "tuple[object, OutputMethod]",
+                ru_node.value,
+            )
+        else:
+            node_output, node_method = ru_node.value, method
+        node = rich_tree_root.add(_format_output(node_output, node_method)[1])
+        if ru_node.children:
+            _convert_tree(ru_node, node, method)
+
+
+def _output_tree(
+    tree: RUTree[object],
+    method: OutputMethod,
+    ident: int,
+) -> None:
+    if is_instance(tree.value, tuple[object, OutputMethod]):
+        root_output, root_method = cast(
+            "tuple[object, OutputMethod]",
+            tree.value,
+        )
+    else:
+        root_output, root_method = tree.value, method
+    rich_tree = Tree(
+        _format_output(root_output, root_method)[1],
+        guide_style=cur_color,
+    )
+    _convert_tree(tree, rich_tree, method)
+    rich.print(Padding.indent(rich_tree, ident))
+
+
+def format_and_output(
+    message: object,
+    method: OutputMethod,
+    end: str = "\n",
+    ident: int = sum_level_indent(step_level),
+) -> None:
+    r"""Format the output message.
+
+    Args:
+        message (object): Message object.
+        method (OutputMethod): Output method.
+        end (str, optional): End of the message. Defaults to '\\n'.
+        ident (int, optional): Indent spaces. If OutputMethod is
+            RAW, it will be ignored. Defaults to sum_level_indent(step_level).
+
+    """
+    if method == OutputMethod.RAW:
+        ident = 0
+
+    if isinstance(message, RUTree):
+        _output_tree(cast("RUTree[object]", message), method, ident)
+        return
+
+    out = _format_output(message, method)
+    if out[0] == "json":
+        rich.print_json(json=str(out[1]), indent=ident)
+    else:
+        lines = out[1]
+        if isinstance(lines, str):
+            lines = lines.splitlines()
+            for line_ in lines:
+                line = line_.replace("\t", " " * 4)
+                rich.print(
+                    Padding.indent(_format_output(line, method)[1], ident),
+                    end=end,
+                )
+        else:
+            rich.print(Padding.indent(out[1], ident), end=end)
+
+
+def output_line(
+    message: str,
+    level: int = -1,
+    method: OutputMethod = OutputMethod.FORMAT_MARKUP,
+) -> None:
     r"""Output a line message with level.
 
     Args:
         message (str): Message.
         level (int): Message level. If it <= -1, it will be set to
         `step_level - level - 1`.
-        end (str, optional): End of the message. Defaults to "\n".
+        method (OutputMethod, optional): Output method. Defaults to
+        OutputMethod.FORMAT_MARKUP.
 
     """
     if not message:
         return
     indent = sum_level_indent(level)
-    rich.print(f"{indent}{message}", end=end, flush=True)
+    format_and_output(message, method=method, ident=indent, end="\n")
 
 
-def get_prompt(level: int, style1: str = "=>", style2: str = "::") -> str:
+def get_prompt(level: int, style1: str = "=>", style2: str = "::") -> Text:
     """Get the prompt of the level.
 
     Args:
@@ -140,19 +293,18 @@ def get_prompt(level: int, style1: str = "=>", style2: str = "::") -> str:
         style2 (str, optional): Style of other levels. Defaults to "::".
 
     Returns:
-        str: Prompt string.
+        Text: Prompt text.
 
     """
     if level <= -1:
         level = step_level - level - 1
-    return (
-        f"[{cur_color}]{style1}[/{cur_color}]"
-        if level == 0
-        else f"[{cur_color}]{style2}[/{cur_color}]"
+    return Text(
+        style1 if level == 0 else style2,
+        style=cur_color,
     )
 
 
-def output_step(message: str, level: int = -1, end: str = "\n") -> None:
+def output_step(message: str, level: int = -1) -> None:
     r"""Output a step message.
 
     Args:
@@ -166,23 +318,16 @@ def output_step(message: str, level: int = -1, end: str = "\n") -> None:
                     :: Level 2 message.
             => Level 0 message.
         ```
-        end (str, optional): End of the message. Defaults to "\n".
 
     """
     if message.strip():
         indent = sum_level_indent(level)
-        prompt = get_prompt(level)
+        prompt = get_prompt(level).markup
 
-        rich.print(
-            fast_format_str(
-                "${{indent}}[blue]${{prompt}}[/blue] [bold]${{msg}}[/bold]",
-                fmt={
-                    "indent": indent,
-                    "prompt": prompt,
-                    "msg": message,
-                },
-            ),
-            end=end,
+        format_and_output(
+            prompt + " " + message,
+            method=OutputMethod.FORMAT_MARKUP,
+            ident=indent,
         )
 
 
@@ -193,8 +338,9 @@ def output_error(message: str) -> None:
         message (str): Message.
 
     """
-    rich.print(
+    format_and_output(
         fast_format_str(_("[red]Error: ${{msg}}[/red]"), fmt={"msg": message}),
+        method=OutputMethod.FORMAT_MARKUP,
     )
 
 
@@ -205,11 +351,12 @@ def output_warning(message: str) -> None:
         message (str): Message.
 
     """
-    rich.print(
+    format_and_output(
         fast_format_str(
             _("[yellow]Warning: ${{msg}}[/yellow]"),
             fmt={"msg": message},
         ),
+        method=OutputMethod.FORMAT_MARKUP,
     )
 
 
@@ -220,11 +367,12 @@ def output_hint(message: str) -> None:
         message (str): Message.
 
     """
-    rich.print(
+    format_and_output(
         fast_format_str(
             _("[italic][magenta]Hint:[/magenta] ${{msg}}[/italic]"),
             fmt={"msg": message},
         ),
+        method=OutputMethod.FORMAT_MARKUP,
     )
 
 
@@ -258,7 +406,7 @@ def show_exception(  # noqa: C901
         perror(_("Interrupted by user."))
     elif isinstance(exc, OSError):
         perror(message)
-    elif isinstance(exc, json.JSON5DecodeError):
+    elif isinstance(exc, json5.JSON5DecodeError):
         perror(_("JSON5 decode error."))
         perror(message)
         output_hint(_("Is may caused by a invalid JSON5 configuration file."))

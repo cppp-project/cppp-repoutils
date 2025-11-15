@@ -33,7 +33,7 @@ from rubisco.lib.log import logger
 from rubisco.lib.process import Process
 from rubisco.lib.variable.fast_format_str import fast_format_str
 from rubisco.lib.variable.utils import make_pretty
-from rubisco.shared.ktrigger import IKernelTrigger, call_ktrigger
+from rubisco.shared.ktrigger import IKernelTrigger, OutputMethod, call_ktrigger
 
 __all__ = [
     "git_branch_set_upstream",
@@ -90,7 +90,7 @@ def _gitpython_progress_update(
         call_ktrigger(
             IKernelTrigger.on_output,
             message=finish_msg,
-            raw=False,
+            method=OutputMethod.RAW,
         )
         call_ktrigger(IKernelTrigger.on_finish_task, task_name=msg)
     else:

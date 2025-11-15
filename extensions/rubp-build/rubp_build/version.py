@@ -116,14 +116,13 @@ def load_versions(
         list[VersionMetadata]: Version metadata.
 
     """
-    if repo is None:
-        version_list: set[str] = {
-            format_auto(
-                project_config.config["version"],
-                valtype=str,
-            ),
-        }
-    else:
+    version_list: set[str] = {
+        format_auto(
+            project_config.config["version"],
+            valtype=str,
+        ),
+    }
+    if repo is not None:
         version_list: set[str] = set()
         tags_list = (
             [

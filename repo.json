@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "description": "C+++ Repository Utilities.",
   "maintainers": [
-    "The C++ Plus Project <cpppteam@email.cn> (https://github.com/cppp-project)",
-    "ChenPi11 <wushengwuxi-msctinoulk@outlook.com> (https://github.com/ChenPi11)"
+    "The C++ Plus Project <cpppteam@email.cn> (https://github.com/cppp-project) [https://github.com/cppp-project.png]",
+    "ChenPi11 <wushengwuxi-msctinoulk@outlook.com> (https://github.com/ChenPi11) [https://github.com/ChenPi11.png]"
   ],
   "rubisco-min-version": "0.1.0",
   "license": "GPL-3.0",
-  "includes": ["hooks.json"]
+  "includes": [
+    "hooks.json"
+  ]
 }

@@ -21,6 +21,7 @@
 
 from __future__ import annotations
 
+import glob
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -260,12 +261,11 @@ def install_packages(
             raise RUValueError(fast_format_str(msg, fmt={"dest": dest}))
 
     for file_glob in files_glob:
-        files_list.extend(Path.cwd().glob(file_glob))
+        files_list.extend(Path(p) for p in glob.glob(file_glob, recursive=True))  # noqa: PTH207
 
     if not files_list:
         logger.info("No files found.")
-        call_ktrigger(IKernelTrigger.on_hint, message=_("No files found."))
-        return
+        raise RUValueError(_("No files found."))
 
     for file in files_list:
         install_extension(file, install_dest)

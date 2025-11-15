@@ -1075,7 +1075,7 @@ msgstr "正在创建硬链接： ${{src}} -> ${{dst}} ..."
 
 #: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:637
 msgid "Creating Rubisco extension environment: ${{path}} ..."
-msgstr "正在创建 Rubisco 扩展环境： ${{path}}..."
+msgstr "正在创建 Rubisco 扩展环境： ${{path}} ..."
 
 #: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:651
 #: /workspaces/cppp/rubisco/rubisco/cli/main/ktrigger.py:699

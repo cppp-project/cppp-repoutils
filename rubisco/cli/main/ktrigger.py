@@ -22,7 +22,7 @@
 from __future__ import annotations
 
 import sys
-from typing import TYPE_CHECKING, Any, cast
+from typing import TYPE_CHECKING, Any
 
 import colorama
 import rich
@@ -37,6 +37,7 @@ from rubisco.cli.input import ask_yesno
 from rubisco.cli.main.project_config import get_hooks
 from rubisco.cli.osc9 import ProgressBarState, conemu_progress
 from rubisco.cli.output import (
+    format_and_output,
     get_prompt,
     output_error,
     output_hint,
@@ -54,11 +55,11 @@ from rubisco.kernel.config_file import config_file
 from rubisco.lib.l10n import _, locale_language, locale_language_name
 from rubisco.lib.log import logger
 from rubisco.lib.speedtest import C_INTMAX
-from rubisco.lib.tree import Tree as RUTree
 from rubisco.lib.variable.fast_format_str import fast_format_str
 from rubisco.lib.variable.utils import make_pretty
 from rubisco.shared.ktrigger import (
     IKernelTrigger,
+    OutputMethod,
 )
 
 if TYPE_CHECKING:
@@ -70,6 +71,7 @@ if TYPE_CHECKING:
     from rubisco.kernel.workflow.step import Step
     from rubisco.kernel.workflow.workflow import Workflow
     from rubisco.lib.process import Process
+    from rubisco.lib.tree import Tree as RUTree
     from rubisco.lib.version import Version
     from rubisco.shared.extension import IRUExtension
 
@@ -318,12 +320,14 @@ class RubiscoKTrigger(  # pylint: disable=too-many-public-methods
         msg = ""
         for host_, status in self._speedtest_hosts.items():
             msg += (
-                sum_level_indent(-2)
-                + get_prompt(-2, ">", ">")
+                " " * sum_level_indent(-2)
+                + get_prompt(-2, ">", ">").markup
                 + " "
-                + fast_format_str(
-                    _("Testing ${{host}} ... ${{status}}"),
-                    fmt={"host": host_, "status": status},
+                + str(
+                    fast_format_str(
+                        _("Testing ${{host}} ... ${{status}}"),
+                        fmt={"host": host_, "status": status},
+                    ),
                 )
                 + "\n"
             )
@@ -458,14 +462,13 @@ class RubiscoKTrigger(  # pylint: disable=too-many-public-methods
         self._convert_tree(tree, rich_tree)
         rich.print(rich_tree)
 
-    def on_output(self, *, message: object, raw: bool = True) -> None:
-        if raw:
-            if isinstance(message, RUTree):
-                self._output_tree(cast("RUTree[object]", message))
-            else:
-                rich.print(str(message))
-        else:
-            output_line(message if isinstance(message, str) else repr(message))
+    def on_output(
+        self,
+        *,
+        message: object,
+        method: OutputMethod = OutputMethod.FORMAT_MARKUP,
+    ) -> None:
+        format_and_output(message, method)
 
     def on_move_file(self, *, src: Path, dst: Path) -> None:
         output_step(

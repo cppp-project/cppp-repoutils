@@ -204,7 +204,13 @@ class RuBP:
             "w",
             encoding=DEFAULT_CHARSET,
         ) as f:
-            f.write(json.dumps(self.metadata.to_dict(), indent=2))
+            f.write(
+                json.dumps(
+                    self.metadata.to_dict(),
+                    indent=2,
+                    sort_keys=True,
+                ),
+            )
 
         # Get requirements.txt data.
         requirements_txt, path = self.get_requirements_txt()
