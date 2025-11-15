@@ -166,6 +166,32 @@ def init_arg_parser() -> None:
                         ],
                     },
                 ),
+                Option[bool](
+                    name="use-systemd-style-log",
+                    title=_("Use systemd style log format"),
+                    description=_(
+                        "Use systemd style log output "
+                        "format just for fun."
+                        "Don't use this option directly. Use "
+                        "`--debug` to enable debug mode. It's"
+                        " parsed when Rubisco log system"
+                        " initializing.",
+                    ),
+                    typecheck=bool,
+                    default=False,
+                    ext_attributes={
+                        "cli-advanced-options": [
+                            {
+                                "name": ["--systemd-style-log", "-S"],
+                                "help": _(
+                                    "Use systemd style log output "
+                                    "format just for fun.",
+                                ),
+                                "action": "store_true",
+                            },
+                        ],
+                    },
+                ),
             ],
             dir_callbacks=[
                 EventCallback(
