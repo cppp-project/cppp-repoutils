@@ -39,6 +39,7 @@ from rubisco.cli.main.ktrigger import RubiscoKTrigger
 from rubisco.cli.main.log_cleaner import clean_logfile
 from rubisco.cli.main.project_config import load_project
 from rubisco.cli.output import output_step, set_available_color, show_exception
+from rubisco.cli.python.python_cmds import register_python_cmds
 from rubisco.config import (
     APP_VERSION,
 )
@@ -97,6 +98,7 @@ def main() -> None:
         # Register built-in command lines.
         register_builtin_cmds()
         register_extman_cmds()
+        register_python_cmds()
 
         parse_early_arguments()
 

@@ -41,8 +41,8 @@
           ],
           "strict": false
         }
-      ],
-      "run": ".rubisco/clean.yaml"
+      ]
+      //"run": ".rubisco/clean.yaml"
     }
   }
 }
