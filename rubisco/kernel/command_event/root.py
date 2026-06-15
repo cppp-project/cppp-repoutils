@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 __all__ = ["get_root", "set_root"]
 
-_root: "EventObject | None" = None
+_root: "EventObject | None" = None  # pylint: disable=C0103
 
 
 def set_root(root: "EventObject") -> None:

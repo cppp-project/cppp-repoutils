@@ -188,7 +188,7 @@ def compress_tarball(  # pylint: disable=R0913, R0917 # noqa: PLR0913
     includes = get_includes(src, excludes)
 
     if compress_type in {"gz", "bz2"}:
-        compress_level = compress_level if compress_level else 9
+        compress_level = compress_level or 9
         with tarfile.open(
             dest,
             cast("Literal['w:gz', 'w:bz2']", compress_type_),

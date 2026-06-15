@@ -195,7 +195,7 @@ class RubiscoCEFSDebuggerCLI:
                     end="\t",
                 )
             else:
-                msg = f"Unknown event type: {stat.type}, this shouldn't happen."
+                msg = f"Unknown event type {stat.type}, this shouldn't happen."
                 raise ValueError(msg)
         rich.print()
 
@@ -227,7 +227,7 @@ class RubiscoCEFSDebuggerCLI:
         for frame in reversed(stacktrace):
             path = Path(frame.filename)
             if path.exists():
-                return str(path), frame.lineno if frame.lineno else 0
+                return str(path), frame.lineno or 0
         return _("Unknown."), -1
 
     def _cat_callbacks(self, callbacks: list[EventCallback]) -> None:
@@ -328,7 +328,9 @@ class RubiscoCEFSDebuggerCLI:
                     "\t\t"
                     + fast_format_str(
                         _("Aliases: [blue]${{aliases}}[/blue]"),
-                        fmt={"aliases": "[/blue], [blue]".join(option.aliases)},
+                        fmt={
+                            "aliases": "[/blue], [blue]".join(option.aliases),
+                        },
                     ),
                 )
             if option.default:

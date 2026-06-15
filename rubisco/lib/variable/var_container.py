@@ -26,7 +26,7 @@ original values when the context is exited.
 """
 
 from types import TracebackType
-from typing import Any
+from typing import Any, Self
 
 from rubisco.lib.variable.variable import pop_variables, push_variables
 
@@ -46,11 +46,11 @@ class VariableContainer:
         """
         self._fmt = fmt or {}
 
-    def __enter__(self) -> "VariableContainer":
+    def __enter__(self) -> Self:
         """Enter the variable container.
 
         Returns:
-            VariableContainer: The variable container.
+            Self: The variable container.
 
         """
         for key, value in self._fmt.items():

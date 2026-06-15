@@ -39,7 +39,7 @@ __all__ = [
     "load_project",
 ]
 
-_project_config: ProjectConfigration | None = None
+_project_config: ProjectConfigration | None = None  # pylint: disable=C0103
 
 
 def get_project_config() -> ProjectConfigration | None:

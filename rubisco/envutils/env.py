@@ -27,6 +27,7 @@ import time
 import venv
 from pathlib import Path
 from types import TracebackType
+from typing import Self
 
 from rubisco.config import (
     DB_FILENAME,
@@ -401,7 +402,7 @@ class RUEnvironment:
         else:
             logger.warning("The environment '%s' is not locked.", self.path)
 
-    def __enter__(self) -> "RUEnvironment":
+    def __enter__(self) -> Self:
         """Lock the environment."""
         self.lock()
         return self

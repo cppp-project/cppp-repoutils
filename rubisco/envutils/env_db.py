@@ -23,7 +23,7 @@ import re
 import sqlite3
 from pathlib import Path
 from types import EllipsisType, TracebackType
-from typing import Any, NoReturn
+from typing import Any, NoReturn, Self
 
 from rubisco.envutils.env_type import EnvType
 from rubisco.envutils.packages import ExtensionPackageInfo
@@ -62,12 +62,12 @@ VALUES
 def _execute_sql(
     db: sqlite3.Connection,
     sql: str,
-    args: tuple[Any, ...] | EllipsisType = ...,  # type: ignore[annotation-type-mismatch]
+    args: tuple[Any, ...] | EllipsisType = ...,
 ) -> sqlite3.Cursor:
     logger.info(
         'Executing SQL query in database "%s" with args: %s',
         str(db),
-        args if args else "...",
+        args or "...",
     )
     logger.info("%s", sql)
     if args == ...:  # Avoid type warnings.
@@ -94,11 +94,11 @@ class RUEnvDB:
         self.db = None
         self.env_type = env_type
 
-    def __enter__(self) -> "RUEnvDB":
+    def __enter__(self) -> Self:
         """Enter the context manager.
 
         Returns:
-            RUEnvDB: The database.
+            Self: The database.
 
         """
         if self.db is None:
@@ -153,7 +153,7 @@ class RUEnvDB:
         raise RUError(
             fast_format_str(
                 _(
-                    "Failed to open or operate on database ${{path}}: ${{exc}}",
+                    "Failed to open or operate database ${{path}}: ${{exc}}",
                 ),
                 fmt={
                     "path": str(self.__path),

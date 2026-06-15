@@ -671,7 +671,7 @@ def find_command(
     logger.info(
         "Checking for command '%s' ... %s",
         cmd,
-        res if res else "not found.",
+        res or "not found.",
     )
 
     if strict and res is None:
@@ -683,7 +683,7 @@ def find_command(
             retcode=RUShellExecutionError.RETCODE_COMMAND_NOT_FOUND,
         )
 
-    return res if res else None
+    return res or None
 
 
 # Register cleanup function.

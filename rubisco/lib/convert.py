@@ -158,9 +158,9 @@ def to_python_type(  # noqa: PLR0911 # pylint: disable=R0911
         return str
     if typename in {"list", "array"}:
         return list
-    if typename in {"tuple"}:
+    if typename == "tuple":
         return tuple
-    if typename in {"set"}:
+    if typename == "set":
         return set
     if typename in {"dict", "dictionary", "map", "object"}:
         return dict
