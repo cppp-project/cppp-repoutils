@@ -58,7 +58,7 @@ def on_dist(options: list[Option[Any]], args: list[Argument[Any]]) -> None:
         archive_type = []
 
     if "all" in archive_type:
-        archive_type = ["zip", "7z", "tar.gz", "tar.bz2", "tar.xz"]
+        archive_type = ["zip", "tar.gz", "tar.bz2", "tar.xz"]
 
     # Build source directory.
     dest_dir = dest / cast("str", name_format)

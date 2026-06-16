@@ -14,7 +14,6 @@ dependencies = [
   "beartype >= 0.20.1",
   "colorama >= 0.3.9",
   "json-five >= 0.5.1",
-  "py7zr >= 0.16.1",
   "pyyaml >= 5.4.1",
   "requests >= 2.18.4",
   "rich >= 6.2.0",

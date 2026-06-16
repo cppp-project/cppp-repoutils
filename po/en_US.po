@@ -709,8 +709,8 @@ msgstr "Unsupported compression type: ${{type}}"
 
 #: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:249
 #: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:526
-msgid "Supported types are 'gz', 'bz2', 'xz', 'zip', '7z', 'tar', 'tar.gz', 'tar.bz2', 'tar.xz'. You can also use the 'tgz', 'txz' and 'tbz2'."
-msgstr "Supported types are 'gz', 'bz2', 'xz', 'zip', '7z', 'tar', 'tar.gz', 'tar.bz2', 'tar.xz'. You can also use the 'tgz', 'txz' and 'tbz2'."
+msgid "Supported types are 'gz', 'bz2', 'xz', 'zip', 'tar', 'tar.gz', 'tar.bz2', 'tar.xz'. You can also use the 'tgz', 'txz' and 'tbz2'."
+msgstr "Supported types are 'gz', 'bz2', 'xz', 'zip', 'tar', 'tar.gz', 'tar.bz2', 'tar.xz'. You can also use the 'tgz', 'txz' and 'tbz2'."
 
 #: /workspaces/cppp/rubisco/rubisco/lib/archive/__init__.py:269
 msgid "Failed to extract ${{file}} to ${{dest}}: ${{exc}}"

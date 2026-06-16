@@ -29,11 +29,7 @@ import tarfile
 import zipfile
 from pathlib import Path
 
-import py7zr
-import py7zr.exceptions
-
 from rubisco.config import COPY_BUFSIZE
-from rubisco.lib.archive.sevenzip import compress_7z, extract_7z
 from rubisco.lib.archive.tar import compress_tarball, extract_tarball
 from rubisco.lib.archive.zip import compress_zip, extract_zip
 from rubisco.lib.exceptions import RUValueError
@@ -161,9 +157,6 @@ def _extract(
     elif compress_type == "zip":
         logger.info("Extracting '%s' to '%s' as 'zip' ...", file, dest)
         extract_zip(file, dest, password, overwrite=overwrite)
-    elif compress_type == "7z":
-        logger.info("Extracting '%s' to '%s' as '7z' ...", file, dest)
-        extract_7z(file, dest, password)
     elif compress_type in ["tar.gz", "tgz"]:
         logger.info("Extracting '%s' to '%s' as 'tar.gz' ...", file, dest)
         extract_tarball(file, dest, "gz", overwrite=overwrite)
@@ -195,7 +188,7 @@ def extract(  # pylint: disable=R0913 # noqa: PLR0913
         file (Path): Path to compressed file.
         dest (Path): Destination file or directory.
         compress_type (str | None, optional): Compression type. It can be "gz",
-            "bz2", "xz", "zip", "7z", "tar.gz", "tar.bz2", "tar.xz" and "tar".
+            "bz2", "xz", "zip", "tar.gz", "tar.bz2", "tar.xz" and "tar".
             Defaults to None.
         password (str | None, optional): Password to decrypt compressed file.
             Defaults to None. Tarball is not supported.
@@ -246,7 +239,7 @@ def extract(  # pylint: disable=R0913 # noqa: PLR0913
                 fmt={"type": str(compress_type)},
             ),
             hint=_(
-                "Supported types are 'gz', 'bz2', 'xz', 'zip', '7z', 'tar', "
+                "Supported types are 'gz', 'bz2', 'xz', 'zip', 'tar', "
                 "'tar.gz', 'tar.bz2', 'tar.xz'. You can also use the 'tgz', "
                 "'txz' and 'tbz2'.",
             ),
@@ -256,7 +249,6 @@ def extract(  # pylint: disable=R0913 # noqa: PLR0913
         zipfile.BadZipfile,
         zipfile.LargeZipFile,
         lzma.LZMAError,
-        py7zr.exceptions.ArchiveError,
         OSError,
     ) as exc:
         logger.exception(
@@ -391,9 +383,6 @@ def _compress(  # pylint: disable=R0913, R0917 # noqa: PLR0913
             compress_level,
             overwrite=overwrite,
         )
-    elif compress_type == "7z":
-        logger.info("Compressing '%s' to '%s' as '7z' ...", src, dest)
-        compress_7z(src, dest, start, excludes, overwrite=overwrite)
     elif compress_type in ["tar.gz", "tgz"]:
         logger.info("Compressing '%s' to '%s' as 'tar.gz' ...", src, dest)
         compress_tarball(
@@ -463,7 +452,7 @@ def compress(  # pylint: disable=R0913, R0917 # noqa: PLR0913
         excludes (list[str] | None, optional): List of excluded files.
             Supports glob patterns. Defaults to None.
         compress_type (str | None, optional): Compression type. It can be "gz",
-            "bz2", "xz", "zip", "7z", "tar.gz", "tar.bz2", "tar.xz" and "tar".
+            "bz2", "xz", "zip", "tar.gz", "tar.bz2", "tar.xz" and "tar".
             Defaults to None.
         compress_level (int | None, optional): Compression level. It can be
             0 to 9. Defaults to None. Only for gzip and bzip2. Ignored for
@@ -523,7 +512,7 @@ def compress(  # pylint: disable=R0913, R0917 # noqa: PLR0913
                 fmt={"type": str(compress_type)},
             ),
             hint=_(
-                "Supported types are 'gz', 'bz2', 'xz', 'zip', '7z', 'tar', "
+                "Supported types are 'gz', 'bz2', 'xz', 'zip', 'tar', "
                 "'tar.gz', 'tar.bz2', 'tar.xz'. You can also use the 'tgz', "
                 "'txz' and 'tbz2'.",
             ),
@@ -533,7 +522,6 @@ def compress(  # pylint: disable=R0913, R0917 # noqa: PLR0913
         zipfile.BadZipfile,
         zipfile.LargeZipFile,
         lzma.LZMAError,
-        py7zr.exceptions.ArchiveError,
         OSError,
     ) as exc:
         logger.exception(

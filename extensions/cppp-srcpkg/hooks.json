@@ -22,7 +22,6 @@
             "dist",
             "*/**/__pycache__",
             ".rubisco/*.log",
-            "*.7z",
             "*.gz",
             "*.xz",
             "*.zip"

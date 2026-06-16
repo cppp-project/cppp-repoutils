@@ -65,10 +65,6 @@ class TestArchive:
             )
             self._check_extract_archive(path.path / "test")
 
-    def test_extract_7z(self) -> None:
-        """Test extract 7z."""
-        self._extract("7z")
-
     def test_extract_zip(self) -> None:
         """Test extract zip."""
         self._extract("zip")
@@ -91,12 +87,8 @@ class TestArchive:
 
     def test_extract_invalid_password(self) -> None:
         """Test extract zip with invalid password."""
-        pytest.raises(
-            RuntimeError,
-            self._extract,
-            "zip",
-            password="0",  # noqa: S106
-        )
+        with pytest.raises(RuntimeError):
+            self._extract("zip", password="0")  # noqa: S106
 
     def test_extract_to_absolute(self) -> None:
         """Test extract tgz (alias of tar.gz)."""
@@ -120,10 +112,6 @@ class TestArchive:
             )
             self._check_extract_archive(path.path / "extract")
 
-    def test_compress_7z(self) -> None:
-        """Test compress 7-Zip."""
-        self._compress("7z")
-
     def test_compress_zip(self) -> None:
         """Test compress zip."""
         self._compress("zip")
@@ -142,10 +130,11 @@ class TestArchive:
 
     def test_compress_to_absolute(self) -> None:
         """Test compress to absolute path."""
-        with TemporaryObject.new_directory(suffix="test") as path:
-            pytest.raises(
-                RUValueError,
-                compress,
+        with (
+            TemporaryObject.new_directory(suffix="test") as path,
+            pytest.raises(RUValueError),
+        ):
+            compress(
                 Path("tests/data").absolute(),
                 (path.path / "test.zip").absolute(),
                 start=Path("tests/data"),
@@ -155,10 +144,11 @@ class TestArchive:
 
     def test_compress_invalid_type(self) -> None:
         """Test compress invalid type."""
-        with TemporaryObject.new_directory(suffix="test") as path:
-            pytest.raises(
-                RUValueError,
-                compress,
+        with (
+            TemporaryObject.new_directory(suffix="test") as path,
+            pytest.raises(RUValueError),
+        ):
+            compress(
                 Path("tests/data").absolute(),
                 path.path / "test.zip",
                 start=Path("tests/data"),
